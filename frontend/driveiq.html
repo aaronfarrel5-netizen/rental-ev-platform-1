@@ -1,0 +1,2253 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DriveIQ — Sewa mobil premium konvensional dan listrik dengan harga transparan dan konfirmasi booking instan. Tersedia di 50+ kota di Indonesia.">
+<meta property="og:title" content="DriveIQ — Rent Smart, Drive Free">
+<meta property="og:description" content="Sewa mobil premium konvensional dan listrik dengan harga transparan dan booking instan di 50+ kota Indonesia.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1E3A5F">
+<title>DriveIQ — Rent Smart, Drive Free</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --primary:       #1E3A5F;
+  --primary-hover: #16304D;
+  --secondary:     #4A90E2;
+  --accent:        #FF8A00;
+  --accent-hover:  #E07A00;
+  --bg:            #F8FAFC;
+  --white:         #FFFFFF;
+  --border:        #E5E7EB;
+  --text:          #111827;
+  --text-muted:    #6B7280;
+  --green:         #059669;
+  --green-bg:      #D1FAE5;
+  --radius-sm:     8px;
+  --radius-md:     12px;
+  --radius-lg:     16px;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:     0 4px 12px rgba(0,0,0,.10);
+  --shadow-lg:     0 8px 32px rgba(0,0,0,.12);
+  --max-w:         1200px;
+  --nav-h:         72px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+ul { list-style: none; }
+
+/* Aksesibilitas keyboard: tampilkan focus ring yang jelas */
+:focus-visible {
+  outline: 3px solid var(--secondary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+.section { padding: 80px 0; }
+
+/* scroll-margin-top agar section tidak tertutup navbar saat scrollIntoView */
+section[id], footer[id] {
+  scroll-margin-top: var(--nav-h);
+}
+
+.section-label {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--secondary); margin-bottom: 12px;
+}
+.section-title { font-size: 36px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 16px; }
+.section-sub { font-size: 16px; color: var(--text-muted); max-width: 560px; }
+.flex { display: flex; }
+.grid { display: grid; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; font-weight: 600; font-size: 15px;
+  border-radius: var(--radius-sm); padding: 12px 24px;
+  min-height: 48px; transition: all .18s ease;
+}
+.btn-primary   { background: var(--accent); color: var(--white); }
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-outline   { border: 1.5px solid var(--primary); color: var(--primary); }
+.btn-outline:hover { background: var(--primary); color: var(--white); }
+.btn-ghost     { color: var(--primary); font-size: 14px; }
+.btn-ghost:hover { text-decoration: underline; }
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
+}
+.badge-ev   { background: var(--green-bg); color: var(--green); }
+.badge-pop  { background: #DBEAFE; color: #1D4ED8; }
+.badge-new  { background: #FEF3C7; color: #D97706; }
+.tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 13px; color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 4px 10px;
+}
+.star-filled { color: #F59E0B; }
+.hidden { display: none !important; }
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position: sticky; top: 0; z-index: 1000;
+  height: var(--nav-h); background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.navbar .container {
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 800; font-size: 20px; color: var(--primary);
+}
+.nav-logo-icon {
+  width: 36px; height: 36px; background: var(--primary);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-icon svg { color: var(--white); }
+/* PERBAIKAN: Gunakan <div> bukan <nav> bersarang di dalam <nav> */
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links a {
+  font-size: 14px; font-weight: 500; color: var(--text-muted);
+  padding: 8px 12px; border-radius: var(--radius-sm);
+  transition: color .15s, background .15s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--primary); background: var(--bg); }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.nav-actions .btn-outline { padding: 8px 18px; min-height: 40px; font-size: 14px; }
+.nav-actions .btn-primary { padding: 8px 18px; min-height: 40px; font-size: 14px; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px; padding: 6px;
+  border-radius: var(--radius-sm);
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--text); border-radius: 2px; transition: all .2s;
+}
+/* Animasi hamburger → X saat menu terbuka */
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none; position: fixed; inset: var(--nav-h) 0 0 0;
+  background: var(--white); z-index: 999; padding: 24px;
+  flex-direction: column; gap: 8px;
+  border-top: 1px solid var(--border);
+  overflow-y: auto;
+}
+.mobile-nav a {
+  font-size: 16px; font-weight: 500; color: var(--text);
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  display: block;
+}
+.mobile-nav a:hover { background: var(--bg); }
+.mobile-nav.open { display: flex; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #2a5298 60%, #1a4080 100%);
+  padding: 80px 0 60px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.hero .container { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero-content { color: var(--white); }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,.9); margin-bottom: 24px;
+}
+.hero-eyebrow .dot { width: 6px; height: 6px; background: #4ADE80; border-radius: 999px; flex-shrink: 0; }
+.hero h1 {
+  font-size: 48px; font-weight: 800; line-height: 1.1;
+  margin-bottom: 16px; letter-spacing: -.02em;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero p { font-size: 18px; color: rgba(255,255,255,.75); margin-bottom: 32px; line-height: 1.6; }
+.trust-badges { display: flex; gap: 20px; flex-wrap: wrap; }
+.trust-badge {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,.85);
+}
+.trust-badge svg { color: #4ADE80; flex-shrink: 0; }
+
+/* Search Form Card */
+.search-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg); padding: 32px; width: 100%;
+}
+.search-card h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1/-1; }
+.form-label { font-size: 13px; font-weight: 600; color: var(--text); }
+.form-input {
+  height: 48px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 14px; font-size: 15px; color: var(--text); background: var(--white);
+  transition: border-color .15s, box-shadow .15s;
+  width: 100%;
+}
+.form-input:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(74,144,226,.15); }
+.form-input.error { border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220,38,38,.12); }
+.search-card .btn-primary { width: 100%; font-size: 16px; border-radius: var(--radius-sm); }
+
+/* Hero visual */
+.hero-visual {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.hero-car-wrap {
+  width: 100%; aspect-ratio: 16/10;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius-lg);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+.hero-car-svg { width: 90%; }
+.hero-float {
+  position: absolute; background: var(--white); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg); padding: 12px 16px; font-size: 13px; font-weight: 600;
+  animation: floatBob 3s ease-in-out infinite alternate;
+}
+.hero-float.top-right { top: 16px; right: 16px; color: var(--green); display: flex; align-items: center; gap: 6px; }
+.hero-float.bottom-left { bottom: 16px; left: 16px; color: var(--text); animation-delay: 1.5s; }
+.hero-float.bottom-left span { color: var(--text-muted); font-weight: 400; font-size: 12px; }
+
+@keyframes floatBob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
+}
+
+/* ============================================================
+   VEHICLE SEARCH (CATALOG)
+   ============================================================ */
+.catalog-section { background: var(--bg); }
+.catalog-layout { display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: start; }
+
+/* Filter Panel */
+.filter-panel {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); overflow: hidden;
+  position: sticky; top: calc(var(--nav-h) + 16px);
+}
+.filter-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.filter-header h4 { font-size: 15px; font-weight: 700; }
+.filter-clear { font-size: 13px; font-weight: 500; color: var(--secondary); cursor: pointer; background: none; border: none; }
+.filter-clear:hover { text-decoration: underline; }
+.filter-group { border-bottom: 1px solid var(--border); }
+.filter-group-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; font-size: 14px; font-weight: 600; color: var(--text);
+  background: none; border: none; cursor: pointer;
+  transition: background .12s;
+}
+.filter-group-toggle:hover { background: var(--bg); }
+.filter-group-toggle svg { transition: transform .2s; color: var(--text-muted); }
+.filter-group-toggle.collapsed svg { transform: rotate(-90deg); }
+.filter-body { padding: 4px 20px 16px; display: flex; flex-direction: column; gap: 8px; }
+.filter-body.hidden { display: none; }
+.filter-option {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--text); cursor: pointer;
+  padding: 4px 0;
+}
+.filter-option input[type="checkbox"], .filter-option input[type="radio"] {
+  width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0;
+}
+.filter-option:hover { color: var(--primary); }
+.price-range-wrap { padding: 0 20px 16px; }
+.price-range-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+input[type="range"] { width: 100%; accent-color: var(--primary); }
+.filter-mobile-btn { display: none; }
+
+/* Catalog Right */
+.catalog-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+}
+.catalog-toolbar h3 { font-size: 18px; font-weight: 700; }
+.catalog-toolbar span { font-size: 14px; color: var(--text-muted); margin-left: 8px; }
+.catalog-sort {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 500; color: var(--text-muted);
+}
+.catalog-sort select {
+  height: 40px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 12px; font-size: 14px; color: var(--text); background: var(--white);
+}
+.catalog-sort select:focus { outline: none; border-color: var(--secondary); }
+.vehicle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+/* Vehicle Card */
+.vehicle-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  overflow: hidden; transition: box-shadow .2s, transform .2s;
+  display: flex; flex-direction: column;
+}
+.vehicle-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.vehicle-card-img {
+  position: relative; aspect-ratio: 16/9; overflow: hidden;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.vehicle-card-img svg { width: 75%; opacity: .7; }
+.card-badges { position: absolute; top: 10px; left: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.vehicle-card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.vehicle-card-name { font-size: 16px; font-weight: 700; color: var(--text); }
+.vehicle-card-cat { font-size: 13px; color: var(--text-muted); }
+.vehicle-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.vehicle-card-footer {
+  padding: 14px 16px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.vehicle-price { font-size: 20px; font-weight: 800; color: var(--primary); }
+.vehicle-price sub { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+.vehicle-rating { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; }
+.vehicle-card-action { padding: 0 16px 16px; }
+.vehicle-card-action .btn { width: 100%; font-size: 14px; }
+
+/* Pagination */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 40px; }
+.page-btn {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; border: 1.5px solid var(--border);
+  background: var(--white); color: var(--text); cursor: pointer;
+  transition: all .15s;
+}
+.page-btn:hover, .page-btn.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+
+/* ============================================================
+   FEATURED EV SECTION
+   ============================================================ */
+.ev-section {
+  background: linear-gradient(135deg, #0A2540 0%, #1E3A5F 100%);
+  padding: 80px 0; position: relative; overflow: hidden;
+  color: var(--white);
+}
+.ev-section::after {
+  content: ''; position: absolute; right: -100px; top: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(74,144,226,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ev-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.ev-label { color: #4ADE80; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+.ev-title { font-size: 36px; font-weight: 800; line-height: 1.15; margin-bottom: 20px; letter-spacing: -.02em; }
+.ev-title em { font-style: normal; color: #4ADE80; }
+.ev-desc { font-size: 16px; color: rgba(255,255,255,.7); margin-bottom: 32px; line-height: 1.7; }
+.ev-benefits { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+.ev-benefit { display: flex; align-items: flex-start; gap: 14px; }
+.ev-benefit-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(74,222,128,.15); border: 1px solid rgba(74,222,128,.3);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  color: #4ADE80;
+}
+.ev-benefit-text h5 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.ev-benefit-text p { font-size: 13px; color: rgba(255,255,255,.6); }
+.ev-visual-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius-lg); padding: 28px; position: relative;
+}
+.ev-car-icon { margin: 0 auto 20px; width: 100%; aspect-ratio: 16/8; }
+.ev-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ev-stat { text-align: center; padding: 16px; background: rgba(255,255,255,.05); border-radius: var(--radius-md); }
+.ev-stat-val { font-size: 24px; font-weight: 800; color: #4ADE80; }
+.ev-stat-label { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 2px; }
+
+/* ============================================================
+   CARBON CALCULATOR
+   ============================================================ */
+.calc-section { background: var(--white); }
+.calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.calc-card {
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg); padding: 32px;
+}
+.calc-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 24px; }
+.calc-fields { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+.calc-slider-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.calc-slider-label span:first-child { font-size: 14px; font-weight: 600; }
+.calc-slider-label span:last-child { font-size: 15px; font-weight: 700; color: var(--primary); }
+input[type="range"] { width: 100%; height: 4px; border-radius: 2px; cursor: pointer; }
+.calc-result {
+  background: linear-gradient(135deg, #059669, #10b981);
+  border-radius: var(--radius-md); padding: 24px; color: var(--white);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+}
+.calc-co2 { font-size: 48px; font-weight: 800; line-height: 1; }
+.calc-co2-unit { font-size: 16px; opacity: .8; margin-top: 4px; }
+.calc-co2-label { font-size: 13px; opacity: .7; margin-top: 8px; }
+.calc-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; width: 100%; }
+.calc-break-item {
+  background: rgba(255,255,255,.15); border-radius: var(--radius-sm);
+  padding: 12px; text-align: center;
+}
+.calc-break-val { font-size: 20px; font-weight: 700; }
+.calc-break-label { font-size: 11px; opacity: .7; margin-top: 2px; }
+.calc-info { padding: 20px; }
+.calc-info h3 { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
+.calc-info p { font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+.calc-facts { display: flex; flex-direction: column; gap: 14px; }
+.calc-fact { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-muted); }
+.calc-fact-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--green); flex-shrink: 0; }
+
+/* ============================================================
+   WHY CHOOSE US
+   ============================================================ */
+.why-section { background: var(--bg); }
+.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+.why-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px; transition: box-shadow .2s, transform .2s;
+}
+.why-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.why-icon {
+  width: 52px; height: 52px; border-radius: 12px;
+  background: #EFF6FF; display: flex; align-items: center; justify-content: center;
+  color: var(--secondary); margin-bottom: 20px;
+}
+.why-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* ============================================================
+   BOOKING FLOW STEPPER
+   ============================================================ */
+.booking-section { background: var(--white); }
+.stepper { display: flex; align-items: center; justify-content: center; gap: 0; margin: 48px 0 0; }
+.step-item { display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; flex: 1; }
+.step-item:not(:last-child)::after {
+  content: ''; position: absolute; top: 24px; left: calc(50% + 24px);
+  right: calc(-50% + 24px); height: 2px;
+  background: var(--border);
+}
+.step-item.done::after, .step-item.active::after { background: var(--secondary); }
+.step-circle {
+  width: 48px; height: 48px; border-radius: 999px;
+  border: 2px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: var(--text-muted);
+  position: relative; z-index: 1;
+  transition: all .2s;
+}
+.step-item.done .step-circle { background: var(--primary); border-color: var(--primary); color: var(--white); }
+.step-item.active .step-circle { background: var(--secondary); border-color: var(--secondary); color: var(--white); box-shadow: 0 0 0 4px rgba(74,144,226,.2); }
+.step-label { font-size: 13px; font-weight: 600; color: var(--text-muted); text-align: center; }
+.step-item.active .step-label { color: var(--primary); }
+
+/* ============================================================
+   RESERVATION DASHBOARD
+   ============================================================ */
+.dashboard-section { background: var(--bg); }
+.dashboard-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.dashboard-header {
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.dashboard-header h4 { font-size: 17px; font-weight: 700; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead { background: var(--bg); }
+th {
+  text-align: left; padding: 12px 16px;
+  font-size: 12px; font-weight: 700; color: var(--text-muted);
+  letter-spacing: .05em; text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--bg); }
+.status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 3px 10px;
+  border-radius: 999px;
+}
+/* PERBAIKAN: gunakan titik CSS, bukan emoji, untuk aksesibilitas screen reader */
+.status-dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; flex-shrink: 0;
+}
+.status-active   { background: #D1FAE5; color: #065F46; }
+.status-active .status-dot   { background: #059669; }
+.status-pending  { background: #FEF3C7; color: #92400E; }
+.status-pending .status-dot  { background: #D97706; }
+.status-done     { background: #E0E7FF; color: #3730A3; }
+.status-done .status-dot     { background: #6366F1; }
+.status-canceled { background: #FEE2E2; color: #991B1B; }
+.status-canceled .status-dot { background: #DC2626; }
+.action-btns { display: flex; gap: 6px; }
+.action-btn {
+  width: 32px; height: 32px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .12s, color .12s; cursor: pointer; border: none;
+  background: none; color: var(--text-muted);
+}
+/* PERBAIKAN: selektor CSS yang benar */
+.action-btn.view:hover  { background: #DBEAFE; color: #1D4ED8; }
+.action-btn.edit:hover  { background: #D1FAE5; color: #065F46; }
+.action-btn.del:hover   { background: #FEE2E2; color: #991B1B; }
+.table-search-bar {
+  padding: 16px 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+}
+.table-search {
+  flex: 1; min-width: 200px; height: 40px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 14px; font-size: 14px;
+  transition: border-color .15s;
+}
+.table-search:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(74,144,226,.15); }
+.table-filter {
+  height: 40px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 12px; font-size: 14px; background: var(--white); color: var(--text);
+  transition: border-color .15s;
+}
+.table-filter:focus { outline: none; border-color: var(--secondary); }
+.empty-state { padding: 48px; text-align: center; color: var(--text-muted); }
+.empty-state svg { margin: 0 auto 16px; opacity: .3; }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.45);
+  z-index: 9000; display: none; align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white); border-radius: var(--radius-lg);
+  width: 100%; max-width: 560px; box-shadow: var(--shadow-lg);
+  max-height: 90vh; overflow-y: auto;
+  animation: modalSlideIn .2s ease;
+}
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-header {
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; background: var(--white); z-index: 1;
+}
+.modal-header h5 { font-size: 17px; font-weight: 700; }
+.modal-close {
+  width: 32px; height: 32px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg); cursor: pointer; color: var(--text-muted);
+  border: none; transition: background .12s;
+}
+.modal-close:hover { background: var(--border); }
+.modal-body { padding: 24px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 12px; justify-content: flex-end; }
+.modal-fields { display: flex; flex-direction: column; gap: 16px; }
+.modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* View Modal Rows */
+.view-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.view-row:last-child { border-bottom: none; }
+.view-row-label { font-weight: 600; color: var(--text-muted); }
+.view-row-val { color: var(--text); font-weight: 500; }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testimonials-section { background: var(--white); }
+.testi-wrap { position: relative; overflow: hidden; }
+.testi-track { display: flex; gap: 24px; transition: transform .4s ease; }
+.testi-card {
+  min-width: calc(33.333% - 16px); background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px; flex-shrink: 0;
+}
+.testi-stars { font-size: 18px; margin-bottom: 16px; letter-spacing: 2px; color: #F59E0B; }
+.testi-text { font-size: 15px; color: var(--text); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--white); flex-shrink: 0;
+}
+.testi-name { font-size: 14px; font-weight: 700; }
+.testi-role { font-size: 12px; color: var(--text-muted); }
+.testi-controls { display: flex; gap: 12px; margin-top: 28px; justify-content: center; }
+.testi-btn {
+  width: 44px; height: 44px; border-radius: 999px;
+  border: 1.5px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .15s; color: var(--text-muted);
+}
+.testi-btn:hover { background: var(--primary); color: var(--white); border-color: var(--primary); }
+
+/* ============================================================
+   STATISTICS
+   ============================================================ */
+.stats-section {
+  background: var(--primary); padding: 60px 0;
+}
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+.stat-item { text-align: center; color: var(--white); }
+.stat-num { font-size: 48px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.stat-num span { color: var(--accent); }
+.stat-label { font-size: 15px; color: rgba(255,255,255,.65); margin-top: 6px; font-weight: 500; }
+
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+.cta-section {
+  background: linear-gradient(135deg, #1E3A5F 0%, #2a5298 100%);
+  padding: 80px 0; text-align: center; color: var(--white);
+}
+.cta-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 16px; }
+.cta-section p { font-size: 18px; color: rgba(255,255,255,.7); margin-bottom: 32px; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-white { background: var(--white); color: var(--primary); font-weight: 700; }
+.btn-white:hover { background: var(--bg); }
+.btn-outline-white { border: 2px solid rgba(255,255,255,.5); color: var(--white); font-weight: 600; }
+.btn-outline-white:hover { background: rgba(255,255,255,.1); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer { background: #0F1F35; color: rgba(255,255,255,.7); padding: 60px 0 24px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand p { font-size: 14px; line-height: 1.7; margin: 12px 0 20px; }
+.footer-socials { display: flex; gap: 10px; }
+.social-icon {
+  width: 36px; height: 36px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.7); transition: background .15s, color .15s;
+}
+.social-icon:hover { background: var(--secondary); color: var(--white); }
+.footer-col h5 { font-size: 13px; font-weight: 700; color: var(--white); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 14px; transition: color .15s; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: 24px; display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px; font-size: 13px;
+}
+.footer-bottom a { color: rgba(255,255,255,.5); }
+.footer-bottom a:hover { color: var(--white); }
+.footer-logo { color: var(--white); font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast-wrap {
+  position: fixed; bottom: 24px; right: 24px; z-index: 99999;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.toast {
+  background: var(--text); color: var(--white); border-radius: var(--radius-md);
+  padding: 12px 18px; font-size: 14px; font-weight: 500;
+  box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px;
+  transform: translateX(120%); transition: transform .25s ease;
+  max-width: 340px;
+}
+.toast.show { transform: translateX(0); }
+.toast.success { background: var(--green); }
+.toast.error   { background: #DC2626; }
+.toast.info    { background: var(--secondary); }
+
+/* ============================================================
+   SECTION HEADER CENTER
+   ============================================================ */
+.section-header-center { text-align: center; margin-bottom: 48px; }
+.section-header-center .section-sub { margin: 0 auto; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .vehicle-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+@media (max-width: 900px) {
+  .hero .container { grid-template-columns: 1fr; gap: 32px; }
+  .hero h1 { font-size: 36px; }
+  .catalog-layout { grid-template-columns: 1fr; }
+  .filter-panel {
+    display: none; position: fixed; inset: 0; top: var(--nav-h);
+    z-index: 500; border-radius: 0; overflow-y: auto;
+  }
+  .filter-panel.mobile-open { display: block; }
+  .filter-mobile-btn { display: flex; }
+  .ev-layout { grid-template-columns: 1fr; }
+  .calc-wrap { grid-template-columns: 1fr; }
+  .stepper { flex-wrap: wrap; gap: 24px; }
+  .step-item::after { display: none; }
+  .testi-card { min-width: calc(50% - 12px); }
+}
+@media (max-width: 640px) {
+  .section { padding: 56px 0; }
+  .hero h1 { font-size: 30px; }
+  .section-title { font-size: 28px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .nav-actions .btn-outline { display: none; }
+  .vehicle-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .stat-num { font-size: 36px; }
+  .testi-card { min-width: 90%; }
+  .form-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .modal-row { grid-template-columns: 1fr; }
+  .ev-stats { grid-template-columns: 1fr 1fr; }
+  .cta-section h2 { font-size: 28px; }
+  .calc-info { padding: 0; }
+}
+
+/* Hentikan animasi untuk pengguna yang minta reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .testi-track { transition: none; }
+}
+
+/* Active nav link highlight on scroll */
+.nav-links a.active { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<!-- Region untuk pengumuman dinamis (aksesibilitas screen reader) -->
+<div aria-live="polite" aria-atomic="true" class="hidden" id="liveRegion"></div>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav class="navbar" id="navbar" aria-label="Navigasi utama">
+  <div class="container">
+    <a href="#home" class="nav-logo" aria-label="DriveIQ — Halaman utama">
+      <div class="nav-logo-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+      </div>
+      DriveIQ
+    </a>
+    <!-- PERBAIKAN: Gunakan <div> bukan <nav> bersarang -->
+    <div class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#vehicles">Vehicles</a>
+      <a href="#ev-rental">EV Rental</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+      <button class="btn btn-primary" onclick="document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/></svg>
+        Rent Now
+      </button>
+      <button
+        class="hamburger"
+        onclick="toggleMobileNav()"
+        id="hamburger"
+        aria-label="Buka menu navigasi"
+        aria-expanded="false"
+        aria-controls="mobileNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav" id="mobileNav" aria-label="Navigasi mobile">
+  <a href="#home" onclick="toggleMobileNav()">Home</a>
+  <a href="#vehicles" onclick="toggleMobileNav()">Vehicles</a>
+  <a href="#ev-rental" onclick="toggleMobileNav()">EV Rental</a>
+  <a href="#pricing" onclick="toggleMobileNav()">Pricing</a>
+  <a href="#about" onclick="toggleMobileNav()">About</a>
+  <a href="#contact" onclick="toggleMobileNav()">Contact</a>
+  <button class="btn btn-primary" style="margin-top:8px" onclick="toggleMobileNav();openLoginModal()">Login / Register</button>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot" aria-hidden="true"></span>
+        Now available in 50+ cities across Indonesia
+      </div>
+      <h1>Rent Your <em>Perfect Car</em><br>Anytime, Anywhere</h1>
+      <p>Premium conventional and electric vehicles with transparent pricing and instant booking confirmation.</p>
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          Verified Vehicles
+        </div>
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Secure Payment
+        </div>
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          10,000+ Customers
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Card -->
+    <div class="search-card" role="search" aria-label="Cari kendaraan">
+      <h3>Find Your Ideal Car</h3>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label class="form-label" for="heroLocation">Pickup Location</label>
+          <select class="form-input" id="heroLocation" name="location" autocomplete="address-level2">
+            <option value="">Select city…</option>
+            <option>Jakarta</option>
+            <option>Bandung</option>
+            <option>Surabaya</option>
+            <option>Yogyakarta</option>
+            <option>Bali</option>
+            <option>Medan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="heroPickup">Pickup Date</label>
+          <input type="date" class="form-input" id="heroPickup" name="pickup" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="heroReturn">Return Date</label>
+          <input type="date" class="form-input" id="heroReturn" name="return" autocomplete="off">
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="heroType">Vehicle Type</label>
+          <select class="form-input" id="heroType" name="vehicleType">
+            <option value="">All types</option>
+            <option>Sedan</option>
+            <option>SUV</option>
+            <option>MPV</option>
+            <option>Electric Vehicle (EV)</option>
+            <option>Hatchback</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="handleHeroSearch()" style="width:100%;font-size:16px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        Search Vehicles
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     VEHICLE CATALOG
+     ============================================================ -->
+<section class="section catalog-section" id="vehicles">
+  <div class="container">
+    <div style="margin-bottom:32px">
+      <span class="section-label">Browse Fleet</span>
+      <h2 class="section-title">Available Vehicles</h2>
+      <p class="section-sub">Choose from our curated fleet of conventional and electric vehicles — all inspected and insured.</p>
+    </div>
+    <div class="catalog-layout">
+      <!-- FILTER PANEL -->
+      <aside class="filter-panel" id="filterPanel" aria-label="Filter kendaraan">
+        <div class="filter-header">
+          <h4>Filters</h4>
+          <button class="filter-clear" onclick="clearFilters()">Clear all</button>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Vehicle Type
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body" id="filterType">
+            <label class="filter-option">
+              <input type="checkbox" value="all" checked onchange="applyFilters()" class="filter-type">
+              All Vehicles
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" value="conventional" onchange="applyFilters()" class="filter-type">
+              Conventional
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" value="ev" onchange="applyFilters()" class="filter-type">
+              Electric Vehicle (EV)
+            </label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Category
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body" id="filterCat">
+            <label class="filter-option"><input type="checkbox" value="Sedan" onchange="applyFilters()" class="filter-cat"> Sedan</label>
+            <label class="filter-option"><input type="checkbox" value="SUV" onchange="applyFilters()" class="filter-cat"> SUV</label>
+            <label class="filter-option"><input type="checkbox" value="MPV" onchange="applyFilters()" class="filter-cat"> MPV</label>
+            <label class="filter-option"><input type="checkbox" value="Hatchback" onchange="applyFilters()" class="filter-cat"> Hatchback</label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Price Range / Day
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body">
+            <div class="price-range-wrap">
+              <div class="price-range-labels">
+                <span>Rp 150K</span>
+                <span id="priceLabel">Rp 1.500K</span>
+              </div>
+              <label for="priceRange" class="hidden">Harga maksimum per hari</label>
+              <input type="range" min="150000" max="1500000" step="50000" value="1500000"
+                     id="priceRange" oninput="updatePriceFilter(this)"
+                     aria-label="Harga maksimum per hari">
+            </div>
+          </div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Transmission
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body" id="filterTrans">
+            <label class="filter-option"><input type="checkbox" value="Automatic" onchange="applyFilters()" class="filter-trans"> Automatic</label>
+            <label class="filter-option"><input type="checkbox" value="Manual" onchange="applyFilters()" class="filter-trans"> Manual</label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Passenger Capacity
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body" id="filterSeats">
+            <label class="filter-option"><input type="checkbox" value="2" onchange="applyFilters()" class="filter-seats"> 2 seats</label>
+            <label class="filter-option"><input type="checkbox" value="4" onchange="applyFilters()" class="filter-seats"> 4–5 seats</label>
+            <label class="filter-option"><input type="checkbox" value="7" onchange="applyFilters()" class="filter-seats"> 7 seats</label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CATALOG RIGHT -->
+      <div class="catalog-right">
+        <div class="catalog-toolbar">
+          <div>
+            <span style="font-size:18px;font-weight:700">Results</span>
+            <span id="resultCount" aria-live="polite">Showing 9 vehicles</span>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <button class="btn filter-mobile-btn btn-outline" style="padding:8px 16px;min-height:40px;font-size:13px"
+                    onclick="toggleMobileFilter()" aria-label="Buka filter">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+              Filters
+            </button>
+            <div class="catalog-sort">
+              <label for="sortSelect" style="font-size:14px;font-weight:500;color:var(--text-muted)">Sort:</label>
+              <select id="sortSelect" onchange="sortVehicles(this.value)">
+                <option value="popular">Most Popular</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="vehicle-grid" id="vehicleGrid" role="list" aria-label="Daftar kendaraan"></div>
+        <nav class="pagination" id="pagination" aria-label="Halaman kendaraan"></nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURED EV SECTION
+     ============================================================ -->
+<section class="ev-section" id="ev-rental">
+  <div class="container">
+    <div class="ev-layout">
+      <div>
+        <div class="ev-label">⚡ Electric Vehicles</div>
+        <h2 class="ev-title">Drive the Future.<br><em>Zero Emissions,</em><br>Maximum Freedom.</h2>
+        <p class="ev-desc">Experience the next generation of mobility with our premium EV fleet. Quieter, cleaner, and more economical than ever before.</p>
+        <div class="ev-benefits">
+          <div class="ev-benefit">
+            <div class="ev-benefit-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="ev-benefit-text">
+              <h5>Zero Direct Emissions</h5>
+              <p>Contribute to cleaner air every kilometer you drive.</p>
+            </div>
+          </div>
+          <div class="ev-benefit">
+            <div class="ev-benefit-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="ev-benefit-text">
+              <h5>Lower Operating Cost</h5>
+              <p>Electricity is up to 70% cheaper than gasoline per km.</p>
+            </div>
+          </div>
+          <div class="ev-benefit">
+            <div class="ev-benefit-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="ev-benefit-text">
+              <h5>Smooth &amp; Silent Ride</h5>
+              <p>Instant torque and near-silent cabin for a premium experience.</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          Browse EV Models
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="ev-visual-card" aria-hidden="true">
+        <svg class="ev-car-icon" viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="60" y="100" width="360" height="70" rx="16" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+          <path d="M90 100 C110 60 140 48 200 48 L280 48 C340 48 370 60 390 100" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+          <rect x="120" y="58" width="80" height="42" rx="6" fill="rgba(74,222,128,.15)" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+          <rect x="210" y="58" width="80" height="42" rx="6" fill="rgba(74,222,128,.15)" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+          <circle cx="130" cy="170" r="24" fill="#1a3a60" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+          <circle cx="130" cy="170" r="12" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+          <circle cx="350" cy="170" r="24" fill="#1a3a60" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+          <circle cx="350" cy="170" r="12" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+          <rect x="60" y="118" width="20" height="14" rx="4" fill="#4ADE80" opacity=".8"/>
+          <rect x="400" y="118" width="20" height="14" rx="4" fill="#4ADE80" opacity=".8"/>
+          <path d="M232 60 L222 76 H231 L221 94" stroke="#4ADE80" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div class="ev-stats">
+          <div class="ev-stat">
+            <div class="ev-stat-val">450km</div>
+            <div class="ev-stat-label">Range</div>
+          </div>
+          <div class="ev-stat">
+            <div class="ev-stat-val">0%</div>
+            <div class="ev-stat-label">Emissions</div>
+          </div>
+          <div class="ev-stat">
+            <div class="ev-stat-val">70%</div>
+            <div class="ev-stat-label">Cost Saving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CARBON CALCULATOR
+     ============================================================ -->
+<section class="section calc-section" id="pricing">
+  <div class="container">
+    <div class="calc-wrap">
+      <div class="calc-info">
+        <span class="section-label">Eco Impact</span>
+        <h3 class="section-title">Your Carbon<br>Savings Calculator</h3>
+        <p>See how much CO₂ you save by choosing an electric vehicle over a conventional petrol car.</p>
+        <div class="calc-facts">
+          <div class="calc-fact">
+            <div class="calc-fact-dot" aria-hidden="true"></div>
+            A petrol car emits ~192g of CO₂ per kilometer.
+          </div>
+          <div class="calc-fact">
+            <div class="calc-fact-dot" aria-hidden="true"></div>
+            An EV in Indonesia emits ~20g CO₂/km (grid-adjusted).
+          </div>
+          <div class="calc-fact">
+            <div class="calc-fact-dot" aria-hidden="true"></div>
+            One tree absorbs ~20kg CO₂ per year.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="calc-card">
+          <h4>Adjust Your Trip</h4>
+          <div class="calc-fields">
+            <div class="calc-slider-wrap">
+              <div class="calc-slider-label">
+                <span>Daily Distance</span>
+                <span id="distanceVal">80 km</span>
+              </div>
+              <label for="distanceSlider" class="hidden">Jarak harian dalam kilometer</label>
+              <input type="range" min="10" max="300" step="10" value="80" id="distanceSlider"
+                     oninput="updateCalc()" aria-label="Jarak harian dalam kilometer">
+            </div>
+            <div class="calc-slider-wrap">
+              <div class="calc-slider-label">
+                <span>Rental Duration</span>
+                <span id="durationVal">3 days</span>
+              </div>
+              <label for="durationSlider" class="hidden">Durasi sewa dalam hari</label>
+              <input type="range" min="1" max="30" step="1" value="3" id="durationSlider"
+                     oninput="updateCalc()" aria-label="Durasi sewa dalam hari">
+            </div>
+          </div>
+          <div class="calc-result" id="calcResult" aria-live="polite" aria-atomic="true">
+            <div class="calc-co2" id="co2Val">46</div>
+            <div class="calc-co2-unit">kg CO₂ saved</div>
+            <div class="calc-co2-label">vs. driving a petrol car</div>
+            <div class="calc-breakdown">
+              <div class="calc-break-item">
+                <div class="calc-break-val" id="totalKm">240</div>
+                <div class="calc-break-label">Total km</div>
+              </div>
+              <div class="calc-break-item">
+                <div class="calc-break-val" id="treesVal">2.3</div>
+                <div class="calc-break-label">Trees equivalent</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY CHOOSE US
+     ============================================================ -->
+<section class="section why-section" id="about">
+  <div class="container">
+    <div class="section-header-center">
+      <span class="section-label">Why DriveIQ</span>
+      <h2 class="section-title">Built Around Your Journey</h2>
+      <p class="section-sub">From the moment you search to the moment you return the keys, we've made every step effortless.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <h4>500+ Vehicle Options</h4>
+        <p>From city compacts to 7-seat SUVs and cutting-edge EVs — the right car is always available.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h4>Transparent Pricing</h4>
+        <p>No hidden fees, no surprises. The price you see is the price you pay, all taxes included.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h4>24/7 Roadside Support</h4>
+        <p>Our support team is always a call away — flat tire, dead battery, or any emergency.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h4>Instant Booking</h4>
+        <p>Confirm your reservation in under 2 minutes. Receive your e-ticket directly to your email.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BOOKING FLOW STEPPER
+     ============================================================ -->
+<section class="section booking-section">
+  <div class="container">
+    <div class="section-header-center">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">Book in 4 Simple Steps</h2>
+      <p class="section-sub">Getting behind the wheel has never been easier. Our streamlined process gets you driving in minutes.</p>
+    </div>
+    <ol class="stepper" aria-label="Langkah pemesanan">
+      <li class="step-item done" aria-label="Langkah 1: Pilih lokasi — selesai">
+        <div class="step-circle" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="step-label">Select<br>Location</div>
+      </li>
+      <li class="step-item active" aria-label="Langkah 2: Pilih tanggal — sedang berlangsung" aria-current="step">
+        <div class="step-circle" aria-hidden="true">2</div>
+        <div class="step-label">Choose<br>Dates</div>
+      </li>
+      <li class="step-item" aria-label="Langkah 3: Pilih kendaraan">
+        <div class="step-circle" aria-hidden="true">3</div>
+        <div class="step-label">Pick<br>Vehicle</div>
+      </li>
+      <li class="step-item" aria-label="Langkah 4: Konfirmasi dan bayar">
+        <div class="step-circle" aria-hidden="true">4</div>
+        <div class="step-label">Confirm &amp;<br>Pay</div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESERVATION DASHBOARD
+     ============================================================ -->
+<section class="section dashboard-section" id="contact">
+  <div class="container">
+    <div style="margin-bottom:32px">
+      <span class="section-label">Management</span>
+      <h2 class="section-title">Reservation Dashboard</h2>
+      <p class="section-sub">Create, view, edit, and manage all your bookings in one place.</p>
+    </div>
+    <div class="dashboard-card">
+      <div class="dashboard-header">
+        <h4>All Reservations</h4>
+        <button class="btn btn-primary" onclick="openCreateModal()" style="min-height:40px;font-size:14px;padding:8px 18px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Reservation
+        </button>
+      </div>
+      <div class="table-search-bar">
+        <label for="tableSearch" class="hidden">Cari reservasi</label>
+        <input type="search" class="table-search" placeholder="Search by name, vehicle, or ID…"
+               oninput="filterTable(this.value)" id="tableSearch" aria-label="Cari reservasi">
+        <label for="statusFilter" class="hidden">Filter status</label>
+        <select class="table-filter" id="statusFilter" onchange="filterTableStatus(this.value)" aria-label="Filter status">
+          <option value="">All statuses</option>
+          <option value="Active">Active</option>
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+          <option value="Canceled">Canceled</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table id="reservationTable" aria-label="Tabel reservasi">
+          <thead>
+            <tr>
+              <th scope="col">Booking ID</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Vehicle</th>
+              <th scope="col">Pickup Date</th>
+              <th scope="col">Return Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="section-header-center" style="margin-bottom:40px">
+      <span class="section-label">Reviews</span>
+      <h2 class="section-title">What Our Customers Say</h2>
+    </div>
+    <div class="testi-wrap">
+      <div class="testi-track" id="testiTrack" role="list" aria-label="Testimoni pelanggan">
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="5 bintang">★★★★★</div>
+          <p class="testi-text">"Picked up a Hyundai Ioniq 5 for a Bandung trip — the whole process from booking to return was seamless. The EV had a full charge and the app guided us to charging stations perfectly."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#4A90E2" aria-hidden="true">RK</div>
+            <div>
+              <div class="testi-name">Rizky Kurniawan</div>
+              <div class="testi-role">Business Traveler · Jakarta</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="5 bintang">★★★★★</div>
+          <p class="testi-text">"Rented an Avanza for a week family trip to Yogyakarta. The car was spotless, pricing was exactly as advertised, and customer support resolved a minor query within minutes."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#059669" aria-hidden="true">SS</div>
+            <div>
+              <div class="testi-name">Sari Dewi Santoso</div>
+              <div class="testi-role">Family Vacation · Surabaya</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="4 bintang">★★★★☆</div>
+          <p class="testi-text">"Using DriveIQ for corporate rentals now. The dashboard makes it incredibly easy to manage multiple bookings for our team. The EV options help us hit our sustainability targets."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#FF8A00" aria-hidden="true">DP</div>
+            <div>
+              <div class="testi-name">Dimas Prasetyo</div>
+              <div class="testi-role">Operations Manager · Bandung</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="5 bintang">★★★★★</div>
+          <p class="testi-text">"The carbon savings calculator sold me on renting an EV instead of a regular car. Saved 34kg CO₂ on a 3-day Bali trip. DriveIQ makes it easy to choose the greener option."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#7C3AED" aria-hidden="true">NA</div>
+            <div>
+              <div class="testi-name">Nadya Amelia</div>
+              <div class="testi-role">Environmental Consultant · Bali</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="5 bintang">★★★★★</div>
+          <p class="testi-text">"Amazing selection of vehicles. Booked a BMW EV for a weekend and the experience was luxurious. The pickup was smooth and the return process took under 5 minutes."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#DC2626" aria-hidden="true">AH</div>
+            <div>
+              <div class="testi-name">Ahmad Hidayat</div>
+              <div class="testi-role">Entrepreneur · Medan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-controls" role="group" aria-label="Kontrol carousel testimoni">
+        <button class="testi-btn" onclick="testiSlide(-1)" aria-label="Testimoni sebelumnya">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="testi-btn" onclick="testiSlide(1)" aria-label="Testimoni berikutnya">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATISTICS
+     ============================================================ -->
+<section class="stats-section" aria-label="Statistik DriveIQ">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">10<span>K</span>+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">500<span>+</span></div>
+        <div class="stat-label">Vehicles in Fleet</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">50<span>+</span></div>
+        <div class="stat-label">Cities Covered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98<span>%</span></div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="cta-section">
+  <div class="container">
+    <span class="section-label" style="color:#4ADE80">Get Started Today</span>
+    <h2>Ready to Start<br>Your Journey?</h2>
+    <p>Join 10,000+ drivers who trust DriveIQ for every trip.</p>
+    <div class="cta-buttons">
+      <button class="btn btn-primary" onclick="document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">Book Your Car Today</button>
+      <button class="btn btn-outline-white" onclick="document.getElementById('ev-rental').scrollIntoView({behavior:'smooth'})">Explore EV Fleet</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+          DriveIQ
+        </div>
+        <p>Premium car rental for every journey — from city commutes to island escapes. Conventional and electric vehicles, always ready.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Instagram DriveIQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Twitter DriveIQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Facebook DriveIQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="LinkedIn DriveIQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partnerships</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#">Personal Rental</a></li>
+          <li><a href="#">Corporate Rental</a></li>
+          <li><a href="#">EV Rental</a></li>
+          <li><a href="#">Airport Pickup</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Insurance Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 DriveIQ. All rights reserved.</span>
+      <div style="display:flex;gap:20px">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     MODALS
+     ============================================================ -->
+<!-- Create / Edit Reservation -->
+<div class="modal-overlay" id="reservationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h5 id="modalTitle">New Reservation</h5>
+      <button class="modal-close" onclick="closeModal('reservationModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-fields">
+        <input type="hidden" id="editId">
+        <div class="modal-row">
+          <div class="form-group">
+            <label class="form-label" for="mCustomer">Customer Name <span aria-hidden="true">*</span><span class="hidden"> (wajib diisi)</span></label>
+            <input type="text" class="form-input" id="mCustomer" placeholder="Full name" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mContact">Phone / Email</label>
+            <input type="text" class="form-input" id="mContact" placeholder="Contact info" autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mVehicle">Vehicle <span aria-hidden="true">*</span><span class="hidden"> (wajib diisi)</span></label>
+          <select class="form-input" id="mVehicle" required>
+            <option value="">Select vehicle…</option>
+            <option>Toyota Avanza — MPV</option>
+            <option>Honda Civic — Sedan</option>
+            <option>Hyundai Ioniq 5 — EV SUV</option>
+            <option>Mitsubishi Pajero Sport — SUV</option>
+            <option>Wuling Air ev — EV Hatchback</option>
+            <option>Toyota Innova Zenix — MPV</option>
+            <option>Kia EV6 — EV Sedan</option>
+            <option>Suzuki Ertiga — MPV</option>
+            <option>BMW iX — EV SUV</option>
+          </select>
+        </div>
+        <div class="modal-row">
+          <div class="form-group">
+            <label class="form-label" for="mPickup">Pickup Date <span aria-hidden="true">*</span><span class="hidden"> (wajib diisi)</span></label>
+            <input type="date" class="form-input" id="mPickup" required onchange="updateReturnMin()">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mReturn">Return Date <span aria-hidden="true">*</span><span class="hidden"> (wajib diisi)</span></label>
+            <input type="date" class="form-input" id="mReturn" required>
+          </div>
+        </div>
+        <div class="modal-row">
+          <div class="form-group">
+            <label class="form-label" for="mLocation">Pickup Location</label>
+            <select class="form-input" id="mLocation">
+              <option value="">Select city…</option>
+              <option>Jakarta</option><option>Bandung</option><option>Surabaya</option>
+              <option>Yogyakarta</option><option>Bali</option><option>Medan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mStatus">Status</label>
+            <select class="form-input" id="mStatus">
+              <option value="Pending">Pending</option>
+              <option value="Active">Active</option>
+              <option value="Completed">Completed</option>
+              <option value="Canceled">Canceled</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mNotes">Notes</label>
+          <input type="text" class="form-input" id="mNotes" placeholder="Optional notes…">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('reservationModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveReservation()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Save Reservation
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- View Reservation -->
+<div class="modal-overlay" id="viewModal" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h5 id="viewModalTitle">Reservation Details</h5>
+      <button class="modal-close" onclick="closeModal('viewModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="viewBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('viewModal')">Close</button>
+      <button class="btn btn-primary" id="viewEditBtn">Edit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm -->
+<div class="modal-overlay" id="deleteModal" role="alertdialog" aria-modal="true" aria-labelledby="deleteModalTitle" aria-describedby="deleteModalDesc">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h5 id="deleteModalTitle">Delete Reservation</h5>
+      <button class="modal-close" onclick="closeModal('deleteModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p id="deleteModalDesc" style="color:var(--text-muted);font-size:15px">
+        Are you sure you want to delete booking <strong id="deleteIdLabel"></strong>? This action cannot be undone.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('deleteModal')">Cancel</button>
+      <button class="btn" style="background:#DC2626;color:white" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h5 id="loginModalTitle">Sign In to DriveIQ</h5>
+      <button class="modal-close" onclick="closeModal('loginModal')" aria-label="Tutup modal login">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-fields">
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <input type="email" class="form-input" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" style="flex-direction:column;gap:12px">
+      <button class="btn btn-primary" style="width:100%" onclick="handleLogin()">Sign In</button>
+      <p style="font-size:13px;color:var(--text-muted);text-align:center">
+        Don't have an account?
+        <a href="#" style="color:var(--secondary);font-weight:600">Create one free</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-wrap" id="toastWrap" aria-live="assertive" aria-atomic="true" role="status"></div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ─── DATA ───────────────────────────────────────────────── */
+const VEHICLES = [
+  { id:1, name:'Toyota Avanza',       cat:'MPV',      trans:'Manual',    seats:7, price:300000,  rating:4.7, reviews:312, type:'conventional', badge:'popular' },
+  { id:2, name:'Honda Civic',         cat:'Sedan',    trans:'Automatic', seats:5, price:450000,  rating:4.8, reviews:189, type:'conventional', badge:'popular' },
+  { id:3, name:'Hyundai Ioniq 5',     cat:'SUV',      trans:'Automatic', seats:5, price:850000,  rating:4.9, reviews:98,  type:'ev',           badge:'ev' },
+  { id:4, name:'Mitsubishi Pajero Sport', cat:'SUV',  trans:'Automatic', seats:7, price:750000,  rating:4.6, reviews:224, type:'conventional', badge:'' },
+  { id:5, name:'Wuling Air ev',       cat:'Hatchback',trans:'Automatic', seats:4, price:350000,  rating:4.5, reviews:156, type:'ev',           badge:'ev' },
+  { id:6, name:'Toyota Innova Zenix', cat:'MPV',      trans:'Automatic', seats:7, price:550000,  rating:4.8, reviews:267, type:'conventional', badge:'popular' },
+  { id:7, name:'Kia EV6',            cat:'Sedan',    trans:'Automatic', seats:5, price:900000,  rating:4.9, reviews:64,  type:'ev',           badge:'ev' },
+  { id:8, name:'Suzuki Ertiga',       cat:'MPV',      trans:'Manual',    seats:7, price:280000,  rating:4.5, reviews:401, type:'conventional', badge:'' },
+  { id:9, name:'BMW iX',             cat:'SUV',      trans:'Automatic', seats:5, price:1400000, rating:5.0, reviews:31,  type:'ev',           badge:'ev' },
+];
+
+/* ─── CAR SVG ILLUSTRATIONS ─────────────────────────────── */
+function carSVG(type, cat) {
+  const isEV = type === 'ev';
+  const bodyColor = isEV ? '#1a9e6f' : '#2a5298';
+  const accent = isEV ? '#4ADE80' : '#FF8A00';
+  const bolt = isEV ? `<path d="M136 40 L128 52 H135 L127 66" stroke="#4ADE80" stroke-width="2" stroke-linecap="round"/>` : '';
+
+  if (cat === 'SUV' || cat === 'MPV') {
+    return `<svg viewBox="0 0 280 140" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-car-svg" aria-hidden="true">
+      <rect x="20" y="62" width="240" height="52" rx="12" fill="${bodyColor}"/>
+      <path d="M40 62 C55 32 75 24 120 24 L180 24 C220 24 240 36 256 62" fill="${bodyColor}" opacity=".9"/>
+      <rect x="55" y="32" width="70" height="30" rx="5" fill="rgba(180,220,255,.25)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+      <rect x="140" y="32" width="70" height="30" rx="5" fill="rgba(180,220,255,.25)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+      <circle cx="72" cy="114" r="20" fill="#1a1a2e" stroke="#e5e7eb" stroke-width="2"/>
+      <circle cx="72" cy="114" r="9"  fill="#e5e7eb" opacity=".4"/>
+      <circle cx="208" cy="114" r="20" fill="#1a1a2e" stroke="#e5e7eb" stroke-width="2"/>
+      <circle cx="208" cy="114" r="9"  fill="#e5e7eb" opacity=".4"/>
+      <rect x="20" y="80" width="16" height="12" rx="3" fill="${accent}" opacity=".8"/>
+      <rect x="244" y="80" width="16" height="12" rx="3" fill="${accent}" opacity=".8"/>
+      ${bolt}
+    </svg>`;
+  }
+  return `<svg viewBox="0 0 280 140" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-car-svg" aria-hidden="true">
+    <rect x="20" y="68" width="240" height="46" rx="12" fill="${bodyColor}"/>
+    <path d="M45 68 C65 38 90 30 130 30 L180 30 C215 30 235 42 256 68" fill="${bodyColor}" opacity=".9"/>
+    <rect x="65" y="36" width="60" height="32" rx="5" fill="rgba(180,220,255,.25)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+    <rect x="148" y="36" width="60" height="32" rx="5" fill="rgba(180,220,255,.25)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+    <circle cx="76" cy="114" r="20" fill="#1a1a2e" stroke="#e5e7eb" stroke-width="2"/>
+    <circle cx="76" cy="114" r="9"  fill="#e5e7eb" opacity=".4"/>
+    <circle cx="204" cy="114" r="20" fill="#1a1a2e" stroke="#e5e7eb" stroke-width="2"/>
+    <circle cx="204" cy="114" r="9"  fill="#e5e7eb" opacity=".4"/>
+    <rect x="20" y="84" width="16" height="12" rx="3" fill="${accent}" opacity=".8"/>
+    <rect x="244" y="84" width="16" height="12" rx="3" fill="${accent}" opacity=".8"/>
+    ${bolt}
+  </svg>`;
+}
+
+/* ─── VEHICLE CATALOG ─────────────────────────────────────── */
+let filteredVehicles = [...VEHICLES];
+let currentPage = 1;
+const PER_PAGE = 6;
+
+function renderVehicles() {
+  const grid = document.getElementById('vehicleGrid');
+  const start = (currentPage - 1) * PER_PAGE;
+  const page = filteredVehicles.slice(start, start + PER_PAGE);
+  const count = filteredVehicles.length;
+  document.getElementById('resultCount').textContent =
+    `Showing ${count} vehicle${count !== 1 ? 's' : ''}`;
+
+  if (count === 0) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <p>No vehicles match your filters.</p>
+      <button class="btn btn-outline" onclick="clearFilters()" style="margin-top:12px">Clear Filters</button>
+    </div>`;
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  grid.innerHTML = page.map(v => `
+    <article class="vehicle-card" role="listitem">
+      <div class="vehicle-card-img">
+        ${carSVG(v.type, v.cat)}
+        <div class="card-badges">
+          ${v.badge === 'ev'      ? '<span class="badge badge-ev">⚡ ECO EV</span>' : ''}
+          ${v.badge === 'popular' ? '<span class="badge badge-pop">🔥 Popular</span>' : ''}
+        </div>
+      </div>
+      <div class="vehicle-card-body">
+        <div class="vehicle-card-name">${v.name}</div>
+        <div class="vehicle-card-cat">${v.cat} · ${v.type === 'ev' ? 'Electric' : 'Conventional'}</div>
+        <div class="vehicle-card-tags">
+          <span class="tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+            ${v.trans}
+          </span>
+          <span class="tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            ${v.seats} seats
+          </span>
+        </div>
+        <div class="vehicle-rating">
+          <span class="star-filled" aria-hidden="true">★</span>
+          <span>${v.rating}</span>
+          <span style="font-weight:400;color:var(--text-muted)">(${v.reviews} reviews)</span>
+        </div>
+      </div>
+      <div class="vehicle-card-footer">
+        <div class="vehicle-price">Rp ${(v.price/1000).toFixed(0)}K <sub>/day</sub></div>
+      </div>
+      <div class="vehicle-card-action">
+        <button class="btn btn-primary" onclick="bookVehicle(${v.id})">Book Now</button>
+      </div>
+    </article>
+  `).join('');
+  renderPagination();
+}
+
+function renderPagination() {
+  const total = Math.ceil(filteredVehicles.length / PER_PAGE);
+  const pg = document.getElementById('pagination');
+  if (total <= 1) { pg.innerHTML = ''; return; }
+  let html = '';
+  if (currentPage > 1)
+    html += `<button class="page-btn" onclick="goPage(${currentPage-1})" aria-label="Halaman sebelumnya">‹</button>`;
+  for (let i = 1; i <= total; i++) {
+    html += `<button class="page-btn${i===currentPage?' active':''}" onclick="goPage(${i})"
+             aria-label="Halaman ${i}" ${i===currentPage?'aria-current="page"':''}>${i}</button>`;
+  }
+  if (currentPage < total)
+    html += `<button class="page-btn" onclick="goPage(${currentPage+1})" aria-label="Halaman berikutnya">›</button>`;
+  pg.innerHTML = html;
+}
+
+function goPage(n) {
+  currentPage = n;
+  renderVehicles();
+  document.getElementById('vehicles').scrollIntoView({ behavior: 'smooth' });
+}
+
+function applyFilters() {
+  const typeChecked  = [...document.querySelectorAll('.filter-type:checked')].map(c => c.value);
+  const catChecked   = [...document.querySelectorAll('.filter-cat:checked')].map(c => c.value);
+  const transChecked = [...document.querySelectorAll('.filter-trans:checked')].map(c => c.value);
+  const seatsChecked = [...document.querySelectorAll('.filter-seats:checked')].map(c => parseInt(c.value));
+  const maxPrice     = parseInt(document.getElementById('priceRange').value);
+
+  filteredVehicles = VEHICLES.filter(v => {
+    const typeMatch  = typeChecked.includes('all') || typeChecked.length === 0 || typeChecked.includes(v.type);
+    const catMatch   = catChecked.length === 0  || catChecked.includes(v.cat);
+    const transMatch = transChecked.length === 0 || transChecked.includes(v.trans);
+    const seatsMatch = seatsChecked.length === 0 || seatsChecked.some(s => {
+      if (s === 2) return v.seats <= 2;
+      if (s === 4) return v.seats >= 4 && v.seats <= 5;
+      if (s === 7) return v.seats >= 7;
+      return false;
+    });
+    return typeMatch && catMatch && transMatch && seatsMatch && v.price <= maxPrice;
+  });
+  currentPage = 1;
+  renderVehicles();
+}
+
+function clearFilters() {
+  document.querySelectorAll('.filter-type, .filter-cat, .filter-trans, .filter-seats')
+    .forEach(c => c.checked = false);
+  document.querySelector('.filter-type[value="all"]').checked = true;
+  document.getElementById('priceRange').value = 1500000;
+  document.getElementById('priceLabel').textContent = 'Rp 1.500K';
+  filteredVehicles = [...VEHICLES];
+  currentPage = 1;
+  renderVehicles();
+}
+
+function updatePriceFilter(el) {
+  const val = parseInt(el.value);
+  document.getElementById('priceLabel').textContent = 'Rp ' + (val / 1000).toFixed(0) + 'K';
+  applyFilters();
+}
+
+function sortVehicles(val) {
+  const sorted = [...filteredVehicles];
+  if      (val === 'price-asc')  sorted.sort((a, b) => a.price - b.price);
+  else if (val === 'price-desc') sorted.sort((a, b) => b.price - a.price);
+  else if (val === 'rating')     sorted.sort((a, b) => b.rating - a.rating);
+  else                           sorted.sort((a, b) => b.reviews - a.reviews);
+  filteredVehicles = sorted;
+  currentPage = 1;
+  renderVehicles();
+}
+
+function vehicleDisplayName(v) {
+  return v.name + ' — ' + (v.type === 'ev' ? 'EV ' : '') + v.cat;
+}
+
+function bookVehicle(id) {
+  const v = VEHICLES.find(x => x.id === id);
+  if (!v) return;
+  openCreateModal();
+  document.getElementById('mVehicle').value = vehicleDisplayName(v);
+  showToast(`Booking ${v.name} — fill in your details below`, 'info');
+}
+
+/* ─── HERO SEARCH ───────────────────────────────────────── */
+function handleHeroSearch() {
+  const pickup = document.getElementById('heroPickup').value;
+  const ret    = document.getElementById('heroReturn').value;
+
+  if (pickup && ret && new Date(ret) <= new Date(pickup)) {
+    document.getElementById('heroReturn').classList.add('error');
+    showToast('Return date must be after pickup date', 'error');
+    document.getElementById('heroReturn').focus();
+    return;
+  }
+  document.getElementById('heroReturn').classList.remove('error');
+
+  const type = document.getElementById('heroType').value;
+  if (type === 'Electric Vehicle (EV)') {
+    document.querySelectorAll('.filter-type').forEach(c => { c.checked = c.value === 'ev'; });
+    applyFilters();
+  }
+
+  document.getElementById('vehicles').scrollIntoView({ behavior: 'smooth' });
+  showToast('Showing available vehicles', 'success');
+}
+
+/* ─── FILTER TOGGLE ────────────────────────────────────── */
+function toggleFilter(btn) {
+  const isCollapsed = btn.classList.toggle('collapsed');
+  btn.setAttribute('aria-expanded', String(!isCollapsed));
+  btn.nextElementSibling.classList.toggle('hidden');
+}
+
+function toggleMobileFilter() {
+  document.getElementById('filterPanel').classList.toggle('mobile-open');
+}
+
+/* ─── CARBON CALCULATOR ──────────────────────────────── */
+function updateCalc() {
+  const dist = parseInt(document.getElementById('distanceSlider').value);
+  const days = parseInt(document.getElementById('durationSlider').value);
+  document.getElementById('distanceVal').textContent = dist + ' km';
+  document.getElementById('durationVal').textContent = days + (days === 1 ? ' day' : ' days');
+  const totalKm = dist * days;
+  // Petrol ~192g CO₂/km, EV ~20g CO₂/km (grid Indonesia)
+  const saved = Math.round((totalKm * (192 - 20)) / 1000);
+  const trees = (saved / 20).toFixed(1);
+  document.getElementById('co2Val').textContent    = saved;
+  document.getElementById('totalKm').textContent   = totalKm.toLocaleString('id-ID');
+  document.getElementById('treesVal').textContent  = trees;
+}
+
+/* ─── RESERVATIONS CRUD ──────────────────────────────── */
+let reservations = [
+  { id:'BK-0001', customer:'Rizky Kurniawan',   vehicle:'Hyundai Ioniq 5 — EV SUV',         pickup:'2025-07-01', return:'2025-07-05', location:'Jakarta',    status:'Active',    contact:'rizky@email.com',   notes:'Airport pickup' },
+  { id:'BK-0002', customer:'Sari Dewi Santoso', vehicle:'Toyota Avanza — MPV',               pickup:'2025-07-08', return:'2025-07-14', location:'Surabaya',   status:'Pending',   contact:'sari@email.com',    notes:'' },
+  { id:'BK-0003', customer:'Dimas Prasetyo',    vehicle:'Mitsubishi Pajero Sport — SUV',     pickup:'2025-06-28', return:'2025-07-02', location:'Bandung',    status:'Completed', contact:'dimas@company.com', notes:'Corporate booking' },
+  { id:'BK-0004', customer:'Nadya Amelia',      vehicle:'Wuling Air ev — EV Hatchback',      pickup:'2025-07-10', return:'2025-07-12', location:'Bali',       status:'Active',    contact:'nadya@eco.id',      notes:'' },
+  { id:'BK-0005', customer:'Ahmad Hidayat',     vehicle:'BMW iX — EV SUV',                   pickup:'2025-06-15', return:'2025-06-17', location:'Medan',      status:'Completed', contact:'ahmad@biz.id',      notes:'Weekend trip' },
+];
+let nextId = 6;
+let pendingDeleteId = null;
+let searchQ = '', statusFilter = '';
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  const q = searchQ.toLowerCase();
+  const rows = reservations.filter(r => {
+    const matchQ = !q || r.customer.toLowerCase().includes(q) ||
+                   r.vehicle.toLowerCase().includes(q) || r.id.toLowerCase().includes(q);
+    return matchQ && (!statusFilter || r.status === statusFilter);
+  });
+
+  if (rows.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7">
+      <div class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <p>No reservations found</p>
+      </div>
+    </td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td><strong style="color:var(--primary)">${r.id}</strong></td>
+      <td>${r.customer}</td>
+      <td>${r.vehicle}</td>
+      <td>${formatDate(r.pickup)}</td>
+      <td>${formatDate(r.return)}</td>
+      <td>
+        <span class="status-badge status-${r.status.toLowerCase()}">
+          <span class="status-dot" aria-hidden="true"></span>
+          ${r.status}
+        </span>
+      </td>
+      <td>
+        <div class="action-btns" role="group" aria-label="Aksi untuk ${r.id}">
+          <button class="action-btn view" onclick="viewReservation('${r.id}')" title="Lihat detail" aria-label="Lihat ${r.id}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+          <button class="action-btn edit" onclick="editReservation('${r.id}')" title="Edit" aria-label="Edit ${r.id}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="action-btn del" onclick="deleteReservation('${r.id}')" title="Hapus" aria-label="Hapus ${r.id}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function formatDate(d) {
+  if (!d) return '–';
+  const [y, m, day] = d.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${parseInt(day)} ${months[parseInt(m)-1]} ${y}`;
+}
+
+function filterTable(q)       { searchQ = q;     renderTable(); }
+function filterTableStatus(s) { statusFilter = s; renderTable(); }
+
+/* Perbarui minimum tanggal return saat tanggal pickup berubah */
+function updateReturnMin() {
+  const pickup = document.getElementById('mPickup').value;
+  if (pickup) {
+    const minReturn = new Date(pickup);
+    minReturn.setDate(minReturn.getDate() + 1);
+    document.getElementById('mReturn').min = minReturn.toISOString().split('T')[0];
+    // Reset return jika sekarang tidak valid
+    const currentReturn = document.getElementById('mReturn').value;
+    if (currentReturn && new Date(currentReturn) <= new Date(pickup)) {
+      document.getElementById('mReturn').value = '';
+    }
+  }
+}
+
+function openCreateModal() {
+  document.getElementById('modalTitle').textContent = 'New Reservation';
+  document.getElementById('editId').value = '';
+  const today = new Date().toISOString().split('T')[0];
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+  document.getElementById('mPickup').min = today;
+  document.getElementById('mReturn').min = tomorrowStr;
+
+  ['mCustomer','mContact','mVehicle','mPickup','mReturn','mLocation','mNotes'].forEach(id => {
+    document.getElementById(id).value = '';
+    document.getElementById(id).classList.remove('error');
+  });
+  document.getElementById('mStatus').value = 'Pending';
+  openModal('reservationModal');
+}
+
+function editReservation(id) {
+  const r = reservations.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('modalTitle').textContent = 'Edit Reservation';
+  document.getElementById('editId').value   = r.id;
+  document.getElementById('mCustomer').value = r.customer;
+  document.getElementById('mContact').value  = r.contact;
+  document.getElementById('mVehicle').value  = r.vehicle;
+  document.getElementById('mPickup').value   = r.pickup;
+  document.getElementById('mReturn').value   = r.return;
+  document.getElementById('mLocation').value = r.location;
+  document.getElementById('mStatus').value   = r.status;
+  document.getElementById('mNotes').value    = r.notes;
+  closeModal('viewModal');
+  openModal('reservationModal');
+}
+
+function saveReservation() {
+  const customer = document.getElementById('mCustomer').value.trim();
+  const vehicle  = document.getElementById('mVehicle').value;
+  const pickup   = document.getElementById('mPickup').value;
+  const ret      = document.getElementById('mReturn').value;
+
+  // Validasi field wajib
+  let hasError = false;
+  [['mCustomer', customer], ['mVehicle', vehicle], ['mPickup', pickup], ['mReturn', ret]].forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (!val) { el.classList.add('error'); hasError = true; }
+    else el.classList.remove('error');
+  });
+  if (hasError) { showToast('Please fill in all required fields', 'error'); return; }
+
+  if (new Date(ret) <= new Date(pickup)) {
+    document.getElementById('mReturn').classList.add('error');
+    document.getElementById('mReturn').focus();
+    showToast('Return date must be after pickup date', 'error');
+    return;
+  }
+
+  const editId = document.getElementById('editId').value;
+  const data = {
+    customer,
+    vehicle,
+    pickup,
+    return:   ret,
+    location: document.getElementById('mLocation').value,
+    status:   document.getElementById('mStatus').value,
+    contact:  document.getElementById('mContact').value,
+    notes:    document.getElementById('mNotes').value.trim(),
+  };
+
+  if (editId) {
+    const idx = reservations.findIndex(r => r.id === editId);
+    reservations[idx] = { ...reservations[idx], ...data };
+    showToast('Reservation updated successfully', 'success');
+  } else {
+    const id = 'BK-' + String(nextId++).padStart(4, '0');
+    reservations.unshift({ id, ...data });
+    showToast('Reservation created successfully', 'success');
+  }
+  closeModal('reservationModal');
+  renderTable();
+}
+
+function viewReservation(id) {
+  const r = reservations.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('viewBody').innerHTML = `
+    <div class="view-row"><span class="view-row-label">Booking ID</span><strong class="view-row-val" style="color:var(--primary)">${r.id}</strong></div>
+    <div class="view-row"><span class="view-row-label">Customer</span><span class="view-row-val">${r.customer}</span></div>
+    <div class="view-row"><span class="view-row-label">Contact</span><span class="view-row-val">${r.contact || '–'}</span></div>
+    <div class="view-row"><span class="view-row-label">Vehicle</span><span class="view-row-val">${r.vehicle}</span></div>
+    <div class="view-row"><span class="view-row-label">Pickup</span><span class="view-row-val">${formatDate(r.pickup)}</span></div>
+    <div class="view-row"><span class="view-row-label">Return</span><span class="view-row-val">${formatDate(r.return)}</span></div>
+    <div class="view-row"><span class="view-row-label">Location</span><span class="view-row-val">${r.location || '–'}</span></div>
+    <div class="view-row"><span class="view-row-label">Status</span><span class="view-row-val">
+      <span class="status-badge status-${r.status.toLowerCase()}">
+        <span class="status-dot" aria-hidden="true"></span> ${r.status}
+      </span>
+    </span></div>
+    <div class="view-row"><span class="view-row-label">Notes</span><span class="view-row-val">${r.notes || '–'}</span></div>
+  `;
+  document.getElementById('viewEditBtn').onclick = () => editReservation(r.id);
+  openModal('viewModal');
+}
+
+function deleteReservation(id) {
+  pendingDeleteId = id;
+  document.getElementById('deleteIdLabel').textContent = id;
+  openModal('deleteModal');
+}
+
+function confirmDelete() {
+  reservations = reservations.filter(r => r.id !== pendingDeleteId);
+  closeModal('deleteModal');
+  renderTable();
+  showToast('Reservation deleted', 'info');
+  pendingDeleteId = null;
+}
+
+/* ─── LOGIN ──────────────────────────────────────────────── */
+function openLoginModal() {
+  ['loginEmail','loginPassword'].forEach(id => {
+    document.getElementById(id).value = '';
+    document.getElementById(id).classList.remove('error');
+  });
+  openModal('loginModal');
+}
+
+function handleLogin() {
+  const email    = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  let hasError = false;
+  const emailEl = document.getElementById('loginEmail');
+  const passEl  = document.getElementById('loginPassword');
+
+  emailEl.classList.remove('error');
+  passEl.classList.remove('error');
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailEl.classList.add('error');
+    hasError = true;
+  }
+  if (!password || password.length < 6) {
+    passEl.classList.add('error');
+    hasError = true;
+  }
+  if (hasError) {
+    showToast('Please enter a valid email and password (min. 6 characters)', 'error');
+    return;
+  }
+  closeModal('loginModal');
+  showToast('Welcome back! You are now signed in.', 'success');
+}
+
+/* ─── MODAL HELPERS ─────────────────────────────────────── */
+function openModal(id) {
+  const overlay = document.getElementById(id);
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Fokus ke elemen pertama yang bisa difokus dalam modal
+  const focusable = overlay.querySelectorAll('button, input, select, textarea, [href]');
+  if (focusable.length) focusable[0].focus();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Tutup modal saat klik overlay
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeModal(overlay.id);
+  });
+});
+
+// Tutup modal dengan tombol Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const openModal = document.querySelector('.modal-overlay.open');
+    if (openModal) closeModal(openModal.id);
+  }
+});
+
+/* ─── TOAST ─────────────────────────────────────────────── */
+function showToast(msg, type = 'info') {
+  const icons = {
+    success: '<polyline points="20 6 9 17 4 12"/>',
+    error:   '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
+    info:    '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+  };
+  const wrap  = document.getElementById('toastWrap');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.setAttribute('role', 'alert');
+  toast.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+      ${icons[type] || icons.info}
+    </svg>
+    ${msg}
+  `;
+  wrap.appendChild(toast);
+  requestAnimationFrame(() => requestAnimationFrame(() => toast.classList.add('show')));
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+/* ─── TESTIMONIAL CAROUSEL ──────────────────────────────── */
+let testiIndex = 0;
+function testiSlide(dir) {
+  const track = document.getElementById('testiTrack');
+  const cards = track.querySelectorAll('.testi-card');
+  const visibleCount = window.innerWidth > 900 ? 3 : window.innerWidth > 640 ? 2 : 1;
+  const maxIndex = Math.max(0, cards.length - visibleCount);
+  testiIndex = Math.max(0, Math.min(testiIndex + dir, maxIndex));
+  if (cards.length > 0) {
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const gap = 24;
+    track.style.transform = `translateX(-${testiIndex * (cardWidth + gap)}px)`;
+  }
+}
+
+/* ─── NAVBAR ─────────────────────────────────────────────── */
+function toggleMobileNav() {
+  const nav = document.getElementById('mobileNav');
+  const ham = document.getElementById('hamburger');
+  const isOpen = nav.classList.toggle('open');
+  ham.classList.toggle('active', isOpen);
+  ham.setAttribute('aria-expanded', String(isOpen));
+  ham.setAttribute('aria-label', isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+}
+
+// Active nav link saat scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinkEls = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinkEls.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+// Validasi real-time tanggal return di hero form
+document.addEventListener('DOMContentLoaded', () => {
+  // Set tanggal default hero form
+  const today = new Date();
+  const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+  const nextWeek = new Date(today); nextWeek.setDate(today.getDate() + 7);
+  const todayStr    = today.toISOString().split('T')[0];
+  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+  const nextWeekStr = nextWeek.toISOString().split('T')[0];
+
+  const heroPickup = document.getElementById('heroPickup');
+  const heroReturn = document.getElementById('heroReturn');
+  heroPickup.min   = todayStr;
+  heroPickup.value = tomorrowStr;
+  heroReturn.min   = tomorrowStr;
+  heroReturn.value = nextWeekStr;
+
+  // Update min return saat pickup berubah
+  heroPickup.addEventListener('change', () => {
+    const pick = heroPickup.value;
+    if (pick) {
+      const minRet = new Date(pick); minRet.setDate(minRet.getDate() + 1);
+      heroReturn.min = minRet.toISOString().split('T')[0];
+      if (heroReturn.value && new Date(heroReturn.value) <= new Date(pick)) {
+        heroReturn.value = '';
+        heroReturn.classList.add('error');
+      }
+    }
+  });
+
+  heroReturn.addEventListener('change', () => {
+    heroReturn.classList.remove('error');
+  });
+
+  renderVehicles();
+  renderTable();
+  updateCalc();
+});
+</script>
+</body>
+</html>
+z
