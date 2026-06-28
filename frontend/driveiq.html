@@ -759,8 +759,338 @@ tr:hover td { background: var(--bg); }
   .testi-track { transition: none; }
 }
 
+/* ============================================================
+   PAYMENT MODAL STYLES
+   ============================================================ */
+.payment-summary {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+.payment-summary-title {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--text-muted); margin-bottom: 12px;
+}
+.payment-summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px; padding: 4px 0;
+}
+.payment-summary-row.total {
+  border-top: 1px solid var(--border); margin-top: 10px; padding-top: 12px;
+  font-size: 18px; font-weight: 800; color: var(--primary);
+}
+.payment-summary-row .label { color: var(--text-muted); }
+.payment-summary-row .val   { font-weight: 600; color: var(--text); }
+.payment-summary-row.total .val { color: var(--primary); }
+
+.payment-methods {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;
+}
+.payment-method-card {
+  border: 2px solid var(--border); border-radius: var(--radius-md);
+  padding: 12px 14px; cursor: pointer; transition: border-color .15s, background .15s;
+  display: flex; align-items: center; gap: 10px; background: var(--white);
+}
+.payment-method-card:hover { border-color: var(--secondary); background: #f0f7ff; }
+.payment-method-card.selected { border-color: var(--primary); background: #EFF6FF; }
+.payment-method-icon {
+  width: 38px; height: 38px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 18px;
+}
+.payment-method-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.payment-method-sub  { font-size: 11px; color: var(--text-muted); }
+
+.payment-detail-fields { margin-bottom: 16px; }
+.payment-card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.payment-status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+}
+.payment-status-badge.paid     { background: #D1FAE5; color: #059669; }
+.payment-status-badge.unpaid   { background: #FEF3C7; color: #D97706; }
+.payment-status-badge.refunded { background: #E0E7FF; color: #4338CA; }
+
+.pay-btn-loading { display: none; align-items: center; gap: 8px; }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4);
+  border-top-color: white; border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+/* Payment success animation */
+.pay-success-overlay {
+  display: none; flex-direction: column; align-items: center;
+  justify-content: center; padding: 32px 20px; text-align: center;
+}
+.pay-success-overlay.show { display: flex; }
+.pay-success-icon {
+  width: 72px; height: 72px; border-radius: 999px; background: var(--green-bg);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  animation: popIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.pay-success-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.pay-success-sub   { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+.pay-receipt {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 14px 18px; width: 100%; margin-bottom: 20px; text-align: left;
+}
+.pay-receipt-row {
+  display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0;
+}
+.pay-receipt-row .lbl { color: var(--text-muted); }
+.pay-receipt-row .val { font-weight: 600; color: var(--text); }
+
+.action-btn.pay {
+  background: #FEF3C7; color: #D97706; border: 1px solid #FDE68A;
+}
+.action-btn.pay:hover { background: #FDE68A; }
+.action-btn.paid-done {
+  background: var(--green-bg); color: var(--green); border: 1px solid #A7F3D0;
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .payment-methods { grid-template-columns: 1fr; }
+  .payment-card-row { grid-template-columns: 1fr; }
+}
+
 /* Active nav link highlight on scroll */
 .nav-links a.active { color: var(--primary); }
+
+/* ============================================================
+   CS FLOATING BUTTON
+   ============================================================ */
+.cs-fab {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9990;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+}
+.cs-fab-btn {
+  width: 56px; height: 56px; border-radius: 999px;
+  background: var(--green); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(5,150,105,.4);
+  border: none; cursor: pointer; transition: transform .2s, box-shadow .2s;
+  position: relative;
+}
+.cs-fab-btn:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(5,150,105,.5); }
+.cs-fab-pulse {
+  position: absolute; top: -2px; right: -2px;
+  width: 14px; height: 14px; border-radius: 999px;
+  background: #FF8A00; border: 2px solid white;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: .7; }
+}
+.cs-tooltip {
+  background: var(--text); color: var(--white);
+  font-size: 13px; font-weight: 600; padding: 8px 14px;
+  border-radius: var(--radius-sm); white-space: nowrap;
+  opacity: 0; transform: translateX(8px);
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+.cs-fab:hover .cs-tooltip { opacity: 1; transform: translateX(0); }
+.cs-fab-menu {
+  display: flex; flex-direction: column; gap: 10px;
+  align-items: flex-end;
+  max-height: 0; overflow: hidden;
+  transition: max-height .3s ease;
+}
+.cs-fab-menu.open { max-height: 300px; }
+.cs-fab-option {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--white); border-radius: 999px;
+  padding: 10px 18px; font-size: 13px; font-weight: 600;
+  color: var(--text); box-shadow: var(--shadow-md);
+  border: none; cursor: pointer;
+  transition: background .15s, transform .15s;
+  white-space: nowrap;
+}
+.cs-fab-option:hover { background: var(--bg); transform: translateX(-2px); }
+.cs-fab-option svg { flex-shrink: 0; color: var(--primary); }
+
+/* ============================================================
+   SIGN UP MODAL EXTRA FIELDS
+   ============================================================ */
+.signup-avatar-wrap {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 4px;
+}
+.signup-avatar-preview {
+  width: 64px; height: 64px; border-radius: 999px;
+  background: var(--primary); display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700; color: var(--white);
+  flex-shrink: 0; overflow: hidden; border: 3px solid var(--border);
+}
+.signup-avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
+.signup-avatar-btn {
+  font-size: 13px; font-weight: 600; color: var(--secondary);
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.signup-avatar-btn:hover { text-decoration: underline; }
+.auth-tabs {
+  display: flex; border-bottom: 1px solid var(--border); margin-bottom: 20px;
+}
+.auth-tab {
+  flex: 1; padding: 12px; font-size: 14px; font-weight: 600;
+  background: none; border: none; cursor: pointer; color: var(--text-muted);
+  border-bottom: 2px solid transparent; transition: color .15s, border-color .15s;
+}
+.auth-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+/* ============================================================
+   NAV USER ACCOUNT
+   ============================================================ */
+.nav-user {
+  position: relative; display: flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.nav-avatar {
+  width: 36px; height: 36px; border-radius: 999px;
+  background: var(--primary); display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--white);
+  overflow: hidden; border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+.nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.nav-user-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.nav-user-dropdown {
+  position: absolute; top: calc(100% + 10px); right: 0;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+  min-width: 200px; z-index: 5000; padding: 8px;
+  display: none;
+}
+.nav-user-dropdown.open { display: block; }
+.nav-user-dropdown-header {
+  padding: 10px 12px 12px; border-bottom: 1px solid var(--border); margin-bottom: 6px;
+}
+.nav-user-dropdown-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.nav-user-dropdown-email { font-size: 12px; color: var(--text-muted); }
+.nav-dropdown-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; font-size: 14px; font-weight: 500; color: var(--text);
+  border-radius: var(--radius-sm); cursor: pointer; background: none; border: none;
+  width: 100%; text-align: left; transition: background .12s;
+}
+.nav-dropdown-item:hover { background: var(--bg); }
+.nav-dropdown-item.danger { color: #DC2626; }
+.nav-dropdown-item svg { color: var(--text-muted); flex-shrink: 0; }
+.nav-dropdown-item.danger svg { color: #DC2626; }
+
+/* ============================================================
+   MINI MAP TRACKER
+   ============================================================ */
+.map-tracker-section { background: var(--white); border-top: 1px solid var(--border); }
+.map-tracker-wrap {
+  display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start;
+}
+.map-canvas-wrap {
+  position: relative; background: #e8f0f8;
+  border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 16/9; min-height: 320px;
+}
+.map-road-svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+.map-car-pin {
+  position: absolute; display: flex; flex-direction: column; align-items: center;
+  transform: translate(-50%, -100%);
+  transition: left 2s cubic-bezier(.4,0,.2,1), top 2s cubic-bezier(.4,0,.2,1);
+  z-index: 10;
+}
+.map-car-bubble {
+  background: var(--white); border: 2px solid var(--primary);
+  border-radius: 999px; width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md); overflow: hidden;
+  font-size: 15px; font-weight: 700; color: var(--white);
+}
+.map-car-bubble img { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; }
+.map-car-bubble-initials {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+}
+.map-car-tail {
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--primary);
+  margin-top: -1px;
+}
+.map-car-label {
+  margin-top: 4px; font-size: 11px; font-weight: 700;
+  background: var(--primary); color: var(--white);
+  padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+}
+.map-pulse-ring {
+  position: absolute; width: 60px; height: 60px;
+  border-radius: 999px; background: rgba(30,58,95,.15);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  animation: mapPulse 2s ease-out infinite;
+}
+@keyframes mapPulse {
+  0% { transform: translate(-50%,-50%) scale(.6); opacity: .8; }
+  100% { transform: translate(-50%,-50%) scale(1.8); opacity: 0; }
+}
+.map-sidebar {
+  background: var(--bg); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); overflow: hidden;
+}
+.map-sidebar-head {
+  padding: 16px 20px; background: var(--primary); color: var(--white);
+  font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; gap: 8px;
+}
+.map-active-list { padding: 12px; display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; }
+.map-active-item {
+  background: var(--white); border-radius: var(--radius-md);
+  border: 1px solid var(--border); padding: 12px 14px;
+  display: flex; gap: 12px; align-items: center;
+  cursor: pointer; transition: box-shadow .15s, border-color .15s;
+}
+.map-active-item:hover, .map-active-item.selected { border-color: var(--secondary); box-shadow: 0 0 0 2px rgba(74,144,226,.15); }
+.map-item-avatar {
+  width: 38px; height: 38px; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--white);
+  flex-shrink: 0; overflow: hidden;
+}
+.map-item-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; }
+.map-item-info { flex: 1; min-width: 0; }
+.map-item-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.map-item-car { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.map-item-loc { font-size: 11px; color: var(--green); font-weight: 600; margin-top: 2px; }
+.map-item-status { width: 8px; height: 8px; border-radius: 999px; background: var(--green); flex-shrink: 0; }
+.map-badge-live {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; color: var(--green);
+  background: var(--green-bg); padding: 3px 10px; border-radius: 999px;
+}
+.map-badge-live .dot-live {
+  width: 6px; height: 6px; border-radius: 999px; background: var(--green);
+  animation: pulse 1.5s infinite;
+}
+.map-no-login {
+  padding: 40px 20px; text-align: center; color: var(--text-muted);
+}
+.map-no-login svg { margin: 0 auto 12px; opacity: .3; }
+
+@media (max-width: 900px) {
+  .map-tracker-wrap { grid-template-columns: 1fr; }
+  .map-canvas-wrap { aspect-ratio: 4/3; min-height: 260px; }
+}
 </style>
 </head>
 <body>
@@ -784,12 +1114,38 @@ tr:hover td { background: var(--bg); }
       <a href="#home" class="active">Home</a>
       <a href="#vehicles">Vehicles</a>
       <a href="#ev-rental">EV Rental</a>
+      <a href="#tracker">Tracker</a>
       <a href="#pricing">Pricing</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-actions">
-      <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+      <button class="btn btn-outline" id="navLoginBtn" onclick="openAuthModal('login')">Login</button>
+      <div class="nav-user hidden" id="navUser" onclick="toggleUserDropdown()">
+        <div class="nav-avatar" id="navAvatar">
+          <span id="navAvatarInitials">?</span>
+        </div>
+        <span class="nav-user-name" id="navUserName"></span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--text-muted)"><polyline points="6 9 12 15 18 9"/></svg>
+        <div class="nav-user-dropdown" id="navUserDropdown">
+          <div class="nav-user-dropdown-header">
+            <div class="nav-user-dropdown-name" id="dropdownName"></div>
+            <div class="nav-user-dropdown-email" id="dropdownEmail"></div>
+          </div>
+          <button class="nav-dropdown-item" onclick="openProfileModal();event.stopPropagation()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Edit Profile
+          </button>
+          <button class="nav-dropdown-item" onclick="document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});event.stopPropagation()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            My Reservations
+          </button>
+          <button class="nav-dropdown-item danger" onclick="handleLogout();event.stopPropagation()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+          </button>
+        </div>
+      </div>
       <button class="btn btn-primary" onclick="document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/></svg>
         Rent Now
@@ -813,10 +1169,11 @@ tr:hover td { background: var(--bg); }
   <a href="#home" onclick="toggleMobileNav()">Home</a>
   <a href="#vehicles" onclick="toggleMobileNav()">Vehicles</a>
   <a href="#ev-rental" onclick="toggleMobileNav()">EV Rental</a>
+  <a href="#tracker" onclick="toggleMobileNav()">Tracker</a>
   <a href="#pricing" onclick="toggleMobileNav()">Pricing</a>
   <a href="#about" onclick="toggleMobileNav()">About</a>
   <a href="#contact" onclick="toggleMobileNav()">Contact</a>
-  <button class="btn btn-primary" style="margin-top:8px" onclick="toggleMobileNav();openLoginModal()">Login / Register</button>
+  <button class="btn btn-primary" style="margin-top:8px" onclick="toggleMobileNav();openAuthModal('login')">Login / Register</button>
 </div>
 
 <!-- ============================================================
@@ -1235,6 +1592,102 @@ tr:hover td { background: var(--bg); }
 </section>
 
 <!-- ============================================================
+     MINI MAP TRACKER
+     ============================================================ -->
+<section class="section map-tracker-section" id="tracker">
+  <div class="container">
+    <div style="margin-bottom:28px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <span class="section-label">Live Tracking</span>
+        <h2 class="section-title">Active Rental Tracker</h2>
+        <p class="section-sub">Pantau posisi kendaraan yang sedang disewa secara real-time.</p>
+      </div>
+      <div class="map-badge-live">
+        <span class="dot-live"></span>
+        Live
+      </div>
+    </div>
+    <div class="map-tracker-wrap">
+      <!-- Map Canvas -->
+      <div class="map-canvas-wrap" id="mapCanvas">
+        <!-- Road SVG background -->
+        <svg class="map-road-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Map background blocks (city grid) -->
+          <rect width="800" height="450" fill="#e8f0f8"/>
+          <!-- Blocks / buildings -->
+          <rect x="30" y="30" width="80" height="60" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="130" y="30" width="60" height="40" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="210" y="30" width="100" height="55" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="330" y="20" width="70" height="70" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="420" y="30" width="90" height="45" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="530" y="25" width="60" height="55" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="610" y="30" width="80" height="40" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="710" y="20" width="65" height="60" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="30" y="160" width="90" height="80" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="140" y="170" width="70" height="60" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="230" y="160" width="50" height="70" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="330" y="155" width="110" height="85" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="460" y="160" width="80" height="70" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="560" y="150" width="70" height="80" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="650" y="160" width="60" height="65" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="730" y="155" width="50" height="75" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="30" y="310" width="75" height="90" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="125" y="320" width="90" height="70" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="235" y="310" width="65" height="85" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="320" y="305" width="120" height="95" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="460" y="310" width="80" height="80" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="560" y="315" width="70" height="75" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="650" y="305" width="90" height="90" rx="4" fill="#d0dcea" opacity=".7"/>
+          <!-- Main roads (horizontal) -->
+          <rect x="0" y="110" width="800" height="40" fill="#ffffff" opacity=".9"/>
+          <rect x="0" y="125" width="800" height="12" fill="#f0f4f8" opacity=".5"/>
+          <rect x="0" y="260" width="800" height="40" fill="#ffffff" opacity=".9"/>
+          <rect x="0" y="275" width="800" height="12" fill="#f0f4f8" opacity=".5"/>
+          <rect x="0" y="410" width="800" height="40" fill="#ffffff" opacity=".9"/>
+          <!-- Main roads (vertical) -->
+          <rect x="110" y="0" width="40" height="450" fill="#ffffff" opacity=".9"/>
+          <rect x="300" y="0" width="40" height="450" fill="#ffffff" opacity=".9"/>
+          <rect x="480" y="0" width="40" height="450" fill="#ffffff" opacity=".9"/>
+          <rect x="660" y="0" width="40" height="450" fill="#ffffff" opacity=".9"/>
+          <!-- Road dashes -->
+          <line x1="0" y1="130" x2="800" y2="130" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="0" y1="280" x2="800" y2="280" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="130" y1="0" x2="130" y2="450" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="320" y1="0" x2="320" y2="450" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="500" y1="0" x2="500" y2="450" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="680" y1="0" x2="680" y2="450" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <!-- Green areas -->
+          <ellipse cx="590" cy="380" rx="40" ry="25" fill="#a7f3d0" opacity=".6"/>
+          <ellipse cx="200" cy="200" rx="25" ry="18" fill="#a7f3d0" opacity=".5"/>
+        </svg>
+        <!-- Car pins (rendered by JS) -->
+        <div id="mapPinsContainer" style="position:absolute;inset:0;pointer-events:none;"></div>
+        <!-- No login overlay -->
+        <div class="map-no-login" id="mapNoLogin" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(248,250,252,.85);backdrop-filter:blur(4px);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <p style="font-size:15px;font-weight:600;margin-top:12px;color:var(--text)">Login untuk melihat tracker</p>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Pantau kendaraan aktif Anda secara real-time</p>
+          <button class="btn btn-primary" style="font-size:14px;padding:10px 20px" onclick="openAuthModal('login')">Sign In</button>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="map-sidebar">
+        <div class="map-sidebar-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Kendaraan Aktif
+        </div>
+        <div class="map-active-list" id="mapActiveList">
+          <div class="map-no-login" id="mapSidebarNoLogin">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <p style="font-size:13px;margin-top:8px">Login untuk melihat daftar kendaraan aktif</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      RESERVATION DASHBOARD
      ============================================================ -->
 <section class="section dashboard-section" id="contact">
@@ -1275,6 +1728,7 @@ tr:hover td { background: var(--bg); }
               <th scope="col">Pickup Date</th>
               <th scope="col">Return Date</th>
               <th scope="col">Status</th>
+              <th scope="col">Pembayaran</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -1594,36 +2048,375 @@ tr:hover td { background: var(--bg); }
   </div>
 </div>
 
-<!-- Login Modal -->
-<div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
-  <div class="modal" style="max-width:420px">
+<!-- ============================================================
+     PAYMENT MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+  <div class="modal" style="max-width:520px">
     <div class="modal-header">
-      <h5 id="loginModalTitle">Sign In to DriveIQ</h5>
-      <button class="modal-close" onclick="closeModal('loginModal')" aria-label="Tutup modal login">
+      <h5 id="paymentModalTitle">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-3px;margin-right:6px" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Pembayaran Reservasi
+      </h5>
+      <button class="modal-close" onclick="closeModal('paymentModal')" aria-label="Tutup modal pembayaran">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="paymentBody">
+
+      <!-- FORM PEMBAYARAN -->
+      <div id="payFormWrap">
+        <!-- Ringkasan Pesanan -->
+        <div class="payment-summary">
+          <div class="payment-summary-title">Ringkasan Pesanan</div>
+          <div class="payment-summary-row">
+            <span class="label">Booking ID</span>
+            <span class="val" id="payBookingId">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Kendaraan</span>
+            <span class="val" id="payVehicle">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Periode</span>
+            <span class="val" id="payPeriod">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Durasi</span>
+            <span class="val" id="payDays">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Tarif/hari</span>
+            <span class="val" id="payRate">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Subtotal</span>
+            <span class="val" id="paySubtotal">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Asuransi (5%)</span>
+            <span class="val" id="payInsurance">—</span>
+          </div>
+          <div class="payment-summary-row total">
+            <span class="label">Total Bayar</span>
+            <span class="val" id="payTotal">—</span>
+          </div>
+        </div>
+
+        <!-- Pilih Metode Pembayaran -->
+        <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px">Metode Pembayaran</p>
+        <div class="payment-methods" id="paymentMethods">
+          <div class="payment-method-card selected" data-method="bca" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#0058A8">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="payment-method-name">Transfer BCA</div>
+              <div class="payment-method-sub">Virtual Account</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="mandiri" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#003087">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="payment-method-name">Transfer Mandiri</div>
+              <div class="payment-method-sub">Virtual Account</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="gopay" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#00AED6">
+              <span style="color:white;font-weight:800;font-size:14px">GP</span>
+            </div>
+            <div>
+              <div class="payment-method-name">GoPay</div>
+              <div class="payment-method-sub">E-Wallet</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="ovo" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#4C3494">
+              <span style="color:white;font-weight:800;font-size:14px">OVO</span>
+            </div>
+            <div>
+              <div class="payment-method-name">OVO</div>
+              <div class="payment-method-sub">E-Wallet</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="qris" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#EB5757">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h.01M18 14h.01M14 18h.01M18 18h.01"/></svg>
+            </div>
+            <div>
+              <div class="payment-method-name">QRIS</div>
+              <div class="payment-method-sub">Scan & Pay</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="card" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#1D4ED8">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="payment-method-name">Kartu Kredit/Debit</div>
+              <div class="payment-method-sub">Visa · Mastercard</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Input (muncul sesuai metode) -->
+        <div class="payment-detail-fields" id="payDetailFields">
+          <!-- Bank Transfer detail -->
+          <div id="payDetailBank">
+            <div class="form-group">
+              <label class="form-label">Nomor Rekening Pengirim</label>
+              <input type="text" class="form-input" id="payAccNumber" placeholder="Contoh: 123-456-7890" maxlength="20">
+            </div>
+            <div class="form-group" style="margin-top:10px">
+              <label class="form-label">Nama Pemilik Rekening</label>
+              <input type="text" class="form-input" id="payAccName" placeholder="Sesuai KTP / rekening bank">
+            </div>
+          </div>
+          <!-- E-wallet detail -->
+          <div id="payDetailWallet" class="hidden">
+            <div class="form-group">
+              <label class="form-label">Nomor HP / Akun E-Wallet</label>
+              <input type="tel" class="form-input" id="payWalletPhone" placeholder="08xxxxxxxxxx" maxlength="15">
+            </div>
+          </div>
+          <!-- QRIS detail -->
+          <div id="payDetailQris" class="hidden">
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;text-align:center">
+              <div style="width:120px;height:120px;margin:0 auto 12px;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                  <rect x="5" y="5" width="28" height="28" rx="3" fill="var(--primary)"/>
+                  <rect x="11" y="11" width="16" height="16" rx="1" fill="white"/>
+                  <rect x="14" y="14" width="10" height="10" fill="var(--primary)"/>
+                  <rect x="47" y="5" width="28" height="28" rx="3" fill="var(--primary)"/>
+                  <rect x="53" y="11" width="16" height="16" rx="1" fill="white"/>
+                  <rect x="56" y="14" width="10" height="10" fill="var(--primary)"/>
+                  <rect x="5" y="47" width="28" height="28" rx="3" fill="var(--primary)"/>
+                  <rect x="11" y="53" width="16" height="16" rx="1" fill="white"/>
+                  <rect x="14" y="56" width="10" height="10" fill="var(--primary)"/>
+                  <rect x="47" y="47" width="8" height="8" rx="1" fill="var(--primary)"/>
+                  <rect x="60" y="47" width="8" height="8" rx="1" fill="var(--primary)"/>
+                  <rect x="47" y="60" width="8" height="8" rx="1" fill="var(--primary)"/>
+                  <rect x="60" y="60" width="8" height="8" rx="1" fill="var(--primary)"/>
+                </svg>
+              </div>
+              <p style="font-size:13px;font-weight:600;color:var(--text)">Scan QR Code ini dengan aplikasi pembayaran Anda</p>
+              <p style="font-size:12px;color:var(--text-muted);margin-top:4px">Berlaku selama 15 menit</p>
+            </div>
+          </div>
+          <!-- Credit/Debit Card detail -->
+          <div id="payDetailCard" class="hidden">
+            <div class="form-group">
+              <label class="form-label">Nomor Kartu</label>
+              <input type="text" class="form-input" id="payCardNumber" placeholder="xxxx xxxx xxxx xxxx" maxlength="19" oninput="formatCardNumber(this)">
+            </div>
+            <div class="payment-card-row" style="margin-top:10px">
+              <div class="form-group">
+                <label class="form-label">Berlaku s/d (MM/YY)</label>
+                <input type="text" class="form-input" id="payCardExpiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+              </div>
+              <div class="form-group">
+                <label class="form-label">CVV</label>
+                <input type="password" class="form-input" id="payCardCvv" placeholder="•••" maxlength="4">
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:10px">
+              <label class="form-label">Nama Pemegang Kartu</label>
+              <input type="text" class="form-input" id="payCardName" placeholder="Nama sesuai kartu">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="pay-success-overlay" id="paySuccessWrap">
+        <div class="pay-success-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg>
+        </div>
+        <div class="pay-success-title">Pembayaran Berhasil! 🎉</div>
+        <div class="pay-success-sub">Terima kasih! Reservasi Anda telah dikonfirmasi.</div>
+        <div class="pay-receipt" id="payReceipt"></div>
+        <button class="btn btn-primary" style="width:100%" onclick="closeModal('paymentModal')">Selesai</button>
+      </div>
+
+    </div>
+    <div class="modal-footer" id="payFooter">
+      <button class="btn btn-outline" onclick="closeModal('paymentModal')">Batal</button>
+      <button class="btn btn-primary" id="paySubmitBtn" onclick="processPayment()" style="min-width:160px">
+        <span id="payBtnText">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" style="vertical-align:-2px;margin-right:6px"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Bayar Sekarang
+        </span>
+        <span class="pay-btn-loading" id="payBtnLoading">
+          <span class="spinner"></span> Memproses...
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Auth Modal (Login + Sign Up) -->
+<div class="modal-overlay" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <h5 id="authModalTitle">Masuk ke DriveIQ</h5>
+      <button class="modal-close" onclick="closeModal('authModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="padding-top:16px">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" id="tabSignup" onclick="switchAuthTab('signup')">Create Account</button>
+      </div>
+
+      <!-- LOGIN PANEL -->
+      <div id="panelLogin">
+        <div class="modal-fields">
+          <div class="form-group">
+            <label class="form-label" for="loginEmail">Email Address</label>
+            <input type="email" class="form-input" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Password</label>
+            <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+          </div>
+        </div>
+        <div style="margin-top:20px">
+          <button class="btn btn-primary" style="width:100%" onclick="handleLogin()">Sign In</button>
+          <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-top:14px">
+            Belum punya akun?
+            <a href="#" style="color:var(--secondary);font-weight:600" onclick="switchAuthTab('signup');return false">Daftar gratis</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- SIGN UP PANEL -->
+      <div id="panelSignup" class="hidden">
+        <div class="signup-avatar-wrap">
+          <div class="signup-avatar-preview" id="signupAvatarPreview">
+            <span id="signupAvatarInitials" style="pointer-events:none">?</span>
+          </div>
+          <div>
+            <p style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Foto Profil</p>
+            <button class="signup-avatar-btn" onclick="document.getElementById('signupAvatarFile').click()">Upload foto</button>
+            <input type="file" id="signupAvatarFile" accept="image/*" class="hidden" onchange="handleAvatarUpload(this)">
+            <p style="font-size:11px;color:var(--text-muted);margin-top:2px">JPG, PNG — maks. 2MB</p>
+          </div>
+        </div>
+        <div class="modal-fields" style="margin-top:12px">
+          <div class="modal-row">
+            <div class="form-group">
+              <label class="form-label" for="signupName">Nama Lengkap *</label>
+              <input type="text" class="form-input" id="signupName" placeholder="Nama Anda" autocomplete="name" oninput="updateSignupInitials()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="signupAge">Umur *</label>
+              <input type="number" class="form-input" id="signupAge" placeholder="25" min="17" max="99" autocomplete="off">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupAddress">Alamat *</label>
+            <input type="text" class="form-input" id="signupAddress" placeholder="Jl. Contoh No. 1, Bandung" autocomplete="street-address">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupEmail">Email Address *</label>
+            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="modal-row">
+            <div class="form-group">
+              <label class="form-label" for="signupPassword">Password *</label>
+              <input type="password" class="form-input" id="signupPassword" placeholder="Min. 6 karakter" autocomplete="new-password">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="signupConfirm">Konfirmasi *</label>
+              <input type="password" class="form-input" id="signupConfirm" placeholder="Ulangi password" autocomplete="new-password">
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px">
+          <button class="btn btn-primary" style="width:100%" onclick="handleSignup()">Buat Akun</button>
+          <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-top:14px">
+            Sudah punya akun?
+            <a href="#" style="color:var(--secondary);font-weight:600" onclick="switchAuthTab('login');return false">Sign In</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Edit Modal -->
+<div class="modal-overlay" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <h5 id="profileModalTitle">Edit Profile</h5>
+      <button class="modal-close" onclick="closeModal('profileModal')" aria-label="Tutup modal">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
     <div class="modal-body">
-      <form id="loginForm" onsubmit="handleLogin();return false;" novalidate>
-      <div class="modal-fields">
-        <div class="form-group">
-          <label class="form-label" for="loginEmail">Email Address</label>
-          <input type="email" class="form-input" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+      <div class="signup-avatar-wrap" style="margin-bottom:16px">
+        <div class="signup-avatar-preview" id="profileAvatarPreview">
+          <span id="profileAvatarInitials">?</span>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="loginPassword">Password</label>
-          <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+        <div>
+          <button class="signup-avatar-btn" onclick="document.getElementById('profileAvatarFile').click()">Ganti foto</button>
+          <input type="file" id="profileAvatarFile" accept="image/*" class="hidden" onchange="handleProfileAvatarUpload(this)">
         </div>
       </div>
-      </form>
+      <div class="modal-fields">
+        <div class="modal-row">
+          <div class="form-group">
+            <label class="form-label" for="profileName">Nama Lengkap</label>
+            <input type="text" class="form-input" id="profileName">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="profileAge">Umur</label>
+            <input type="number" class="form-input" id="profileAge" min="17" max="99">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profileAddress">Alamat</label>
+          <input type="text" class="form-input" id="profileAddress">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profileEmail">Email</label>
+          <input type="email" class="form-input" id="profileEmail">
+        </div>
+      </div>
     </div>
-    <div class="modal-footer" style="flex-direction:column;gap:12px">
-      <button type="submit" form="loginForm" class="btn btn-primary" style="width:100%">Sign In</button>
-      <p style="font-size:13px;color:var(--text-muted);text-align:center">
-        Don't have an account?
-        <a href="#" style="color:var(--secondary);font-weight:600">Create one free</a>
-      </p>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('profileModal')">Batal</button>
+      <button class="btn btn-primary" onclick="saveProfile()">Simpan Perubahan</button>
     </div>
+  </div>
+</div>
+
+<!-- Customer Service FAB -->
+<div class="cs-fab" id="csFab">
+  <div class="cs-fab-menu" id="csFabMenu">
+    <button class="cs-fab-option" onclick="window.open('https://wa.me/6281234567890','_blank')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      WhatsApp CS
+    </button>
+    <button class="cs-fab-option" onclick="window.location.href='tel:+6281234567890'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Telepon
+    </button>
+    <button class="cs-fab-option" onclick="window.location.href='mailto:cs@driveiq.id'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Email CS
+    </button>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="cs-tooltip">Butuh bantuan?</div>
+    <button class="cs-fab-btn" onclick="toggleCsFab()" aria-label="Hubungi Customer Service">
+      <div class="cs-fab-pulse"></div>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    </button>
   </div>
 </div>
 
@@ -1748,7 +2541,7 @@ function renderVehicles() {
         </div>
       </div>
       <div class="vehicle-card-footer">
-        <div class="vehicle-price">Rp ${(v.price/1000).toFixed(0)}K <sub>/day</sub></div>
+        <div class="vehicle-price">${formatRupiah(v.price)} <sub>/hari</sub></div>
       </div>
       <div class="vehicle-card-action">
         <button class="btn btn-primary" onclick="bookVehicle(${v.id})">Book Now</button>
@@ -1894,11 +2687,11 @@ function updateCalc() {
 
 /* ─── RESERVATIONS CRUD ──────────────────────────────── */
 let reservations = [
-  { id:'BK-0001', customer:'Rizky Kurniawan',   vehicle:'Hyundai Ioniq 5 — EV SUV',         pickup:'2025-07-01', return:'2025-07-05', location:'Jakarta',    status:'Active',    contact:'rizky@email.com',   notes:'Airport pickup' },
-  { id:'BK-0002', customer:'Sari Dewi Santoso', vehicle:'Toyota Avanza — MPV',               pickup:'2025-07-08', return:'2025-07-14', location:'Surabaya',   status:'Pending',   contact:'sari@email.com',    notes:'' },
-  { id:'BK-0003', customer:'Dimas Prasetyo',    vehicle:'Mitsubishi Pajero Sport — SUV',     pickup:'2025-06-28', return:'2025-07-02', location:'Bandung',    status:'Completed', contact:'dimas@company.com', notes:'Corporate booking' },
-  { id:'BK-0004', customer:'Nadya Amelia',      vehicle:'Wuling Air ev — EV Hatchback',      pickup:'2025-07-10', return:'2025-07-12', location:'Bali',       status:'Active',    contact:'nadya@eco.id',      notes:'' },
-  { id:'BK-0005', customer:'Ahmad Hidayat',     vehicle:'BMW iX — EV SUV',                   pickup:'2025-06-15', return:'2025-06-17', location:'Medan',      status:'Completed', contact:'ahmad@biz.id',      notes:'Weekend trip' },
+  { id:'BK-0001', customer:'Rizky Kurniawan',   vehicle:'Hyundai Ioniq 5 — EV SUV',         pickup:'2025-07-01', return:'2025-07-05', location:'Jakarta',    status:'Active',    contact:'rizky@email.com',   notes:'Airport pickup',    paymentStatus:'paid',   paymentMethod:'BCA Virtual Account',  paymentDate:'2025-06-30' },
+  { id:'BK-0002', customer:'Sari Dewi Santoso', vehicle:'Toyota Avanza — MPV',               pickup:'2025-07-08', return:'2025-07-14', location:'Surabaya',   status:'Pending',   contact:'sari@email.com',    notes:'',                  paymentStatus:'unpaid', paymentMethod:'',                     paymentDate:'' },
+  { id:'BK-0003', customer:'Dimas Prasetyo',    vehicle:'Mitsubishi Pajero Sport — SUV',     pickup:'2025-06-28', return:'2025-07-02', location:'Bandung',    status:'Completed', contact:'dimas@company.com', notes:'Corporate booking', paymentStatus:'paid',   paymentMethod:'Kartu Kredit',         paymentDate:'2025-06-27' },
+  { id:'BK-0004', customer:'Nadya Amelia',      vehicle:'Wuling Air ev — EV Hatchback',      pickup:'2025-07-10', return:'2025-07-12', location:'Bali',       status:'Active',    contact:'nadya@eco.id',      notes:'',                  paymentStatus:'unpaid', paymentMethod:'',                     paymentDate:'' },
+  { id:'BK-0005', customer:'Ahmad Hidayat',     vehicle:'BMW iX — EV SUV',                   pickup:'2025-06-15', return:'2025-06-17', location:'Medan',      status:'Completed', contact:'ahmad@biz.id',      notes:'Weekend trip',      paymentStatus:'paid',   paymentMethod:'GoPay',                paymentDate:'2025-06-14' },
 ];
 let nextId = 6;
 let pendingDeleteId = null;
@@ -1914,7 +2707,7 @@ function renderTable() {
   });
 
   if (rows.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7">
+    tbody.innerHTML = `<tr><td colspan="8">
       <div class="empty-state">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         <p>No reservations found</p>
@@ -1923,7 +2716,22 @@ function renderTable() {
     return;
   }
 
-  tbody.innerHTML = rows.map(r => `
+  tbody.innerHTML = rows.map(r => {
+    const isPaid = r.paymentStatus === 'paid';
+    const isCanceled = r.status === 'Canceled';
+    const paymentBadge = isPaid
+      ? `<span class="payment-status-badge paid">✓ Lunas</span>`
+      : isCanceled
+        ? `<span class="payment-status-badge refunded">— Dibatalkan</span>`
+        : `<span class="payment-status-badge unpaid">Belum Bayar</span>`;
+    const payBtn = isCanceled ? '' : isPaid
+      ? `<button class="action-btn paid-done" title="Sudah dibayar" aria-label="Pembayaran ${r.id} lunas" disabled>
+           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+         </button>`
+      : `<button class="action-btn pay" onclick="openPaymentModal('${r.id}')" title="Bayar sekarang" aria-label="Bayar ${r.id}">
+           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+         </button>`;
+    return `
     <tr>
       <td><strong style="color:var(--primary)">${r.id}</strong></td>
       <td>${r.customer}</td>
@@ -1936,6 +2744,7 @@ function renderTable() {
           ${r.status}
         </span>
       </td>
+      <td>${paymentBadge}</td>
       <td>
         <div class="action-btns" role="group" aria-label="Aksi untuk ${r.id}">
           <button class="action-btn view" onclick="viewReservation('${r.id}')" title="Lihat detail" aria-label="Lihat ${r.id}">
@@ -1944,13 +2753,14 @@ function renderTable() {
           <button class="action-btn edit" onclick="editReservation('${r.id}')" title="Edit" aria-label="Edit ${r.id}">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
           </button>
+          ${payBtn}
           <button class="action-btn del" onclick="deleteReservation('${r.id}')" title="Hapus" aria-label="Hapus ${r.id}">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
           </button>
         </div>
       </td>
-    </tr>
-  `).join('');
+    </tr>`;
+  }).join('');
 }
 
 function formatDate(d) {
@@ -2053,8 +2863,13 @@ function saveReservation() {
     showToast('Reservation updated successfully', 'success');
   } else {
     const id = 'BK-' + String(nextId++).padStart(4, '0');
-    reservations.unshift({ id, ...data });
-    showToast('Reservation created successfully', 'success');
+    reservations.unshift({ id, ...data, paymentStatus: 'unpaid', paymentMethod: '', paymentDate: '' });
+    showToast('Reservation created! Silakan lanjutkan ke pembayaran.', 'success');
+    closeModal('reservationModal');
+    renderTable();
+    // Auto-open payment modal after a short delay
+    setTimeout(() => openPaymentModal(id), 400);
+    return;
   }
   closeModal('reservationModal');
   renderTable();
@@ -2063,6 +2878,10 @@ function saveReservation() {
 function viewReservation(id) {
   const r = reservations.find(x => x.id === id);
   if (!r) return;
+  const isPaid = r.paymentStatus === 'paid';
+  const payBadge = isPaid
+    ? `<span class="payment-status-badge paid">✓ Lunas</span>`
+    : `<span class="payment-status-badge unpaid">Belum Bayar</span>`;
   document.getElementById('viewBody').innerHTML = `
     <div class="view-row"><span class="view-row-label">Booking ID</span><strong class="view-row-val" style="color:var(--primary)">${r.id}</strong></div>
     <div class="view-row"><span class="view-row-label">Customer</span><span class="view-row-val">${r.customer}</span></div>
@@ -2076,9 +2895,24 @@ function viewReservation(id) {
         <span class="status-dot" aria-hidden="true"></span> ${r.status}
       </span>
     </span></div>
+    <div class="view-row"><span class="view-row-label">Pembayaran</span><span class="view-row-val">${payBadge}</span></div>
+    ${isPaid ? `<div class="view-row"><span class="view-row-label">Metode</span><span class="view-row-val">${r.paymentMethod || '–'}</span></div>
+    <div class="view-row"><span class="view-row-label">Tgl Bayar</span><span class="view-row-val">${r.paymentDate ? formatDate(r.paymentDate) : '–'}</span></div>` : ''}
     <div class="view-row"><span class="view-row-label">Notes</span><span class="view-row-val">${r.notes || '–'}</span></div>
   `;
   document.getElementById('viewEditBtn').onclick = () => editReservation(r.id);
+  // Show pay button in view modal footer if unpaid
+  const existingPayBtn = document.getElementById('viewPayBtn');
+  if (existingPayBtn) existingPayBtn.remove();
+  if (!isPaid && r.status !== 'Canceled') {
+    const payBtn = document.createElement('button');
+    payBtn.className = 'btn btn-primary';
+    payBtn.id = 'viewPayBtn';
+    payBtn.style.cssText = 'background:var(--green);margin-right:8px';
+    payBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" style="margin-right:6px"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Bayar Sekarang`;
+    payBtn.onclick = () => { closeModal('viewModal'); openPaymentModal(r.id); };
+    document.querySelector('#viewModal .modal-footer').prepend(payBtn);
+  }
   openModal('viewModal');
 }
 
@@ -2096,40 +2930,314 @@ function confirmDelete() {
   pendingDeleteId = null;
 }
 
-/* ─── LOGIN ──────────────────────────────────────────────── */
-function openLoginModal() {
-  ['loginEmail','loginPassword'].forEach(id => {
-    document.getElementById(id).value = '';
-    document.getElementById(id).classList.remove('error');
-  });
-  openModal('loginModal');
+/* ─── PRICE FORMATTING ───────────────────────────────────── */
+function formatRupiah(num) {
+  return 'Rp ' + num.toLocaleString('id-ID');
+}
+
+/* ─── CS FAB ─────────────────────────────────────────────── */
+function toggleCsFab() {
+  document.getElementById('csFabMenu').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if (!document.getElementById('csFab').contains(e.target)) {
+    document.getElementById('csFabMenu').classList.remove('open');
+  }
+});
+
+/* ─── AUTH STATE ─────────────────────────────────────────── */
+let currentUser = null; // null = guest
+
+function openAuthModal(tab = 'login') {
+  switchAuthTab(tab);
+  openModal('authModal');
+}
+
+function switchAuthTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabSignup').classList.toggle('active', !isLogin);
+  document.getElementById('panelLogin').classList.toggle('hidden', !isLogin);
+  document.getElementById('panelSignup').classList.toggle('hidden', isLogin);
+  document.getElementById('authModalTitle').textContent = isLogin ? 'Masuk ke DriveIQ' : 'Buat Akun DriveIQ';
 }
 
 function handleLogin() {
   const email    = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
-  let hasError = false;
-  const emailEl = document.getElementById('loginEmail');
-  const passEl  = document.getElementById('loginPassword');
+  const emailEl  = document.getElementById('loginEmail');
+  const passEl   = document.getElementById('loginPassword');
+  emailEl.classList.remove('error'); passEl.classList.remove('error');
+  let err = false;
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { emailEl.classList.add('error'); err = true; }
+  if (!password || password.length < 6)                      { passEl.classList.add('error');  err = true; }
+  if (err) { showToast('Email atau password tidak valid (min. 6 karakter)', 'error'); return; }
 
-  emailEl.classList.remove('error');
-  passEl.classList.remove('error');
+  // Simple demo: accept any valid-format credentials
+  const name = email.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+  currentUser = { name, email, age: '', address: '', avatar: null };
+  closeModal('authModal');
+  updateNavUser();
+  updateMapTracker();
+  showToast('Selamat datang, ' + name + '!', 'success');
+}
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    emailEl.classList.add('error');
-    hasError = true;
+function handleSignup() {
+  const name    = document.getElementById('signupName').value.trim();
+  const age     = document.getElementById('signupAge').value.trim();
+  const address = document.getElementById('signupAddress').value.trim();
+  const email   = document.getElementById('signupEmail').value.trim();
+  const pass    = document.getElementById('signupPassword').value;
+  const confirm = document.getElementById('signupConfirm').value;
+
+  const fields = [
+    ['signupName', name], ['signupAge', age], ['signupAddress', address],
+    ['signupEmail', email], ['signupPassword', pass], ['signupConfirm', confirm]
+  ];
+  let err = false;
+  fields.forEach(([id, val]) => {
+    document.getElementById(id).classList.remove('error');
+    if (!val) { document.getElementById(id).classList.add('error'); err = true; }
+  });
+  if (!err && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('signupEmail').classList.add('error'); err = true;
   }
-  if (!password || password.length < 6) {
-    passEl.classList.add('error');
-    hasError = true;
+  if (!err && pass.length < 6) {
+    document.getElementById('signupPassword').classList.add('error'); err = true;
+    showToast('Password minimal 6 karakter', 'error'); return;
   }
-  if (hasError) {
-    showToast('Please enter a valid email and password (min. 6 characters)', 'error');
+  if (!err && pass !== confirm) {
+    document.getElementById('signupConfirm').classList.add('error'); err = true;
+    showToast('Password tidak cocok', 'error'); return;
+  }
+  if (err) { showToast('Lengkapi semua field yang wajib diisi', 'error'); return; }
+  if (parseInt(age) < 17) { showToast('Umur minimal 17 tahun', 'error'); return; }
+
+  const avatarData = document.getElementById('signupAvatarPreview').dataset.avatarUrl || null;
+  currentUser = { name, age, address, email, avatar: avatarData };
+  closeModal('authModal');
+  updateNavUser();
+  updateMapTracker();
+  showToast('Akun berhasil dibuat! Selamat datang, ' + name + '!', 'success');
+}
+
+function handleLogout() {
+  currentUser = null;
+  document.getElementById('navLoginBtn').classList.remove('hidden');
+  document.getElementById('navUser').classList.add('hidden');
+  document.getElementById('navUserDropdown').classList.remove('open');
+  updateMapTracker();
+  showToast('Anda telah keluar', 'info');
+}
+
+function updateNavUser() {
+  if (!currentUser) return;
+  const initials = currentUser.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('navAvatarInitials').textContent = initials;
+  const avatarEl = document.getElementById('navAvatar');
+  if (currentUser.avatar) {
+    avatarEl.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" style="width:100%;height:100%;object-fit:cover;border-radius:999px">`;
+  } else {
+    avatarEl.innerHTML = `<span style="font-size:13px;font-weight:700;color:var(--white)">${initials}</span>`;
+    avatarEl.style.background = stringToColor(currentUser.name);
+  }
+  document.getElementById('navUserName').textContent = currentUser.name.split(' ')[0];
+  document.getElementById('dropdownName').textContent  = currentUser.name;
+  document.getElementById('dropdownEmail').textContent = currentUser.email;
+  document.getElementById('navLoginBtn').classList.add('hidden');
+  document.getElementById('navUser').classList.remove('hidden');
+}
+
+function toggleUserDropdown() {
+  document.getElementById('navUserDropdown').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const navUser = document.getElementById('navUser');
+  if (navUser && !navUser.contains(e.target)) {
+    document.getElementById('navUserDropdown').classList.remove('open');
+  }
+});
+
+function stringToColor(str) {
+  const colors = ['#1E3A5F','#4A90E2','#059669','#7C3AED','#DC2626','#D97706'];
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  return colors[Math.abs(hash) % colors.length];
+}
+
+/* ─── AVATAR UPLOAD ─────────────────────────────────────── */
+function handleAvatarUpload(input) {
+  const file = input.files[0];
+  if (!file || file.size > 2*1024*1024) { showToast('File terlalu besar (maks 2MB)', 'error'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const url = e.target.result;
+    const preview = document.getElementById('signupAvatarPreview');
+    preview.innerHTML = `<img src="${url}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:999px">`;
+    preview.dataset.avatarUrl = url;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleProfileAvatarUpload(input) {
+  const file = input.files[0];
+  if (!file || file.size > 2*1024*1024) { showToast('File terlalu besar (maks 2MB)', 'error'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const url = e.target.result;
+    document.getElementById('profileAvatarPreview').innerHTML =
+      `<img src="${url}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:999px">`;
+    document.getElementById('profileAvatarPreview').dataset.avatarUrl = url;
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateSignupInitials() {
+  const name = document.getElementById('signupName').value.trim();
+  const initials = name ? name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2) : '?';
+  const preview = document.getElementById('signupAvatarPreview');
+  if (!preview.dataset.avatarUrl) {
+    preview.innerHTML = `<span id="signupAvatarInitials" style="pointer-events:none;font-size:22px;font-weight:700;color:var(--white)">${initials}</span>`;
+    preview.style.background = name ? stringToColor(name) : 'var(--primary)';
+  }
+}
+
+/* ─── PROFILE EDIT ──────────────────────────────────────── */
+function openProfileModal() {
+  if (!currentUser) return;
+  document.getElementById('profileName').value    = currentUser.name;
+  document.getElementById('profileAge').value     = currentUser.age || '';
+  document.getElementById('profileAddress').value = currentUser.address || '';
+  document.getElementById('profileEmail').value   = currentUser.email;
+  const initials = currentUser.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  const pp = document.getElementById('profileAvatarPreview');
+  if (currentUser.avatar) {
+    pp.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" style="width:100%;height:100%;object-fit:cover;border-radius:999px">`;
+    pp.dataset.avatarUrl = currentUser.avatar;
+  } else {
+    pp.innerHTML = `<span id="profileAvatarInitials" style="font-size:22px;font-weight:700;color:var(--white)">${initials}</span>`;
+    pp.style.background = stringToColor(currentUser.name);
+    delete pp.dataset.avatarUrl;
+  }
+  document.getElementById('navUserDropdown').classList.remove('open');
+  openModal('profileModal');
+}
+
+function saveProfile() {
+  const name    = document.getElementById('profileName').value.trim();
+  const age     = document.getElementById('profileAge').value.trim();
+  const address = document.getElementById('profileAddress').value.trim();
+  const email   = document.getElementById('profileEmail').value.trim();
+  if (!name || !email) { showToast('Nama dan email wajib diisi', 'error'); return; }
+  const pp = document.getElementById('profileAvatarPreview');
+  currentUser = { ...currentUser, name, age, address, email, avatar: pp.dataset.avatarUrl || currentUser.avatar || null };
+  updateNavUser();
+  updateMapTracker();
+  closeModal('profileModal');
+  showToast('Profil berhasil diperbarui', 'success');
+}
+
+/* ─── MAP TRACKER ───────────────────────────────────────── */
+const ACTIVE_RENTALS = [
+  { id:'BK-0001', customer:'Rizky Kurniawan',  vehicle:'Hyundai Ioniq 5', location:'Jl. Sudirman, Jakarta',    initials:'RK', color:'#4A90E2', x:62, y:30 },
+  { id:'BK-0004', customer:'Nadya Amelia',     vehicle:'Wuling Air ev',   location:'Kuta, Bali',               initials:'NA', color:'#7C3AED', x:38, y:65 },
+  { id:'BK-0006', customer:'Farhan Maulana',   vehicle:'Kia EV6',         location:'Jl. Asia Afrika, Bandung', initials:'FM', color:'#059669', x:78, y:55 },
+];
+
+let mapAnimInterval = null;
+let selectedPin = 0;
+
+function updateMapTracker() {
+  const noLoginMap     = document.getElementById('mapNoLogin');
+  const noLoginSidebar = document.getElementById('mapSidebarNoLogin');
+  const pinsContainer  = document.getElementById('mapPinsContainer');
+  const activeList     = document.getElementById('mapActiveList');
+
+  if (!currentUser) {
+    noLoginMap.style.display = 'flex';
+    pinsContainer.innerHTML  = '';
+    activeList.innerHTML     = noLoginSidebar ? noLoginSidebar.outerHTML :
+      '<div class="map-no-login"><p style="font-size:13px;margin-top:8px">Login untuk melihat kendaraan aktif</p></div>';
+    if (mapAnimInterval) { clearInterval(mapAnimInterval); mapAnimInterval = null; }
     return;
   }
-  closeModal('loginModal');
-  showToast('Welcome back! You are now signed in.', 'success');
+
+  noLoginMap.style.display = 'none';
+
+  // Render sidebar items
+  activeList.innerHTML = ACTIVE_RENTALS.map((r, i) => `
+    <div class="map-active-item${i===0?' selected':''}" id="mapItem${i}" onclick="selectMapPin(${i})">
+      <div class="map-item-avatar" style="background:${r.color}">${r.initials}</div>
+      <div class="map-item-info">
+        <div class="map-item-name">${r.customer}</div>
+        <div class="map-item-car">${r.vehicle}</div>
+        <div class="map-item-loc">📍 ${r.location}</div>
+      </div>
+      <div class="map-item-status"></div>
+    </div>
+  `).join('');
+
+  // Render pins
+  renderMapPins();
+
+  // Animate car positions
+  if (!mapAnimInterval) {
+    mapAnimInterval = setInterval(animateMapCars, 3000);
+  }
 }
+
+function renderMapPins() {
+  const pinsContainer = document.getElementById('mapPinsContainer');
+  const canvas = document.getElementById('mapCanvas');
+  const w = canvas.offsetWidth || 600;
+  const h = canvas.offsetHeight || 340;
+
+  pinsContainer.innerHTML = ACTIVE_RENTALS.map((r, i) => {
+    const left = (r.x / 100) * w;
+    const top  = (r.y / 100) * h;
+    const avatarContent = (currentUser && currentUser.avatar && i === 0)
+      ? `<img src="${currentUser.avatar}" alt="${r.customer}">`
+      : `<div class="map-car-bubble-initials" style="background:${r.color}">${r.initials}</div>`;
+    return `
+      <div class="map-car-pin" id="mapPin${i}" style="left:${left}px;top:${top}px">
+        <div style="position:relative">
+          <div class="map-pulse-ring"></div>
+          <div class="map-car-bubble">${avatarContent}</div>
+        </div>
+        <div class="map-car-tail"></div>
+        <div class="map-car-label">${r.vehicle.split(' ').slice(0,2).join(' ')}</div>
+      </div>`;
+  }).join('');
+}
+
+function selectMapPin(idx) {
+  selectedPin = idx;
+  document.querySelectorAll('.map-active-item').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+}
+
+function animateMapCars() {
+  const canvas = document.getElementById('mapCanvas');
+  if (!canvas) return;
+  const w = canvas.offsetWidth || 600;
+  const h = canvas.offsetHeight || 340;
+
+  ACTIVE_RENTALS.forEach((r, i) => {
+    const pin = document.getElementById('mapPin'+i);
+    if (!pin) return;
+    // Move slightly within road areas
+    const dx = (Math.random() - .5) * 12;
+    const dy = (Math.random() - .5) * 6;
+    r.x = Math.max(5, Math.min(95, r.x + dx));
+    r.y = Math.max(5, Math.min(95, r.y + dy));
+    pin.style.left = (r.x / 100) * w + 'px';
+    pin.style.top  = (r.y / 100) * h + 'px';
+  });
+}
+
+/* ─── LOGIN (old reference kept for mobile nav) ──────────── */
+function openLoginModal() { openAuthModal('login'); }
 
 /* ─── MODAL HELPERS ─────────────────────────────────────── */
 function openModal(id) {
@@ -2186,7 +3294,205 @@ function showToast(msg, type = 'info') {
   }, 3500);
 }
 
-/* ─── TESTIMONIAL CAROUSEL ──────────────────────────────── */
+/* ─── PAYMENT SYSTEM ─────────────────────────────────────── */
+let currentPayBookingId = null;
+let selectedPayMethod = 'bca';
+
+// Harga per kendaraan (sesuai VEHICLES array)
+const VEHICLE_PRICES = {
+  'Toyota Avanza': 300000,
+  'Honda Civic': 450000,
+  'Hyundai Ioniq 5': 850000,
+  'Mitsubishi Pajero Sport': 750000,
+  'Wuling Air ev': 350000,
+  'Toyota Innova Zenix': 550000,
+  'Kia EV6': 900000,
+  'Suzuki Ertiga': 280000,
+  'BMW iX': 1400000,
+};
+
+function getVehiclePrice(vehicleStr) {
+  for (const [name, price] of Object.entries(VEHICLE_PRICES)) {
+    if (vehicleStr.startsWith(name)) return price;
+  }
+  return 400000; // default
+}
+
+function getDaysBetween(pickup, ret) {
+  const d1 = new Date(pickup), d2 = new Date(ret);
+  return Math.max(1, Math.round((d2 - d1) / (1000 * 60 * 60 * 24)));
+}
+
+function openPaymentModal(bookingId) {
+  const r = reservations.find(x => x.id === bookingId);
+  if (!r) return;
+
+  currentPayBookingId = bookingId;
+  selectedPayMethod = 'bca';
+
+  // Reset state
+  document.getElementById('payFormWrap').style.display = '';
+  document.getElementById('paySuccessWrap').classList.remove('show');
+  document.getElementById('payFooter').style.display = '';
+  document.getElementById('payBtnText').style.display = '';
+  document.getElementById('payBtnLoading').style.display = 'none';
+
+  // Reset method selection
+  document.querySelectorAll('.payment-method-card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.method === 'bca');
+  });
+  showPayDetail('bca');
+
+  // Calculate amounts
+  const days = getDaysBetween(r.pickup, r.return);
+  const rate = getVehiclePrice(r.vehicle);
+  const subtotal = rate * days;
+  const insurance = Math.round(subtotal * 0.05);
+  const total = subtotal + insurance;
+
+  document.getElementById('payBookingId').textContent = r.id;
+  document.getElementById('payVehicle').textContent   = r.vehicle.split('—')[0].trim();
+  document.getElementById('payPeriod').textContent    = `${formatDate(r.pickup)} – ${formatDate(r.return)}`;
+  document.getElementById('payDays').textContent      = `${days} hari`;
+  document.getElementById('payRate').textContent      = formatRupiah(rate);
+  document.getElementById('paySubtotal').textContent  = formatRupiah(subtotal);
+  document.getElementById('payInsurance').textContent = formatRupiah(insurance);
+  document.getElementById('payTotal').textContent     = formatRupiah(total);
+
+  // Clear input fields
+  ['payAccNumber','payAccName','payWalletPhone','payCardNumber','payCardExpiry','payCardCvv','payCardName']
+    .forEach(id => { const el = document.getElementById(id); if (el) { el.value = ''; el.classList.remove('error'); } });
+
+  openModal('paymentModal');
+}
+
+function selectPayMethod(card) {
+  document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedPayMethod = card.dataset.method;
+  showPayDetail(selectedPayMethod);
+}
+
+function showPayDetail(method) {
+  document.getElementById('payDetailBank').classList.add('hidden');
+  document.getElementById('payDetailWallet').classList.add('hidden');
+  document.getElementById('payDetailQris').classList.add('hidden');
+  document.getElementById('payDetailCard').classList.add('hidden');
+
+  if (method === 'bca' || method === 'mandiri') {
+    document.getElementById('payDetailBank').classList.remove('hidden');
+  } else if (method === 'gopay' || method === 'ovo') {
+    document.getElementById('payDetailWallet').classList.remove('hidden');
+  } else if (method === 'qris') {
+    document.getElementById('payDetailQris').classList.remove('hidden');
+  } else if (method === 'card') {
+    document.getElementById('payDetailCard').classList.remove('hidden');
+  }
+}
+
+function validatePaymentForm() {
+  let valid = true;
+  const mark = (id, ok) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('error', !ok);
+    if (!ok) valid = false;
+  };
+
+  if (selectedPayMethod === 'bca' || selectedPayMethod === 'mandiri') {
+    mark('payAccNumber', document.getElementById('payAccNumber').value.trim().length >= 6);
+    mark('payAccName',   document.getElementById('payAccName').value.trim().length >= 2);
+  } else if (selectedPayMethod === 'gopay' || selectedPayMethod === 'ovo') {
+    const ph = document.getElementById('payWalletPhone').value.trim();
+    mark('payWalletPhone', ph.length >= 10 && /^0[0-9]+$/.test(ph));
+  } else if (selectedPayMethod === 'card') {
+    const num = document.getElementById('payCardNumber').value.replace(/\s/g,'');
+    mark('payCardNumber', num.length >= 16);
+    mark('payCardExpiry', /^\d{2}\/\d{2}$/.test(document.getElementById('payCardExpiry').value));
+    mark('payCardCvv',    document.getElementById('payCardCvv').value.length >= 3);
+    mark('payCardName',   document.getElementById('payCardName').value.trim().length >= 2);
+  }
+  // QRIS: no input needed
+  return valid;
+}
+
+function getPayMethodLabel() {
+  const labels = {
+    bca: 'BCA Virtual Account', mandiri: 'Mandiri Virtual Account',
+    gopay: 'GoPay', ovo: 'OVO',
+    qris: 'QRIS', card: 'Kartu Kredit/Debit',
+  };
+  return labels[selectedPayMethod] || selectedPayMethod;
+}
+
+function processPayment() {
+  if (!validatePaymentForm()) {
+    showToast('Lengkapi detail pembayaran terlebih dahulu', 'error');
+    return;
+  }
+
+  // Show loading
+  document.getElementById('payBtnText').style.display = 'none';
+  document.getElementById('payBtnLoading').style.display = 'flex';
+  document.getElementById('paySubmitBtn').disabled = true;
+
+  // Simulate payment processing (1.5s)
+  setTimeout(() => {
+    const r = reservations.find(x => x.id === currentPayBookingId);
+    if (r) {
+      const today = new Date().toISOString().split('T')[0];
+      r.paymentStatus  = 'paid';
+      r.paymentMethod  = getPayMethodLabel();
+      r.paymentDate    = today;
+      if (r.status === 'Pending') r.status = 'Active';
+    }
+
+    // Show success state
+    document.getElementById('payFormWrap').style.display = 'none';
+    document.getElementById('payFooter').style.display = 'none';
+
+    const days     = getDaysBetween(r.pickup, r.return);
+    const rate     = getVehiclePrice(r.vehicle);
+    const subtotal = rate * days;
+    const insurance = Math.round(subtotal * 0.05);
+    const total    = subtotal + insurance;
+
+    const refCode = 'TXN-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+    document.getElementById('payReceipt').innerHTML = `
+      <div class="pay-receipt-row"><span class="lbl">Booking ID</span><span class="val">${r.id}</span></div>
+      <div class="pay-receipt-row"><span class="lbl">Kendaraan</span><span class="val">${r.vehicle.split('—')[0].trim()}</span></div>
+      <div class="pay-receipt-row"><span class="lbl">Metode</span><span class="val">${getPayMethodLabel()}</span></div>
+      <div class="pay-receipt-row"><span class="lbl">Durasi</span><span class="val">${days} hari</span></div>
+      <div class="pay-receipt-row" style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px">
+        <span class="lbl" style="font-weight:700">Total Dibayar</span>
+        <span class="val" style="color:var(--green);font-size:16px">${formatRupiah(total)}</span>
+      </div>
+      <div class="pay-receipt-row"><span class="lbl">Kode Transaksi</span><span class="val" style="font-size:11px;color:var(--text-muted)">${refCode}</span></div>
+    `;
+    document.getElementById('paySuccessWrap').classList.add('show');
+
+    renderTable();
+    showToast(`Pembayaran ${r.id} berhasil! ✓`, 'success');
+
+    // Reset button state
+    document.getElementById('payBtnLoading').style.display = 'none';
+    document.getElementById('payBtnText').style.display = '';
+    document.getElementById('paySubmitBtn').disabled = false;
+  }, 1500);
+}
+
+function formatCardNumber(el) {
+  let v = el.value.replace(/\D/g, '').slice(0, 16);
+  el.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+
+function formatExpiry(el) {
+  let v = el.value.replace(/\D/g, '').slice(0, 4);
+  if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+  el.value = v;
+}
+
+
 let testiIndex = 0;
 function testiSlide(dir) {
   const track = document.getElementById('testiTrack');
