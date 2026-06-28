@@ -1,0 +1,3573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DriveIQ — Sewa mobil premium konvensional dan listrik dengan harga transparan dan konfirmasi booking instan. Tersedia di 50+ kota di Indonesia.">
+<meta property="og:title" content="DriveIQ — Rent Smart, Drive Free">
+<meta property="og:description" content="Sewa mobil premium konvensional dan listrik dengan harga transparan dan booking instan di 50+ kota Indonesia.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1E3A5F">
+<title>DriveIQ — Rent Smart, Drive Free</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --primary:       #1E3A5F;
+  --primary-hover: #16304D;
+  --secondary:     #4A90E2;
+  --accent:        #FF8A00;
+  --accent-hover:  #E07A00;
+  --bg:            #F8FAFC;
+  --white:         #FFFFFF;
+  --border:        #E5E7EB;
+  --text:          #111827;
+  --text-muted:    #6B7280;
+  --green:         #059669;
+  --green-bg:      #D1FAE5;
+  --radius-sm:     8px;
+  --radius-md:     12px;
+  --radius-lg:     16px;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:     0 4px 12px rgba(0,0,0,.10);
+  --shadow-lg:     0 8px 32px rgba(0,0,0,.12);
+  --max-w:         1200px;
+  --nav-h:         72px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+ul { list-style: none; }
+
+/* Aksesibilitas keyboard: tampilkan focus ring yang jelas */
+:focus-visible {
+  outline: 3px solid var(--secondary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+.section { padding: 80px 0; }
+
+/* scroll-margin-top agar section tidak tertutup navbar saat scrollIntoView */
+section[id], footer[id] {
+  scroll-margin-top: var(--nav-h);
+}
+
+.section-label {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--secondary); margin-bottom: 12px;
+}
+.section-title { font-size: 36px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 16px; }
+.section-sub { font-size: 16px; color: var(--text-muted); max-width: 560px; }
+.flex { display: flex; }
+.grid { display: grid; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; font-weight: 600; font-size: 15px;
+  border-radius: var(--radius-sm); padding: 12px 24px;
+  min-height: 48px; transition: all .18s ease;
+}
+.btn-primary   { background: var(--accent); color: var(--white); }
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-outline   { border: 1.5px solid var(--primary); color: var(--primary); }
+.btn-outline:hover { background: var(--primary); color: var(--white); }
+.btn-ghost     { color: var(--primary); font-size: 14px; }
+.btn-ghost:hover { text-decoration: underline; }
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
+}
+.badge-ev   { background: var(--green-bg); color: var(--green); }
+.badge-pop  { background: #DBEAFE; color: #1D4ED8; }
+.badge-new  { background: #FEF3C7; color: #D97706; }
+.tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 13px; color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 4px 10px;
+}
+.star-filled { color: #F59E0B; }
+.hidden { display: none !important; }
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position: sticky; top: 0; z-index: 1000;
+  height: var(--nav-h); background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.navbar .container {
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 800; font-size: 20px; color: var(--primary);
+}
+.nav-logo-icon {
+  width: 36px; height: 36px; background: var(--primary);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-icon svg { color: var(--white); }
+/* PERBAIKAN: Gunakan <div> bukan <nav> bersarang di dalam <nav> */
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links a {
+  font-size: 14px; font-weight: 500; color: var(--text-muted);
+  padding: 8px 12px; border-radius: var(--radius-sm);
+  transition: color .15s, background .15s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--primary); background: var(--bg); }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.nav-actions .btn-outline { padding: 8px 18px; min-height: 40px; font-size: 14px; }
+.nav-actions .btn-primary { padding: 8px 18px; min-height: 40px; font-size: 14px; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px; padding: 6px;
+  border-radius: var(--radius-sm);
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--text); border-radius: 2px; transition: all .2s;
+}
+/* Animasi hamburger → X saat menu terbuka */
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none; position: fixed; inset: var(--nav-h) 0 0 0;
+  background: var(--white); z-index: 999; padding: 24px;
+  flex-direction: column; gap: 8px;
+  border-top: 1px solid var(--border);
+  overflow-y: auto;
+}
+.mobile-nav a {
+  font-size: 16px; font-weight: 500; color: var(--text);
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  display: block;
+}
+.mobile-nav a:hover { background: var(--bg); }
+.mobile-nav.open { display: flex; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #2a5298 60%, #1a4080 100%);
+  padding: 80px 0 60px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.hero .container { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero-content { color: var(--white); }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,.9); margin-bottom: 24px;
+}
+.hero-eyebrow .dot { width: 6px; height: 6px; background: #4ADE80; border-radius: 999px; flex-shrink: 0; }
+.hero h1 {
+  font-size: 48px; font-weight: 800; line-height: 1.1;
+  margin-bottom: 16px; letter-spacing: -.02em;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero p { font-size: 18px; color: rgba(255,255,255,.75); margin-bottom: 32px; line-height: 1.6; }
+.trust-badges { display: flex; gap: 20px; flex-wrap: wrap; }
+.trust-badge {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,.85);
+}
+.trust-badge svg { color: #4ADE80; flex-shrink: 0; }
+
+/* Search Form Card */
+.search-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg); padding: 32px; width: 100%;
+}
+.search-card h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1/-1; }
+.form-label { font-size: 13px; font-weight: 600; color: var(--text); }
+.form-input {
+  height: 48px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 14px; font-size: 15px; color: var(--text); background: var(--white);
+  transition: border-color .15s, box-shadow .15s;
+  width: 100%;
+}
+.form-input:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(74,144,226,.15); }
+.form-input.error { border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220,38,38,.12); }
+.search-card .btn-primary { width: 100%; font-size: 16px; border-radius: var(--radius-sm); }
+
+/* Hero visual */
+.hero-visual {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.hero-car-wrap {
+  width: 100%; aspect-ratio: 16/10;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius-lg);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+.hero-car-svg { width: 90%; }
+.hero-float {
+  position: absolute; background: var(--white); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg); padding: 12px 16px; font-size: 13px; font-weight: 600;
+  animation: floatBob 3s ease-in-out infinite alternate;
+}
+.hero-float.top-right { top: 16px; right: 16px; color: var(--green); display: flex; align-items: center; gap: 6px; }
+.hero-float.bottom-left { bottom: 16px; left: 16px; color: var(--text); animation-delay: 1.5s; }
+.hero-float.bottom-left span { color: var(--text-muted); font-weight: 400; font-size: 12px; }
+
+@keyframes floatBob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
+}
+
+/* ============================================================
+   VEHICLE SEARCH (CATALOG)
+   ============================================================ */
+.catalog-section { background: var(--bg); }
+.catalog-layout { display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: start; }
+
+/* Filter Panel */
+.filter-panel {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); overflow: hidden;
+  position: sticky; top: calc(var(--nav-h) + 16px);
+}
+.filter-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.filter-header h4 { font-size: 15px; font-weight: 700; }
+.filter-clear { font-size: 13px; font-weight: 500; color: var(--secondary); cursor: pointer; background: none; border: none; }
+.filter-clear:hover { text-decoration: underline; }
+.filter-group { border-bottom: 1px solid var(--border); }
+.filter-group-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; font-size: 14px; font-weight: 600; color: var(--text);
+  background: none; border: none; cursor: pointer;
+  transition: background .12s;
+}
+.filter-group-toggle:hover { background: var(--bg); }
+.filter-group-toggle svg { transition: transform .2s; color: var(--text-muted); }
+.filter-group-toggle.collapsed svg { transform: rotate(-90deg); }
+.filter-body { padding: 4px 20px 16px; display: flex; flex-direction: column; gap: 8px; }
+.filter-body.hidden { display: none; }
+.filter-option {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--text); cursor: pointer;
+  padding: 4px 0;
+}
+.filter-option input[type="checkbox"], .filter-option input[type="radio"] {
+  width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0;
+}
+.filter-option:hover { color: var(--primary); }
+.price-range-wrap { padding: 0 20px 16px; }
+.price-range-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+input[type="range"] { width: 100%; accent-color: var(--primary); }
+.filter-mobile-btn { display: none; }
+
+/* Catalog Right */
+.catalog-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+}
+.catalog-toolbar h3 { font-size: 18px; font-weight: 700; }
+.catalog-toolbar span { font-size: 14px; color: var(--text-muted); margin-left: 8px; }
+.catalog-sort {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 500; color: var(--text-muted);
+}
+.catalog-sort select {
+  height: 40px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 12px; font-size: 14px; color: var(--text); background: var(--white);
+}
+.catalog-sort select:focus { outline: none; border-color: var(--secondary); }
+.vehicle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+/* Vehicle Card */
+.vehicle-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  overflow: hidden; transition: box-shadow .2s, transform .2s;
+  display: flex; flex-direction: column;
+}
+.vehicle-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.vehicle-card-img {
+  position: relative; aspect-ratio: 16/9; overflow: hidden;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.vehicle-card-img svg { width: 75%; opacity: .7; }
+.vehicle-card-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.card-badges { position: absolute; top: 10px; left: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.vehicle-card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.vehicle-card-name { font-size: 16px; font-weight: 700; color: var(--text); }
+.vehicle-card-cat { font-size: 13px; color: var(--text-muted); }
+.vehicle-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.vehicle-card-footer {
+  padding: 14px 16px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.vehicle-price { font-size: 20px; font-weight: 800; color: var(--primary); }
+.vehicle-price sub { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+.vehicle-rating { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; }
+.vehicle-card-action { padding: 0 16px 16px; }
+.vehicle-card-action .btn { width: 100%; font-size: 14px; }
+
+/* Pagination */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 40px; }
+.page-btn {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; border: 1.5px solid var(--border);
+  background: var(--white); color: var(--text); cursor: pointer;
+  transition: all .15s;
+}
+.page-btn:hover, .page-btn.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+
+/* ============================================================
+   FEATURED EV SECTION
+   ============================================================ */
+.ev-section {
+  background: linear-gradient(135deg, #0A2540 0%, #1E3A5F 100%);
+  padding: 80px 0; position: relative; overflow: hidden;
+  color: var(--white);
+}
+.ev-section::after {
+  content: ''; position: absolute; right: -100px; top: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(74,144,226,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ev-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.ev-label { color: #4ADE80; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+.ev-title { font-size: 36px; font-weight: 800; line-height: 1.15; margin-bottom: 20px; letter-spacing: -.02em; }
+.ev-title em { font-style: normal; color: #4ADE80; }
+.ev-desc { font-size: 16px; color: rgba(255,255,255,.7); margin-bottom: 32px; line-height: 1.7; }
+.ev-benefits { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+.ev-benefit { display: flex; align-items: flex-start; gap: 14px; }
+.ev-benefit-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(74,222,128,.15); border: 1px solid rgba(74,222,128,.3);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  color: #4ADE80;
+}
+.ev-benefit-text h5 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.ev-benefit-text p { font-size: 13px; color: rgba(255,255,255,.6); }
+.ev-visual-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius-lg); padding: 28px; position: relative;
+}
+.ev-car-icon { margin: 0 auto 20px; width: 100%; aspect-ratio: 16/8; }
+.ev-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ev-stat { text-align: center; padding: 16px; background: rgba(255,255,255,.05); border-radius: var(--radius-md); }
+.ev-stat-val { font-size: 24px; font-weight: 800; color: #4ADE80; }
+.ev-stat-label { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 2px; }
+
+/* ============================================================
+   CARBON CALCULATOR
+   ============================================================ */
+.calc-section { background: var(--white); }
+.calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.calc-card {
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg); padding: 32px;
+}
+.calc-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 24px; }
+.calc-fields { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+.calc-slider-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.calc-slider-label span:first-child { font-size: 14px; font-weight: 600; }
+.calc-slider-label span:last-child { font-size: 15px; font-weight: 700; color: var(--primary); }
+input[type="range"] { width: 100%; height: 4px; border-radius: 2px; cursor: pointer; }
+.calc-result {
+  background: linear-gradient(135deg, #059669, #10b981);
+  border-radius: var(--radius-md); padding: 24px; color: var(--white);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+}
+.calc-co2 { font-size: 48px; font-weight: 800; line-height: 1; }
+.calc-co2-unit { font-size: 16px; opacity: .8; margin-top: 4px; }
+.calc-co2-label { font-size: 13px; opacity: .7; margin-top: 8px; }
+.calc-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; width: 100%; }
+.calc-break-item {
+  background: rgba(255,255,255,.15); border-radius: var(--radius-sm);
+  padding: 12px; text-align: center;
+}
+.calc-break-val { font-size: 20px; font-weight: 700; }
+.calc-break-label { font-size: 11px; opacity: .7; margin-top: 2px; }
+.calc-info { padding: 20px; }
+.calc-info h3 { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
+.calc-info p { font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+.calc-facts { display: flex; flex-direction: column; gap: 14px; }
+.calc-fact { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-muted); }
+.calc-fact-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--green); flex-shrink: 0; }
+
+/* ============================================================
+   WHY CHOOSE US
+   ============================================================ */
+.why-section { background: var(--bg); }
+.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+.why-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px; transition: box-shadow .2s, transform .2s;
+}
+.why-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.why-icon {
+  width: 52px; height: 52px; border-radius: 12px;
+  background: #EFF6FF; display: flex; align-items: center; justify-content: center;
+  color: var(--secondary); margin-bottom: 20px;
+}
+.why-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* ============================================================
+   BOOKING FLOW STEPPER
+   ============================================================ */
+.booking-section { background: var(--white); }
+.stepper { display: flex; align-items: center; justify-content: center; gap: 0; margin: 48px 0 0; }
+.step-item { display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; flex: 1; }
+.step-item:not(:last-child)::after {
+  content: ''; position: absolute; top: 24px; left: calc(50% + 24px);
+  right: calc(-50% + 24px); height: 2px;
+  background: var(--border);
+}
+.step-item.done::after, .step-item.active::after { background: var(--secondary); }
+.step-circle {
+  width: 48px; height: 48px; border-radius: 999px;
+  border: 2px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: var(--text-muted);
+  position: relative; z-index: 1;
+  transition: all .2s;
+}
+.step-item.done .step-circle { background: var(--primary); border-color: var(--primary); color: var(--white); }
+.step-item.active .step-circle { background: var(--secondary); border-color: var(--secondary); color: var(--white); box-shadow: 0 0 0 4px rgba(74,144,226,.2); }
+.step-label { font-size: 13px; font-weight: 600; color: var(--text-muted); text-align: center; }
+.step-item.active .step-label { color: var(--primary); }
+
+/* ============================================================
+   RESERVATION DASHBOARD
+   ============================================================ */
+.dashboard-section { background: var(--bg); }
+.dashboard-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.dashboard-header {
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.dashboard-header h4 { font-size: 17px; font-weight: 700; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead { background: var(--bg); }
+th {
+  text-align: left; padding: 12px 16px;
+  font-size: 12px; font-weight: 700; color: var(--text-muted);
+  letter-spacing: .05em; text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--bg); }
+.status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 3px 10px;
+  border-radius: 999px;
+}
+/* PERBAIKAN: gunakan titik CSS, bukan emoji, untuk aksesibilitas screen reader */
+.status-dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; flex-shrink: 0;
+}
+.status-active   { background: #D1FAE5; color: #065F46; }
+.status-active .status-dot   { background: #059669; }
+.status-pending  { background: #FEF3C7; color: #92400E; }
+.status-pending .status-dot  { background: #D97706; }
+.status-done     { background: #E0E7FF; color: #3730A3; }
+.status-done .status-dot     { background: #6366F1; }
+.status-canceled { background: #FEE2E2; color: #991B1B; }
+.status-canceled .status-dot { background: #DC2626; }
+.action-btns { display: flex; gap: 6px; }
+.action-btn {
+  width: 32px; height: 32px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .12s, color .12s; cursor: pointer; border: none;
+  background: none; color: var(--text-muted);
+}
+/* PERBAIKAN: selektor CSS yang benar */
+.action-btn.view:hover  { background: #DBEAFE; color: #1D4ED8; }
+.action-btn.edit:hover  { background: #D1FAE5; color: #065F46; }
+.action-btn.del:hover   { background: #FEE2E2; color: #991B1B; }
+.table-search-bar {
+  padding: 16px 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+}
+.table-search {
+  flex: 1; min-width: 200px; height: 40px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 14px; font-size: 14px;
+  transition: border-color .15s;
+}
+.table-search:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(74,144,226,.15); }
+.table-filter {
+  height: 40px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 12px; font-size: 14px; background: var(--white); color: var(--text);
+  transition: border-color .15s;
+}
+.table-filter:focus { outline: none; border-color: var(--secondary); }
+.empty-state { padding: 48px; text-align: center; color: var(--text-muted); }
+.empty-state svg { margin: 0 auto 16px; opacity: .3; }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.45);
+  z-index: 9000; display: none; align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white); border-radius: var(--radius-lg);
+  width: 100%; max-width: 560px; box-shadow: var(--shadow-lg);
+  max-height: 90vh; overflow-y: auto;
+  animation: modalSlideIn .2s ease;
+}
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-header {
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; background: var(--white); z-index: 1;
+}
+.modal-header h5 { font-size: 17px; font-weight: 700; }
+.modal-close {
+  width: 32px; height: 32px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg); cursor: pointer; color: var(--text-muted);
+  border: none; transition: background .12s;
+}
+.modal-close:hover { background: var(--border); }
+.modal-body { padding: 24px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 12px; justify-content: flex-end; }
+.modal-fields { display: flex; flex-direction: column; gap: 16px; }
+.modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* View Modal Rows */
+.view-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.view-row:last-child { border-bottom: none; }
+.view-row-label { font-weight: 600; color: var(--text-muted); }
+.view-row-val { color: var(--text); font-weight: 500; }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testimonials-section { background: var(--white); }
+.testi-wrap { position: relative; overflow: hidden; }
+.testi-track { display: flex; gap: 24px; transition: transform .4s ease; }
+.testi-card {
+  min-width: calc(33.333% - 16px); background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px; flex-shrink: 0;
+}
+.testi-stars { font-size: 18px; margin-bottom: 16px; letter-spacing: 2px; color: #F59E0B; }
+.testi-text { font-size: 15px; color: var(--text); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--white); flex-shrink: 0;
+}
+.testi-name { font-size: 14px; font-weight: 700; }
+.testi-role { font-size: 12px; color: var(--text-muted); }
+.testi-controls { display: flex; gap: 12px; margin-top: 28px; justify-content: center; }
+.testi-btn {
+  width: 44px; height: 44px; border-radius: 999px;
+  border: 1.5px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .15s; color: var(--text-muted);
+}
+.testi-btn:hover { background: var(--primary); color: var(--white); border-color: var(--primary); }
+
+/* ============================================================
+   STATISTICS
+   ============================================================ */
+.stats-section {
+  background: var(--primary); padding: 60px 0;
+}
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+.stat-item { text-align: center; color: var(--white); }
+.stat-num { font-size: 48px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.stat-num span { color: var(--accent); }
+.stat-label { font-size: 15px; color: rgba(255,255,255,.65); margin-top: 6px; font-weight: 500; }
+
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+.cta-section {
+  background: linear-gradient(135deg, #1E3A5F 0%, #2a5298 100%);
+  padding: 80px 0; text-align: center; color: var(--white);
+}
+.cta-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 16px; }
+.cta-section p { font-size: 18px; color: rgba(255,255,255,.7); margin-bottom: 32px; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-white { background: var(--white); color: var(--primary); font-weight: 700; }
+.btn-white:hover { background: var(--bg); }
+.btn-outline-white { border: 2px solid rgba(255,255,255,.5); color: var(--white); font-weight: 600; }
+.btn-outline-white:hover { background: rgba(255,255,255,.1); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer { background: #0F1F35; color: rgba(255,255,255,.7); padding: 60px 0 24px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand p { font-size: 14px; line-height: 1.7; margin: 12px 0 20px; }
+.footer-socials { display: flex; gap: 10px; }
+.social-icon {
+  width: 36px; height: 36px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.7); transition: background .15s, color .15s;
+}
+.social-icon:hover { background: var(--secondary); color: var(--white); }
+.footer-col h5 { font-size: 13px; font-weight: 700; color: var(--white); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 14px; transition: color .15s; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: 24px; display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px; font-size: 13px;
+}
+.footer-bottom a { color: rgba(255,255,255,.5); }
+.footer-bottom a:hover { color: var(--white); }
+.footer-logo { color: var(--white); font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast-wrap {
+  position: fixed; bottom: 24px; right: 24px; z-index: 99999;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.toast {
+  background: var(--text); color: var(--white); border-radius: var(--radius-md);
+  padding: 12px 18px; font-size: 14px; font-weight: 500;
+  box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px;
+  transform: translateX(120%); transition: transform .25s ease;
+  max-width: 340px;
+}
+.toast.show { transform: translateX(0); }
+.toast.success { background: var(--green); }
+.toast.error   { background: #DC2626; }
+.toast.info    { background: var(--secondary); }
+
+/* ============================================================
+   SECTION HEADER CENTER
+   ============================================================ */
+.section-header-center { text-align: center; margin-bottom: 48px; }
+.section-header-center .section-sub { margin: 0 auto; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .vehicle-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+@media (max-width: 900px) {
+  .hero .container { grid-template-columns: 1fr; gap: 32px; }
+  .hero h1 { font-size: 36px; }
+  .catalog-layout { grid-template-columns: 1fr; }
+  .filter-panel {
+    display: none; position: fixed; inset: 0; top: var(--nav-h);
+    z-index: 500; border-radius: 0; overflow-y: auto;
+  }
+  .filter-panel.mobile-open { display: block; }
+  .filter-mobile-btn { display: flex; }
+  .ev-layout { grid-template-columns: 1fr; }
+  .calc-wrap { grid-template-columns: 1fr; }
+  .stepper { flex-wrap: wrap; gap: 24px; }
+  .step-item::after { display: none; }
+  .testi-card { min-width: calc(50% - 12px); }
+}
+@media (max-width: 640px) {
+  .section { padding: 56px 0; }
+  .hero h1 { font-size: 30px; }
+  .section-title { font-size: 28px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .nav-actions .btn-outline { display: none; }
+  .vehicle-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .stat-num { font-size: 36px; }
+  .testi-card { min-width: 90%; }
+  .form-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .modal-row { grid-template-columns: 1fr; }
+  .ev-stats { grid-template-columns: 1fr 1fr; }
+  .cta-section h2 { font-size: 28px; }
+  .calc-info { padding: 0; }
+}
+
+/* Hentikan animasi untuk pengguna yang minta reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .testi-track { transition: none; }
+}
+
+/* ============================================================
+   PAYMENT MODAL STYLES
+   ============================================================ */
+.payment-summary {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+.payment-summary-title {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--text-muted); margin-bottom: 12px;
+}
+.payment-summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px; padding: 4px 0;
+}
+.payment-summary-row.total {
+  border-top: 1px solid var(--border); margin-top: 10px; padding-top: 12px;
+  font-size: 18px; font-weight: 800; color: var(--primary);
+}
+.payment-summary-row .label { color: var(--text-muted); }
+.payment-summary-row .val   { font-weight: 600; color: var(--text); }
+.payment-summary-row.total .val { color: var(--primary); }
+
+.payment-methods {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;
+}
+.payment-method-card {
+  border: 2px solid var(--border); border-radius: var(--radius-md);
+  padding: 12px 14px; cursor: pointer; transition: border-color .15s, background .15s;
+  display: flex; align-items: center; gap: 10px; background: var(--white);
+}
+.payment-method-card:hover { border-color: var(--secondary); background: #f0f7ff; }
+.payment-method-card.selected { border-color: var(--primary); background: #EFF6FF; }
+.payment-method-icon {
+  width: 38px; height: 38px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 18px;
+}
+.payment-method-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.payment-method-sub  { font-size: 11px; color: var(--text-muted); }
+
+.payment-detail-fields { margin-bottom: 16px; }
+.payment-card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.payment-status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+}
+.payment-status-badge.paid     { background: #D1FAE5; color: #059669; }
+.payment-status-badge.unpaid   { background: #FEF3C7; color: #D97706; }
+.payment-status-badge.refunded { background: #E0E7FF; color: #4338CA; }
+
+.pay-btn-loading { display: none; align-items: center; gap: 8px; }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4);
+  border-top-color: white; border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+/* Payment success animation */
+.pay-success-overlay {
+  display: none; flex-direction: column; align-items: center;
+  justify-content: center; padding: 32px 20px; text-align: center;
+}
+.pay-success-overlay.show { display: flex; }
+.pay-success-icon {
+  width: 72px; height: 72px; border-radius: 999px; background: var(--green-bg);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  animation: popIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.pay-success-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.pay-success-sub   { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+.pay-receipt {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 14px 18px; width: 100%; margin-bottom: 20px; text-align: left;
+}
+.pay-receipt-row {
+  display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0;
+}
+.pay-receipt-row .lbl { color: var(--text-muted); }
+.pay-receipt-row .val { font-weight: 600; color: var(--text); }
+
+.action-btn.pay {
+  background: #FEF3C7; color: #D97706; border: 1px solid #FDE68A;
+}
+.action-btn.pay:hover { background: #FDE68A; }
+.action-btn.paid-done {
+  background: var(--green-bg); color: var(--green); border: 1px solid #A7F3D0;
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .payment-methods { grid-template-columns: 1fr; }
+  .payment-card-row { grid-template-columns: 1fr; }
+}
+
+/* Active nav link highlight on scroll */
+.nav-links a.active { color: var(--primary); }
+
+/* ============================================================
+   CS FLOATING BUTTON
+   ============================================================ */
+.cs-fab {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9990;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+}
+.cs-fab-btn {
+  width: 56px; height: 56px; border-radius: 999px;
+  background: var(--green); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(5,150,105,.4);
+  border: none; cursor: pointer; transition: transform .2s, box-shadow .2s;
+  position: relative;
+}
+.cs-fab-btn:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(5,150,105,.5); }
+.cs-fab-pulse {
+  position: absolute; top: -2px; right: -2px;
+  width: 14px; height: 14px; border-radius: 999px;
+  background: #FF8A00; border: 2px solid white;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: .7; }
+}
+.cs-tooltip {
+  background: var(--text); color: var(--white);
+  font-size: 13px; font-weight: 600; padding: 8px 14px;
+  border-radius: var(--radius-sm); white-space: nowrap;
+  opacity: 0; transform: translateX(8px);
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+.cs-fab:hover .cs-tooltip { opacity: 1; transform: translateX(0); }
+.cs-fab-menu {
+  display: flex; flex-direction: column; gap: 10px;
+  align-items: flex-end;
+  max-height: 0; overflow: hidden;
+  transition: max-height .3s ease;
+}
+.cs-fab-menu.open { max-height: 300px; }
+.cs-fab-option {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--white); border-radius: 999px;
+  padding: 10px 18px; font-size: 13px; font-weight: 600;
+  color: var(--text); box-shadow: var(--shadow-md);
+  border: none; cursor: pointer;
+  transition: background .15s, transform .15s;
+  white-space: nowrap;
+}
+.cs-fab-option:hover { background: var(--bg); transform: translateX(-2px); }
+.cs-fab-option svg { flex-shrink: 0; color: var(--primary); }
+
+/* ============================================================
+   SIGN UP MODAL EXTRA FIELDS
+   ============================================================ */
+.signup-avatar-wrap {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 4px;
+}
+.signup-avatar-preview {
+  width: 64px; height: 64px; border-radius: 999px;
+  background: var(--primary); display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700; color: var(--white);
+  flex-shrink: 0; overflow: hidden; border: 3px solid var(--border);
+}
+.signup-avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
+.signup-avatar-btn {
+  font-size: 13px; font-weight: 600; color: var(--secondary);
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.signup-avatar-btn:hover { text-decoration: underline; }
+.auth-tabs {
+  display: flex; border-bottom: 1px solid var(--border); margin-bottom: 20px;
+}
+.auth-tab {
+  flex: 1; padding: 12px; font-size: 14px; font-weight: 600;
+  background: none; border: none; cursor: pointer; color: var(--text-muted);
+  border-bottom: 2px solid transparent; transition: color .15s, border-color .15s;
+}
+.auth-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+/* ============================================================
+   NAV USER ACCOUNT
+   ============================================================ */
+.nav-user {
+  position: relative; display: flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.nav-avatar {
+  width: 36px; height: 36px; border-radius: 999px;
+  background: var(--primary); display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--white);
+  overflow: hidden; border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+.nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.nav-user-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.nav-user-dropdown {
+  position: absolute; top: calc(100% + 10px); right: 0;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+  min-width: 200px; z-index: 5000; padding: 8px;
+  display: none;
+}
+.nav-user-dropdown.open { display: block; }
+.nav-user-dropdown-header {
+  padding: 10px 12px 12px; border-bottom: 1px solid var(--border); margin-bottom: 6px;
+}
+.nav-user-dropdown-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.nav-user-dropdown-email { font-size: 12px; color: var(--text-muted); }
+.nav-dropdown-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; font-size: 14px; font-weight: 500; color: var(--text);
+  border-radius: var(--radius-sm); cursor: pointer; background: none; border: none;
+  width: 100%; text-align: left; transition: background .12s;
+}
+.nav-dropdown-item:hover { background: var(--bg); }
+.nav-dropdown-item.danger { color: #DC2626; }
+.nav-dropdown-item svg { color: var(--text-muted); flex-shrink: 0; }
+.nav-dropdown-item.danger svg { color: #DC2626; }
+
+/* ============================================================
+   MINI MAP TRACKER
+   ============================================================ */
+.map-tracker-section { background: var(--white); border-top: 1px solid var(--border); }
+.map-tracker-wrap {
+  display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start;
+}
+.map-canvas-wrap {
+  position: relative; background: #e8f0f8;
+  border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 16/9; min-height: 320px;
+}
+.map-road-svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+.map-car-pin {
+  position: absolute; display: flex; flex-direction: column; align-items: center;
+  transform: translate(-50%, -100%);
+  transition: left 2s cubic-bezier(.4,0,.2,1), top 2s cubic-bezier(.4,0,.2,1);
+  z-index: 10;
+}
+.map-car-bubble {
+  background: var(--white); border: 2px solid var(--primary);
+  border-radius: 999px; width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md); overflow: hidden;
+  font-size: 15px; font-weight: 700; color: var(--white);
+}
+.map-car-bubble img { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; }
+.map-car-bubble-initials {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+}
+.map-car-tail {
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--primary);
+  margin-top: -1px;
+}
+.map-car-label {
+  margin-top: 4px; font-size: 11px; font-weight: 700;
+  background: var(--primary); color: var(--white);
+  padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+}
+.map-pulse-ring {
+  position: absolute; width: 60px; height: 60px;
+  border-radius: 999px; background: rgba(30,58,95,.15);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  animation: mapPulse 2s ease-out infinite;
+}
+@keyframes mapPulse {
+  0% { transform: translate(-50%,-50%) scale(.6); opacity: .8; }
+  100% { transform: translate(-50%,-50%) scale(1.8); opacity: 0; }
+}
+.map-sidebar {
+  background: var(--bg); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); overflow: hidden;
+}
+.map-sidebar-head {
+  padding: 16px 20px; background: var(--primary); color: var(--white);
+  font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; gap: 8px;
+}
+.map-active-list { padding: 12px; display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; }
+.map-active-item {
+  background: var(--white); border-radius: var(--radius-md);
+  border: 1px solid var(--border); padding: 12px 14px;
+  display: flex; gap: 12px; align-items: center;
+  cursor: pointer; transition: box-shadow .15s, border-color .15s;
+}
+.map-active-item:hover, .map-active-item.selected { border-color: var(--secondary); box-shadow: 0 0 0 2px rgba(74,144,226,.15); }
+.map-item-avatar {
+  width: 38px; height: 38px; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--white);
+  flex-shrink: 0; overflow: hidden;
+}
+.map-item-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; }
+.map-item-info { flex: 1; min-width: 0; }
+.map-item-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.map-item-car { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.map-item-loc { font-size: 11px; color: var(--green); font-weight: 600; margin-top: 2px; }
+.map-item-status { width: 8px; height: 8px; border-radius: 999px; background: var(--green); flex-shrink: 0; }
+.map-badge-live {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; color: var(--green);
+  background: var(--green-bg); padding: 3px 10px; border-radius: 999px;
+}
+.map-badge-live .dot-live {
+  width: 6px; height: 6px; border-radius: 999px; background: var(--green);
+  animation: pulse 1.5s infinite;
+}
+.map-no-login {
+  padding: 40px 20px; text-align: center; color: var(--text-muted);
+}
+.map-no-login svg { margin: 0 auto 12px; opacity: .3; }
+
+@media (max-width: 900px) {
+  .map-tracker-wrap { grid-template-columns: 1fr; }
+  .map-canvas-wrap { aspect-ratio: 4/3; min-height: 260px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Region untuk pengumuman dinamis (aksesibilitas screen reader) -->
+<div aria-live="polite" aria-atomic="true" class="hidden" id="liveRegion"></div>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav class="navbar" id="navbar" aria-label="Navigasi utama">
+  <div class="container">
+    <a href="#home" class="nav-logo" aria-label="DriveIQ — Halaman utama">
+      <div class="nav-logo-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+      </div>
+      DriveIQ
+    </a>
+    <!-- PERBAIKAN: Gunakan <div> bukan <nav> bersarang -->
+    <div class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#vehicles">Vehicles</a>
+      <a href="#ev-rental">EV Rental</a>
+      <a href="#tracker">Tracker</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-outline" id="navLoginBtn" onclick="openAuthModal('login')">Login</button>
+      <div class="nav-user hidden" id="navUser" onclick="toggleUserDropdown()">
+        <div class="nav-avatar" id="navAvatar">
+          <span id="navAvatarInitials">?</span>
+        </div>
+        <span class="nav-user-name" id="navUserName"></span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--text-muted)"><polyline points="6 9 12 15 18 9"/></svg>
+        <div class="nav-user-dropdown" id="navUserDropdown">
+          <div class="nav-user-dropdown-header">
+            <div class="nav-user-dropdown-name" id="dropdownName"></div>
+            <div class="nav-user-dropdown-email" id="dropdownEmail"></div>
+          </div>
+          <button class="nav-dropdown-item" onclick="openProfileModal();event.stopPropagation()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Edit Profile
+          </button>
+          <button class="nav-dropdown-item" onclick="document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});event.stopPropagation()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            My Reservations
+          </button>
+          <button class="nav-dropdown-item danger" onclick="handleLogout();event.stopPropagation()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+          </button>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/></svg>
+        Rent Now
+      </button>
+      <button
+        class="hamburger"
+        onclick="toggleMobileNav()"
+        id="hamburger"
+        aria-label="Buka menu navigasi"
+        aria-expanded="false"
+        aria-controls="mobileNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav" id="mobileNav" aria-label="Navigasi mobile">
+  <a href="#home" onclick="toggleMobileNav()">Home</a>
+  <a href="#vehicles" onclick="toggleMobileNav()">Vehicles</a>
+  <a href="#ev-rental" onclick="toggleMobileNav()">EV Rental</a>
+  <a href="#tracker" onclick="toggleMobileNav()">Tracker</a>
+  <a href="#pricing" onclick="toggleMobileNav()">Pricing</a>
+  <a href="#about" onclick="toggleMobileNav()">About</a>
+  <a href="#contact" onclick="toggleMobileNav()">Contact</a>
+  <button class="btn btn-primary" style="margin-top:8px" onclick="toggleMobileNav();openAuthModal('login')">Login / Register</button>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot" aria-hidden="true"></span>
+        Now available in 50+ cities across Indonesia
+      </div>
+      <h1>Rent Your <em>Perfect Car</em><br>Anytime, Anywhere</h1>
+      <p>Premium conventional and electric vehicles with transparent pricing and instant booking confirmation.</p>
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          Verified Vehicles
+        </div>
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Secure Payment
+        </div>
+        <div class="trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          10,000+ Customers
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Card -->
+    <div class="search-card" role="search" aria-label="Cari kendaraan">
+      <h3>Find Your Ideal Car</h3>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label class="form-label" for="heroLocation">Pickup Location</label>
+          <select class="form-input" id="heroLocation" name="location" autocomplete="address-level2">
+            <option value="">Select city…</option>
+            <option>Jakarta</option>
+            <option>Bandung</option>
+            <option>Surabaya</option>
+            <option>Yogyakarta</option>
+            <option>Bali</option>
+            <option>Medan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="heroPickup">Pickup Date</label>
+          <input type="date" class="form-input" id="heroPickup" name="pickup" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="heroReturn">Return Date</label>
+          <input type="date" class="form-input" id="heroReturn" name="return" autocomplete="off">
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="heroType">Vehicle Type</label>
+          <select class="form-input" id="heroType" name="vehicleType">
+            <option value="">All types</option>
+            <option>Sedan</option>
+            <option>SUV</option>
+            <option>MPV</option>
+            <option>Electric Vehicle (EV)</option>
+            <option>Hatchback</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="handleHeroSearch()" style="width:100%;font-size:16px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        Search Vehicles
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     VEHICLE CATALOG
+     ============================================================ -->
+<section class="section catalog-section" id="vehicles">
+  <div class="container">
+    <div style="margin-bottom:32px">
+      <span class="section-label">Browse Fleet</span>
+      <h2 class="section-title">Available Vehicles</h2>
+      <p class="section-sub">Choose from our curated fleet of conventional and electric vehicles — all inspected and insured.</p>
+    </div>
+    <div class="catalog-layout">
+      <!-- FILTER PANEL -->
+      <aside class="filter-panel" id="filterPanel" aria-label="Filter kendaraan">
+        <div class="filter-header">
+          <h4>Filters</h4>
+          <button class="filter-clear" onclick="clearFilters()">Clear all</button>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Vehicle Type
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body" id="filterType">
+            <label class="filter-option">
+              <input type="checkbox" value="all" checked onchange="applyFilters()" class="filter-type">
+              All Vehicles
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" value="conventional" onchange="applyFilters()" class="filter-type">
+              Conventional
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" value="ev" onchange="applyFilters()" class="filter-type">
+              Electric Vehicle (EV)
+            </label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Category
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body" id="filterCat">
+            <label class="filter-option"><input type="checkbox" value="Sedan" onchange="applyFilters()" class="filter-cat"> Sedan</label>
+            <label class="filter-option"><input type="checkbox" value="SUV" onchange="applyFilters()" class="filter-cat"> SUV</label>
+            <label class="filter-option"><input type="checkbox" value="MPV" onchange="applyFilters()" class="filter-cat"> MPV</label>
+            <label class="filter-option"><input type="checkbox" value="Hatchback" onchange="applyFilters()" class="filter-cat"> Hatchback</label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Price Range / Day
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body">
+            <div class="price-range-wrap">
+              <div class="price-range-labels">
+                <span>Rp 150K</span>
+                <span id="priceLabel">Rp 1.500K</span>
+              </div>
+              <label for="priceRange" class="hidden">Harga maksimum per hari</label>
+              <input type="range" min="150000" max="1500000" step="50000" value="1500000"
+                     id="priceRange" oninput="updatePriceFilter(this)"
+                     aria-label="Harga maksimum per hari">
+            </div>
+          </div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Transmission
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body" id="filterTrans">
+            <label class="filter-option"><input type="checkbox" value="Automatic" onchange="applyFilters()" class="filter-trans"> Automatic</label>
+            <label class="filter-option"><input type="checkbox" value="Manual" onchange="applyFilters()" class="filter-trans"> Manual</label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-group-toggle" onclick="toggleFilter(this)" aria-expanded="true">
+            Passenger Capacity
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="filter-body" id="filterSeats">
+            <label class="filter-option"><input type="checkbox" value="2" onchange="applyFilters()" class="filter-seats"> 2 seats</label>
+            <label class="filter-option"><input type="checkbox" value="4" onchange="applyFilters()" class="filter-seats"> 4–5 seats</label>
+            <label class="filter-option"><input type="checkbox" value="7" onchange="applyFilters()" class="filter-seats"> 7 seats</label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CATALOG RIGHT -->
+      <div class="catalog-right">
+        <div class="catalog-toolbar">
+          <div>
+            <span style="font-size:18px;font-weight:700">Results</span>
+            <span id="resultCount" aria-live="polite">Showing 9 vehicles</span>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <button class="btn filter-mobile-btn btn-outline" style="padding:8px 16px;min-height:40px;font-size:13px"
+                    onclick="toggleMobileFilter()" aria-label="Buka filter">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+              Filters
+            </button>
+            <div class="catalog-sort">
+              <label for="sortSelect" style="font-size:14px;font-weight:500;color:var(--text-muted)">Sort:</label>
+              <select id="sortSelect" onchange="sortVehicles(this.value)">
+                <option value="popular">Most Popular</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="vehicle-grid" id="vehicleGrid" role="list" aria-label="Daftar kendaraan"></div>
+        <nav class="pagination" id="pagination" aria-label="Halaman kendaraan"></nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURED EV SECTION
+     ============================================================ -->
+<section class="ev-section" id="ev-rental">
+  <div class="container">
+    <div class="ev-layout">
+      <div>
+        <div class="ev-label">⚡ Electric Vehicles</div>
+        <h2 class="ev-title">Drive the Future.<br><em>Zero Emissions,</em><br>Maximum Freedom.</h2>
+        <p class="ev-desc">Experience the next generation of mobility with our premium EV fleet. Quieter, cleaner, and more economical than ever before.</p>
+        <div class="ev-benefits">
+          <div class="ev-benefit">
+            <div class="ev-benefit-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="ev-benefit-text">
+              <h5>Zero Direct Emissions</h5>
+              <p>Contribute to cleaner air every kilometer you drive.</p>
+            </div>
+          </div>
+          <div class="ev-benefit">
+            <div class="ev-benefit-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="ev-benefit-text">
+              <h5>Lower Operating Cost</h5>
+              <p>Electricity is up to 70% cheaper than gasoline per km.</p>
+            </div>
+          </div>
+          <div class="ev-benefit">
+            <div class="ev-benefit-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="ev-benefit-text">
+              <h5>Smooth &amp; Silent Ride</h5>
+              <p>Instant torque and near-silent cabin for a premium experience.</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          Browse EV Models
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="ev-visual-card" aria-hidden="true">
+        <svg class="ev-car-icon" viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="60" y="100" width="360" height="70" rx="16" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+          <path d="M90 100 C110 60 140 48 200 48 L280 48 C340 48 370 60 390 100" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+          <rect x="120" y="58" width="80" height="42" rx="6" fill="rgba(74,222,128,.15)" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+          <rect x="210" y="58" width="80" height="42" rx="6" fill="rgba(74,222,128,.15)" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+          <circle cx="130" cy="170" r="24" fill="#1a3a60" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+          <circle cx="130" cy="170" r="12" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+          <circle cx="350" cy="170" r="24" fill="#1a3a60" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+          <circle cx="350" cy="170" r="12" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+          <rect x="60" y="118" width="20" height="14" rx="4" fill="#4ADE80" opacity=".8"/>
+          <rect x="400" y="118" width="20" height="14" rx="4" fill="#4ADE80" opacity=".8"/>
+          <path d="M232 60 L222 76 H231 L221 94" stroke="#4ADE80" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div class="ev-stats">
+          <div class="ev-stat">
+            <div class="ev-stat-val">450km</div>
+            <div class="ev-stat-label">Range</div>
+          </div>
+          <div class="ev-stat">
+            <div class="ev-stat-val">0%</div>
+            <div class="ev-stat-label">Emissions</div>
+          </div>
+          <div class="ev-stat">
+            <div class="ev-stat-val">70%</div>
+            <div class="ev-stat-label">Cost Saving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CARBON CALCULATOR
+     ============================================================ -->
+<section class="section calc-section" id="pricing">
+  <div class="container">
+    <div class="calc-wrap">
+      <div class="calc-info">
+        <span class="section-label">Eco Impact</span>
+        <h3 class="section-title">Your Carbon<br>Savings Calculator</h3>
+        <p>See how much CO₂ you save by choosing an electric vehicle over a conventional petrol car.</p>
+        <div class="calc-facts">
+          <div class="calc-fact">
+            <div class="calc-fact-dot" aria-hidden="true"></div>
+            A petrol car emits ~192g of CO₂ per kilometer.
+          </div>
+          <div class="calc-fact">
+            <div class="calc-fact-dot" aria-hidden="true"></div>
+            An EV in Indonesia emits ~20g CO₂/km (grid-adjusted).
+          </div>
+          <div class="calc-fact">
+            <div class="calc-fact-dot" aria-hidden="true"></div>
+            One tree absorbs ~20kg CO₂ per year.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="calc-card">
+          <h4>Adjust Your Trip</h4>
+          <div class="calc-fields">
+            <div class="calc-slider-wrap">
+              <div class="calc-slider-label">
+                <span>Daily Distance</span>
+                <span id="distanceVal">80 km</span>
+              </div>
+              <label for="distanceSlider" class="hidden">Jarak harian dalam kilometer</label>
+              <input type="range" min="10" max="300" step="10" value="80" id="distanceSlider"
+                     oninput="updateCalc()" aria-label="Jarak harian dalam kilometer">
+            </div>
+            <div class="calc-slider-wrap">
+              <div class="calc-slider-label">
+                <span>Rental Duration</span>
+                <span id="durationVal">3 days</span>
+              </div>
+              <label for="durationSlider" class="hidden">Durasi sewa dalam hari</label>
+              <input type="range" min="1" max="30" step="1" value="3" id="durationSlider"
+                     oninput="updateCalc()" aria-label="Durasi sewa dalam hari">
+            </div>
+          </div>
+          <div class="calc-result" id="calcResult" aria-live="polite" aria-atomic="true">
+            <div class="calc-co2" id="co2Val">46</div>
+            <div class="calc-co2-unit">kg CO₂ saved</div>
+            <div class="calc-co2-label">vs. driving a petrol car</div>
+            <div class="calc-breakdown">
+              <div class="calc-break-item">
+                <div class="calc-break-val" id="totalKm">240</div>
+                <div class="calc-break-label">Total km</div>
+              </div>
+              <div class="calc-break-item">
+                <div class="calc-break-val" id="treesVal">2.3</div>
+                <div class="calc-break-label">Trees equivalent</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY CHOOSE US
+     ============================================================ -->
+<section class="section why-section" id="about">
+  <div class="container">
+    <div class="section-header-center">
+      <span class="section-label">Why DriveIQ</span>
+      <h2 class="section-title">Built Around Your Journey</h2>
+      <p class="section-sub">From the moment you search to the moment you return the keys, we've made every step effortless.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <h4>500+ Vehicle Options</h4>
+        <p>From city compacts to 7-seat SUVs and cutting-edge EVs — the right car is always available.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h4>Transparent Pricing</h4>
+        <p>No hidden fees, no surprises. The price you see is the price you pay, all taxes included.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h4>24/7 Roadside Support</h4>
+        <p>Our support team is always a call away — flat tire, dead battery, or any emergency.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h4>Instant Booking</h4>
+        <p>Confirm your reservation in under 2 minutes. Receive your e-ticket directly to your email.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BOOKING FLOW STEPPER
+     ============================================================ -->
+<section class="section booking-section">
+  <div class="container">
+    <div class="section-header-center">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">Book in 4 Simple Steps</h2>
+      <p class="section-sub">Getting behind the wheel has never been easier. Our streamlined process gets you driving in minutes.</p>
+    </div>
+    <ol class="stepper" aria-label="Langkah pemesanan">
+      <li class="step-item done" aria-label="Langkah 1: Pilih lokasi — selesai">
+        <div class="step-circle" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="step-label">Select<br>Location</div>
+      </li>
+      <li class="step-item active" aria-label="Langkah 2: Pilih tanggal — sedang berlangsung" aria-current="step">
+        <div class="step-circle" aria-hidden="true">2</div>
+        <div class="step-label">Choose<br>Dates</div>
+      </li>
+      <li class="step-item" aria-label="Langkah 3: Pilih kendaraan">
+        <div class="step-circle" aria-hidden="true">3</div>
+        <div class="step-label">Pick<br>Vehicle</div>
+      </li>
+      <li class="step-item" aria-label="Langkah 4: Konfirmasi dan bayar">
+        <div class="step-circle" aria-hidden="true">4</div>
+        <div class="step-label">Confirm &amp;<br>Pay</div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================
+     MINI MAP TRACKER
+     ============================================================ -->
+<section class="section map-tracker-section" id="tracker">
+  <div class="container">
+    <div style="margin-bottom:28px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <span class="section-label">Live Tracking</span>
+        <h2 class="section-title">Active Rental Tracker</h2>
+        <p class="section-sub">Pantau posisi kendaraan yang sedang disewa secara real-time.</p>
+      </div>
+      <div class="map-badge-live">
+        <span class="dot-live"></span>
+        Live
+      </div>
+    </div>
+    <div class="map-tracker-wrap">
+      <!-- Map Canvas -->
+      <div class="map-canvas-wrap" id="mapCanvas">
+        <!-- Road SVG background -->
+        <svg class="map-road-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Map background blocks (city grid) -->
+          <rect width="800" height="450" fill="#e8f0f8"/>
+          <!-- Blocks / buildings -->
+          <rect x="30" y="30" width="80" height="60" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="130" y="30" width="60" height="40" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="210" y="30" width="100" height="55" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="330" y="20" width="70" height="70" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="420" y="30" width="90" height="45" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="530" y="25" width="60" height="55" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="610" y="30" width="80" height="40" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="710" y="20" width="65" height="60" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="30" y="160" width="90" height="80" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="140" y="170" width="70" height="60" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="230" y="160" width="50" height="70" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="330" y="155" width="110" height="85" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="460" y="160" width="80" height="70" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="560" y="150" width="70" height="80" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="650" y="160" width="60" height="65" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="730" y="155" width="50" height="75" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="30" y="310" width="75" height="90" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="125" y="320" width="90" height="70" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="235" y="310" width="65" height="85" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="320" y="305" width="120" height="95" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="460" y="310" width="80" height="80" rx="4" fill="#d0dcea" opacity=".7"/>
+          <rect x="560" y="315" width="70" height="75" rx="4" fill="#c8d8e8" opacity=".7"/>
+          <rect x="650" y="305" width="90" height="90" rx="4" fill="#d0dcea" opacity=".7"/>
+          <!-- Main roads (horizontal) -->
+          <rect x="0" y="110" width="800" height="40" fill="#ffffff" opacity=".9"/>
+          <rect x="0" y="125" width="800" height="12" fill="#f0f4f8" opacity=".5"/>
+          <rect x="0" y="260" width="800" height="40" fill="#ffffff" opacity=".9"/>
+          <rect x="0" y="275" width="800" height="12" fill="#f0f4f8" opacity=".5"/>
+          <rect x="0" y="410" width="800" height="40" fill="#ffffff" opacity=".9"/>
+          <!-- Main roads (vertical) -->
+          <rect x="110" y="0" width="40" height="450" fill="#ffffff" opacity=".9"/>
+          <rect x="300" y="0" width="40" height="450" fill="#ffffff" opacity=".9"/>
+          <rect x="480" y="0" width="40" height="450" fill="#ffffff" opacity=".9"/>
+          <rect x="660" y="0" width="40" height="450" fill="#ffffff" opacity=".9"/>
+          <!-- Road dashes -->
+          <line x1="0" y1="130" x2="800" y2="130" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="0" y1="280" x2="800" y2="280" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="130" y1="0" x2="130" y2="450" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="320" y1="0" x2="320" y2="450" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="500" y1="0" x2="500" y2="450" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <line x1="680" y1="0" x2="680" y2="450" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="20,20"/>
+          <!-- Green areas -->
+          <ellipse cx="590" cy="380" rx="40" ry="25" fill="#a7f3d0" opacity=".6"/>
+          <ellipse cx="200" cy="200" rx="25" ry="18" fill="#a7f3d0" opacity=".5"/>
+        </svg>
+        <!-- Car pins (rendered by JS) -->
+        <div id="mapPinsContainer" style="position:absolute;inset:0;pointer-events:none;"></div>
+        <!-- No login overlay -->
+        <div class="map-no-login" id="mapNoLogin" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(248,250,252,.85);backdrop-filter:blur(4px);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <p style="font-size:15px;font-weight:600;margin-top:12px;color:var(--text)">Login untuk melihat tracker</p>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Pantau kendaraan aktif Anda secara real-time</p>
+          <button class="btn btn-primary" style="font-size:14px;padding:10px 20px" onclick="openAuthModal('login')">Sign In</button>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="map-sidebar">
+        <div class="map-sidebar-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Kendaraan Aktif
+        </div>
+        <div class="map-active-list" id="mapActiveList">
+          <div class="map-no-login" id="mapSidebarNoLogin">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <p style="font-size:13px;margin-top:8px">Login untuk melihat daftar kendaraan aktif</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESERVATION DASHBOARD
+     ============================================================ -->
+<section class="section dashboard-section" id="contact">
+  <div class="container">
+    <div style="margin-bottom:32px">
+      <span class="section-label">Management</span>
+      <h2 class="section-title">Reservation Dashboard</h2>
+      <p class="section-sub">Create, view, edit, and manage all your bookings in one place.</p>
+    </div>
+    <div class="dashboard-card">
+      <div class="dashboard-header">
+        <h4>All Reservations</h4>
+        <button class="btn btn-primary" onclick="openCreateModal()" style="min-height:40px;font-size:14px;padding:8px 18px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Reservation
+        </button>
+      </div>
+      <div class="table-search-bar">
+        <label for="tableSearch" class="hidden">Cari reservasi</label>
+        <input type="search" class="table-search" placeholder="Search by name, vehicle, or ID…"
+               oninput="filterTable(this.value)" id="tableSearch" aria-label="Cari reservasi">
+        <label for="statusFilter" class="hidden">Filter status</label>
+        <select class="table-filter" id="statusFilter" onchange="filterTableStatus(this.value)" aria-label="Filter status">
+          <option value="">All statuses</option>
+          <option value="Active">Active</option>
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+          <option value="Canceled">Canceled</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table id="reservationTable" aria-label="Tabel reservasi">
+          <thead>
+            <tr>
+              <th scope="col">Booking ID</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Vehicle</th>
+              <th scope="col">Pickup Date</th>
+              <th scope="col">Return Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">Pembayaran</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="section-header-center" style="margin-bottom:40px">
+      <span class="section-label">Reviews</span>
+      <h2 class="section-title">What Our Customers Say</h2>
+    </div>
+    <div class="testi-wrap">
+      <div class="testi-track" id="testiTrack" role="list" aria-label="Testimoni pelanggan">
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="5 bintang">★★★★★</div>
+          <p class="testi-text">"Picked up a Hyundai Ioniq 5 for a Bandung trip — the whole process from booking to return was seamless. The EV had a full charge and the app guided us to charging stations perfectly."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#4A90E2" aria-hidden="true">RK</div>
+            <div>
+              <div class="testi-name">Rizky Kurniawan</div>
+              <div class="testi-role">Business Traveler · Jakarta</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="5 bintang">★★★★★</div>
+          <p class="testi-text">"Rented an Avanza for a week family trip to Yogyakarta. The car was spotless, pricing was exactly as advertised, and customer support resolved a minor query within minutes."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#059669" aria-hidden="true">SS</div>
+            <div>
+              <div class="testi-name">Sari Dewi Santoso</div>
+              <div class="testi-role">Family Vacation · Surabaya</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="4 bintang">★★★★☆</div>
+          <p class="testi-text">"Using DriveIQ for corporate rentals now. The dashboard makes it incredibly easy to manage multiple bookings for our team. The EV options help us hit our sustainability targets."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#FF8A00" aria-hidden="true">DP</div>
+            <div>
+              <div class="testi-name">Dimas Prasetyo</div>
+              <div class="testi-role">Operations Manager · Bandung</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="5 bintang">★★★★★</div>
+          <p class="testi-text">"The carbon savings calculator sold me on renting an EV instead of a regular car. Saved 34kg CO₂ on a 3-day Bali trip. DriveIQ makes it easy to choose the greener option."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#7C3AED" aria-hidden="true">NA</div>
+            <div>
+              <div class="testi-name">Nadya Amelia</div>
+              <div class="testi-role">Environmental Consultant · Bali</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card" role="listitem">
+          <div class="testi-stars" aria-label="5 bintang">★★★★★</div>
+          <p class="testi-text">"Amazing selection of vehicles. Booked a BMW EV for a weekend and the experience was luxurious. The pickup was smooth and the return process took under 5 minutes."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:#DC2626" aria-hidden="true">AH</div>
+            <div>
+              <div class="testi-name">Ahmad Hidayat</div>
+              <div class="testi-role">Entrepreneur · Medan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-controls" role="group" aria-label="Kontrol carousel testimoni">
+        <button class="testi-btn" onclick="testiSlide(-1)" aria-label="Testimoni sebelumnya">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="testi-btn" onclick="testiSlide(1)" aria-label="Testimoni berikutnya">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATISTICS
+     ============================================================ -->
+<section class="stats-section" aria-label="Statistik DriveIQ">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">10<span>K</span>+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">500<span>+</span></div>
+        <div class="stat-label">Vehicles in Fleet</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">50<span>+</span></div>
+        <div class="stat-label">Cities Covered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98<span>%</span></div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="cta-section">
+  <div class="container">
+    <span class="section-label" style="color:#4ADE80">Get Started Today</span>
+    <h2>Ready to Start<br>Your Journey?</h2>
+    <p>Join 10,000+ drivers who trust DriveIQ for every trip.</p>
+    <div class="cta-buttons">
+      <button class="btn btn-primary" onclick="document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">Book Your Car Today</button>
+      <button class="btn btn-outline-white" onclick="document.getElementById('ev-rental').scrollIntoView({behavior:'smooth'})">Explore EV Fleet</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+          DriveIQ
+        </div>
+        <p>Premium car rental for every journey — from city commutes to island escapes. Conventional and electric vehicles, always ready.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Instagram DriveIQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Twitter DriveIQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Facebook DriveIQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="LinkedIn DriveIQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partnerships</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#">Personal Rental</a></li>
+          <li><a href="#">Corporate Rental</a></li>
+          <li><a href="#">EV Rental</a></li>
+          <li><a href="#">Airport Pickup</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Insurance Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 DriveIQ. All rights reserved.</span>
+      <div style="display:flex;gap:20px">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     MODALS
+     ============================================================ -->
+<!-- Create / Edit Reservation -->
+<div class="modal-overlay" id="reservationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h5 id="modalTitle">New Reservation</h5>
+      <button class="modal-close" onclick="closeModal('reservationModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-fields">
+        <input type="hidden" id="editId">
+        <div class="modal-row">
+          <div class="form-group">
+            <label class="form-label" for="mCustomer">Customer Name <span aria-hidden="true">*</span><span class="hidden"> (wajib diisi)</span></label>
+            <input type="text" class="form-input" id="mCustomer" placeholder="Full name" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mContact">Phone / Email</label>
+            <input type="text" class="form-input" id="mContact" placeholder="Contact info" autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mVehicle">Vehicle <span aria-hidden="true">*</span><span class="hidden"> (wajib diisi)</span></label>
+          <select class="form-input" id="mVehicle" required>
+            <option value="">Select vehicle…</option>
+            <option>Toyota Avanza — MPV</option>
+            <option>Honda Civic — Sedan</option>
+            <option>Hyundai Ioniq 5 — EV SUV</option>
+            <option>Mitsubishi Pajero Sport — SUV</option>
+            <option>Wuling Air ev — EV Hatchback</option>
+            <option>Toyota Innova Zenix — MPV</option>
+            <option>Kia EV6 — EV Sedan</option>
+            <option>Suzuki Ertiga — MPV</option>
+            <option>BMW iX — EV SUV</option>
+          </select>
+        </div>
+        <div class="modal-row">
+          <div class="form-group">
+            <label class="form-label" for="mPickup">Pickup Date <span aria-hidden="true">*</span><span class="hidden"> (wajib diisi)</span></label>
+            <input type="date" class="form-input" id="mPickup" required onchange="updateReturnMin()">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mReturn">Return Date <span aria-hidden="true">*</span><span class="hidden"> (wajib diisi)</span></label>
+            <input type="date" class="form-input" id="mReturn" required>
+          </div>
+        </div>
+        <div class="modal-row">
+          <div class="form-group">
+            <label class="form-label" for="mLocation">Pickup Location</label>
+            <select class="form-input" id="mLocation">
+              <option value="">Select city…</option>
+              <option>Jakarta</option><option>Bandung</option><option>Surabaya</option>
+              <option>Yogyakarta</option><option>Bali</option><option>Medan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mStatus">Status</label>
+            <select class="form-input" id="mStatus">
+              <option value="Pending">Pending</option>
+              <option value="Active">Active</option>
+              <option value="Completed">Completed</option>
+              <option value="Canceled">Canceled</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mNotes">Notes</label>
+          <input type="text" class="form-input" id="mNotes" placeholder="Optional notes…">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('reservationModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveReservation()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Save Reservation
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- View Reservation -->
+<div class="modal-overlay" id="viewModal" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h5 id="viewModalTitle">Reservation Details</h5>
+      <button class="modal-close" onclick="closeModal('viewModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="viewBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('viewModal')">Close</button>
+      <button class="btn btn-primary" id="viewEditBtn">Edit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm -->
+<div class="modal-overlay" id="deleteModal" role="alertdialog" aria-modal="true" aria-labelledby="deleteModalTitle" aria-describedby="deleteModalDesc">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h5 id="deleteModalTitle">Delete Reservation</h5>
+      <button class="modal-close" onclick="closeModal('deleteModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p id="deleteModalDesc" style="color:var(--text-muted);font-size:15px">
+        Are you sure you want to delete booking <strong id="deleteIdLabel"></strong>? This action cannot be undone.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('deleteModal')">Cancel</button>
+      <button class="btn" style="background:#DC2626;color:white" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAYMENT MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <h5 id="paymentModalTitle">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-3px;margin-right:6px" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Pembayaran Reservasi
+      </h5>
+      <button class="modal-close" onclick="closeModal('paymentModal')" aria-label="Tutup modal pembayaran">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="paymentBody">
+
+      <!-- FORM PEMBAYARAN -->
+      <div id="payFormWrap">
+        <!-- Ringkasan Pesanan -->
+        <div class="payment-summary">
+          <div class="payment-summary-title">Ringkasan Pesanan</div>
+          <div class="payment-summary-row">
+            <span class="label">Booking ID</span>
+            <span class="val" id="payBookingId">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Kendaraan</span>
+            <span class="val" id="payVehicle">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Periode</span>
+            <span class="val" id="payPeriod">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Durasi</span>
+            <span class="val" id="payDays">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Tarif/hari</span>
+            <span class="val" id="payRate">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Subtotal</span>
+            <span class="val" id="paySubtotal">—</span>
+          </div>
+          <div class="payment-summary-row">
+            <span class="label">Asuransi (5%)</span>
+            <span class="val" id="payInsurance">—</span>
+          </div>
+          <div class="payment-summary-row total">
+            <span class="label">Total Bayar</span>
+            <span class="val" id="payTotal">—</span>
+          </div>
+        </div>
+
+        <!-- Pilih Metode Pembayaran -->
+        <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px">Metode Pembayaran</p>
+        <div class="payment-methods" id="paymentMethods">
+          <div class="payment-method-card selected" data-method="bca" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#0058A8">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="payment-method-name">Transfer BCA</div>
+              <div class="payment-method-sub">Virtual Account</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="mandiri" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#003087">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="payment-method-name">Transfer Mandiri</div>
+              <div class="payment-method-sub">Virtual Account</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="gopay" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#00AED6">
+              <span style="color:white;font-weight:800;font-size:14px">GP</span>
+            </div>
+            <div>
+              <div class="payment-method-name">GoPay</div>
+              <div class="payment-method-sub">E-Wallet</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="ovo" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#4C3494">
+              <span style="color:white;font-weight:800;font-size:14px">OVO</span>
+            </div>
+            <div>
+              <div class="payment-method-name">OVO</div>
+              <div class="payment-method-sub">E-Wallet</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="qris" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#EB5757">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h.01M18 14h.01M14 18h.01M18 18h.01"/></svg>
+            </div>
+            <div>
+              <div class="payment-method-name">QRIS</div>
+              <div class="payment-method-sub">Scan & Pay</div>
+            </div>
+          </div>
+          <div class="payment-method-card" data-method="card" onclick="selectPayMethod(this)">
+            <div class="payment-method-icon" style="background:#1D4ED8">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="payment-method-name">Kartu Kredit/Debit</div>
+              <div class="payment-method-sub">Visa · Mastercard</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Input (muncul sesuai metode) -->
+        <div class="payment-detail-fields" id="payDetailFields">
+          <!-- Bank Transfer detail -->
+          <div id="payDetailBank">
+            <div class="form-group">
+              <label class="form-label">Nomor Rekening Pengirim</label>
+              <input type="text" class="form-input" id="payAccNumber" placeholder="Contoh: 123-456-7890" maxlength="20">
+            </div>
+            <div class="form-group" style="margin-top:10px">
+              <label class="form-label">Nama Pemilik Rekening</label>
+              <input type="text" class="form-input" id="payAccName" placeholder="Sesuai KTP / rekening bank">
+            </div>
+          </div>
+          <!-- E-wallet detail -->
+          <div id="payDetailWallet" class="hidden">
+            <div class="form-group">
+              <label class="form-label">Nomor HP / Akun E-Wallet</label>
+              <input type="tel" class="form-input" id="payWalletPhone" placeholder="08xxxxxxxxxx" maxlength="15">
+            </div>
+          </div>
+          <!-- QRIS detail -->
+          <div id="payDetailQris" class="hidden">
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;text-align:center">
+              <div style="width:120px;height:120px;margin:0 auto 12px;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                  <rect x="5" y="5" width="28" height="28" rx="3" fill="var(--primary)"/>
+                  <rect x="11" y="11" width="16" height="16" rx="1" fill="white"/>
+                  <rect x="14" y="14" width="10" height="10" fill="var(--primary)"/>
+                  <rect x="47" y="5" width="28" height="28" rx="3" fill="var(--primary)"/>
+                  <rect x="53" y="11" width="16" height="16" rx="1" fill="white"/>
+                  <rect x="56" y="14" width="10" height="10" fill="var(--primary)"/>
+                  <rect x="5" y="47" width="28" height="28" rx="3" fill="var(--primary)"/>
+                  <rect x="11" y="53" width="16" height="16" rx="1" fill="white"/>
+                  <rect x="14" y="56" width="10" height="10" fill="var(--primary)"/>
+                  <rect x="47" y="47" width="8" height="8" rx="1" fill="var(--primary)"/>
+                  <rect x="60" y="47" width="8" height="8" rx="1" fill="var(--primary)"/>
+                  <rect x="47" y="60" width="8" height="8" rx="1" fill="var(--primary)"/>
+                  <rect x="60" y="60" width="8" height="8" rx="1" fill="var(--primary)"/>
+                </svg>
+              </div>
+              <p style="font-size:13px;font-weight:600;color:var(--text)">Scan QR Code ini dengan aplikasi pembayaran Anda</p>
+              <p style="font-size:12px;color:var(--text-muted);margin-top:4px">Berlaku selama 15 menit</p>
+            </div>
+          </div>
+          <!-- Credit/Debit Card detail -->
+          <div id="payDetailCard" class="hidden">
+            <div class="form-group">
+              <label class="form-label">Nomor Kartu</label>
+              <input type="text" class="form-input" id="payCardNumber" placeholder="xxxx xxxx xxxx xxxx" maxlength="19" oninput="formatCardNumber(this)">
+            </div>
+            <div class="payment-card-row" style="margin-top:10px">
+              <div class="form-group">
+                <label class="form-label">Berlaku s/d (MM/YY)</label>
+                <input type="text" class="form-input" id="payCardExpiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+              </div>
+              <div class="form-group">
+                <label class="form-label">CVV</label>
+                <input type="password" class="form-input" id="payCardCvv" placeholder="•••" maxlength="4">
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:10px">
+              <label class="form-label">Nama Pemegang Kartu</label>
+              <input type="text" class="form-input" id="payCardName" placeholder="Nama sesuai kartu">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="pay-success-overlay" id="paySuccessWrap">
+        <div class="pay-success-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg>
+        </div>
+        <div class="pay-success-title">Pembayaran Berhasil! 🎉</div>
+        <div class="pay-success-sub">Terima kasih! Reservasi Anda telah dikonfirmasi.</div>
+        <div class="pay-receipt" id="payReceipt"></div>
+        <button class="btn btn-primary" style="width:100%" onclick="closeModal('paymentModal')">Selesai</button>
+      </div>
+
+    </div>
+    <div class="modal-footer" id="payFooter">
+      <button class="btn btn-outline" onclick="closeModal('paymentModal')">Batal</button>
+      <button class="btn btn-primary" id="paySubmitBtn" onclick="processPayment()" style="min-width:160px">
+        <span id="payBtnText">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" style="vertical-align:-2px;margin-right:6px"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Bayar Sekarang
+        </span>
+        <span class="pay-btn-loading" id="payBtnLoading">
+          <span class="spinner"></span> Memproses...
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Auth Modal (Login + Sign Up) -->
+<div class="modal-overlay" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <h5 id="authModalTitle">Masuk ke DriveIQ</h5>
+      <button class="modal-close" onclick="closeModal('authModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="padding-top:16px">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" id="tabSignup" onclick="switchAuthTab('signup')">Create Account</button>
+      </div>
+
+      <!-- LOGIN PANEL -->
+      <div id="panelLogin">
+        <div class="modal-fields">
+          <div class="form-group">
+            <label class="form-label" for="loginEmail">Email Address</label>
+            <input type="email" class="form-input" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Password</label>
+            <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+          </div>
+        </div>
+        <div style="margin-top:20px">
+          <button class="btn btn-primary" style="width:100%" onclick="handleLogin()">Sign In</button>
+          <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-top:14px">
+            Belum punya akun?
+            <a href="#" style="color:var(--secondary);font-weight:600" onclick="switchAuthTab('signup');return false">Daftar gratis</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- SIGN UP PANEL -->
+      <div id="panelSignup" class="hidden">
+        <div class="signup-avatar-wrap">
+          <div class="signup-avatar-preview" id="signupAvatarPreview">
+            <span id="signupAvatarInitials" style="pointer-events:none">?</span>
+          </div>
+          <div>
+            <p style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Foto Profil</p>
+            <button class="signup-avatar-btn" onclick="document.getElementById('signupAvatarFile').click()">Upload foto</button>
+            <input type="file" id="signupAvatarFile" accept="image/*" class="hidden" onchange="handleAvatarUpload(this)">
+            <p style="font-size:11px;color:var(--text-muted);margin-top:2px">JPG, PNG — maks. 2MB</p>
+          </div>
+        </div>
+        <div class="modal-fields" style="margin-top:12px">
+          <div class="modal-row">
+            <div class="form-group">
+              <label class="form-label" for="signupName">Nama Lengkap *</label>
+              <input type="text" class="form-input" id="signupName" placeholder="Nama Anda" autocomplete="name" oninput="updateSignupInitials()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="signupAge">Umur *</label>
+              <input type="number" class="form-input" id="signupAge" placeholder="25" min="17" max="99" autocomplete="off">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupAddress">Alamat *</label>
+            <input type="text" class="form-input" id="signupAddress" placeholder="Jl. Contoh No. 1, Bandung" autocomplete="street-address">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupEmail">Email Address *</label>
+            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="modal-row">
+            <div class="form-group">
+              <label class="form-label" for="signupPassword">Password *</label>
+              <input type="password" class="form-input" id="signupPassword" placeholder="Min. 6 karakter" autocomplete="new-password">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="signupConfirm">Konfirmasi *</label>
+              <input type="password" class="form-input" id="signupConfirm" placeholder="Ulangi password" autocomplete="new-password">
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px">
+          <button class="btn btn-primary" style="width:100%" onclick="handleSignup()">Buat Akun</button>
+          <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-top:14px">
+            Sudah punya akun?
+            <a href="#" style="color:var(--secondary);font-weight:600" onclick="switchAuthTab('login');return false">Sign In</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Edit Modal -->
+<div class="modal-overlay" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <h5 id="profileModalTitle">Edit Profile</h5>
+      <button class="modal-close" onclick="closeModal('profileModal')" aria-label="Tutup modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="signup-avatar-wrap" style="margin-bottom:16px">
+        <div class="signup-avatar-preview" id="profileAvatarPreview">
+          <span id="profileAvatarInitials">?</span>
+        </div>
+        <div>
+          <button class="signup-avatar-btn" onclick="document.getElementById('profileAvatarFile').click()">Ganti foto</button>
+          <input type="file" id="profileAvatarFile" accept="image/*" class="hidden" onchange="handleProfileAvatarUpload(this)">
+        </div>
+      </div>
+      <div class="modal-fields">
+        <div class="modal-row">
+          <div class="form-group">
+            <label class="form-label" for="profileName">Nama Lengkap</label>
+            <input type="text" class="form-input" id="profileName">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="profileAge">Umur</label>
+            <input type="number" class="form-input" id="profileAge" min="17" max="99">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profileAddress">Alamat</label>
+          <input type="text" class="form-input" id="profileAddress">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profileEmail">Email</label>
+          <input type="email" class="form-input" id="profileEmail">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('profileModal')">Batal</button>
+      <button class="btn btn-primary" onclick="saveProfile()">Simpan Perubahan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Customer Service FAB -->
+<div class="cs-fab" id="csFab">
+  <div class="cs-fab-menu" id="csFabMenu">
+    <button class="cs-fab-option" onclick="window.open('https://wa.me/6281234567890','_blank')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      WhatsApp CS
+    </button>
+    <button class="cs-fab-option" onclick="window.location.href='tel:+6281234567890'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Telepon
+    </button>
+    <button class="cs-fab-option" onclick="window.location.href='mailto:cs@driveiq.id'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Email CS
+    </button>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="cs-tooltip">Butuh bantuan?</div>
+    <button class="cs-fab-btn" onclick="toggleCsFab()" aria-label="Hubungi Customer Service">
+      <div class="cs-fab-pulse"></div>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-wrap" id="toastWrap" aria-live="assertive" aria-atomic="true" role="status"></div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ─── DATA ───────────────────────────────────────────────── */
+const GH_RAW = 'https://raw.githubusercontent.com/tbfarrel20/rental-ev-platform/c0be4357cbc7221b6ba6623c60c1d97ccf9cd5f4/frontend/';
+const VEHICLES = [
+  { id:1, name:'Toyota Avanza',           cat:'MPV',      trans:'Manual',    seats:7, price:300000,  rating:4.7, reviews:312, type:'conventional', badge:'popular',
+    photo: GH_RAW + 'harga%20toyota%20avanza%20terbaru-All%20New%20Toyota%20Avanza.jpg' },
+  { id:2, name:'Honda Civic',             cat:'Sedan',    trans:'Automatic', seats:5, price:450000,  rating:4.8, reviews:189, type:'conventional', badge:'popular',
+    photo: GH_RAW + 'q0jm1Zs1iTmblxD2Wur0TKqdLwq6ajsB9A1gE5wAYZ7TZkQJG4sp2CPSrZs8AvYcv7pTamGDpsb-eM33dbMUN1XjhXFTNqzWoU9E_7FUjI6LsuaejzHrwg0Eo-BHGnaBbhhLNpbu2h94hckAXvqWhEK8VEHh2NbPZK9zpXKVTtfLkfmbFCaiE78at7opFwgj.jpg' },
+  { id:3, name:'Hyundai Ioniq 5',         cat:'SUV',      trans:'Automatic', seats:5, price:850000,  rating:4.9, reviews:98,  type:'ev',           badge:'ev',
+    photo: GH_RAW + 'VSUFHQZrc_nlXI9H2sy05dT_fz7hVEfb9T2nDDYMraCEItLbC1AbvR7D6ApsKZW5vScCm58cwVg4A6HDka4xEXl7szNDivduP_UuHSjfNgilx13YjqPKMKSyE9I4rN0vpTsZF_pE3lnj7SiAx0IxCIZtFtAoqLIQrehyQvcvb-4hwzGMLMIS41wS5kT1GU0J.jpg' },
+  { id:4, name:'Mitsubishi Pajero Sport', cat:'SUV',      trans:'Automatic', seats:7, price:750000,  rating:4.6, reviews:224, type:'conventional', badge:'',
+    photo: GH_RAW + 'aq18z4CdkXuYaI411EoA8wPUVomH432kCT98A6B16PfPxNL-22xDQlY-sysxAGSc_HqqhRjAv8ivzp0qzPHBXzx20qzayIiZBh_EE-NmcvIiyD5K-2do7AyynzHYSMrE8ZekG30eNJNQpuwCJf7ofoYzSxeYYuoTtXrF7PZ3mJo3WXY0GezMYT-wplORqzWq.jpg' },
+  { id:5, name:'Wuling Air ev',           cat:'Hatchback',trans:'Automatic', seats:4, price:350000,  rating:4.5, reviews:156, type:'ev',           badge:'ev',
+    photo: GH_RAW + 'cF-KJ2VKX2A4xDEI3UTTrBiFfa7FEaRCMT0iZwJaSWfk-VC00kVd80ilqW3kqE4G2dRcW2mgXmfsON-_vy2GhfPVjj7qyqP7p6IRSFERt8IVYCnN-Q5wFK0oi2XkjNKMQeYwqonzLAzI2Fb_XT_e8mPqVFpOBGAATnKs0XVr8owhdN05_8N0SvWMlQkqA7Qb.jpg' },
+  { id:6, name:'Toyota Innova Zenix',     cat:'MPV',      trans:'Automatic', seats:7, price:550000,  rating:4.8, reviews:267, type:'conventional', badge:'popular',
+    photo: GH_RAW + '0tq_X9euvtHYOSgkKMUKF9z-GZeFkj7B6tRJbljJFNpE5hHUDI5guLdJ9hvmsE9kMGsy5jZevKuSI6Rh1mAogiLBYSIbN5IgCR2G-JnakIkjIDdQ_dClgzgRVmQ19AFenSW4KlHaXiVn6edzTTB1a4dtRI8MGh-LEqo_t7sFaLrkl5tMDSSq_QW26PCjLcLV.jpg' },
+  { id:7, name:'Kia EV6',                cat:'Sedan',    trans:'Automatic', seats:5, price:900000,  rating:4.9, reviews:64,  type:'ev',           badge:'ev',
+    photo: GH_RAW + 'OqECvX27ujAN73N9r0O1t9XTGTo8VceKTRT04fAAB45dDVQkZMi5e_jrWT196Lw7jTtSI1IHG44YAJv4FutKVm1M7XZvOv1644nt6oQY2XBhT88CASBWdVCT8LQeH8ORg1wZ_aIvnYBXPokhyIQQ1h17ZqaP8zrgYXaUPUYylyqPoP7TSIXkoP4rluQO6Hvb.jpg' },
+  { id:8, name:'Suzuki Ertiga',           cat:'MPV',      trans:'Manual',    seats:7, price:280000,  rating:4.5, reviews:401, type:'conventional', badge:'',
+    photo: GH_RAW + 'NWKg_aS6HfiPzWN3ybpnKnBxQs9dIPqpgPbq57_yipQKW517EjUD_RX8i_GL15dJmqYRyOSgJDZZiCWakOvKqiS5Ce3xpSI5QvlJrF5SRJ9ZUtaHpejTpEjaIW4OMrlVRwKQp8IHw_O1T10gezSgAzbisyL8tHbUFSc5icNJy_La48Jv3UIr5k-vRvBIQ2ou.jpg' },
+  { id:9, name:'BMW iX',                 cat:'SUV',      trans:'Automatic', seats:5, price:1400000, rating:5.0, reviews:31,  type:'ev',           badge:'ev',
+    photo: 'https://raw.githubusercontent.com/tbfarrel20/rental-ev-platform/7a0e2970c3ae0bc4cb18ba2502aba7e737dc83b3/frontend/m1sl6IxfLiBaOtMuMQxQmukiVKKjgPu8LnTI-TQdJW2eZgbDShbXgMs3gkTWR4fltuBk1hMqsJTQCRr3UKtcmwmMOjCEBwhu8ANouvjGPp0c5IM4cYQvIM3LUmmm5PyVzR0UHTfQruexN2kSlFuoDD15t0zy7cEE5_9y7qPCQSpIDSUL0vmGG4U_4bBO9gIK.jpg' },
+];
+
+/* ─── CAR SVG ILLUSTRATIONS ─────────────────────────────── */
+function carSVG(type, cat) {
+  const isEV = type === 'ev';
+  const bodyColor = isEV ? '#1a9e6f' : '#2a5298';
+  const accent = isEV ? '#4ADE80' : '#FF8A00';
+  const bolt = isEV ? `<path d="M136 40 L128 52 H135 L127 66" stroke="#4ADE80" stroke-width="2" stroke-linecap="round"/>` : '';
+
+  if (cat === 'SUV' || cat === 'MPV') {
+    return `<svg viewBox="0 0 280 140" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-car-svg" aria-hidden="true">
+      <rect x="20" y="62" width="240" height="52" rx="12" fill="${bodyColor}"/>
+      <path d="M40 62 C55 32 75 24 120 24 L180 24 C220 24 240 36 256 62" fill="${bodyColor}" opacity=".9"/>
+      <rect x="55" y="32" width="70" height="30" rx="5" fill="rgba(180,220,255,.25)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+      <rect x="140" y="32" width="70" height="30" rx="5" fill="rgba(180,220,255,.25)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+      <circle cx="72" cy="114" r="20" fill="#1a1a2e" stroke="#e5e7eb" stroke-width="2"/>
+      <circle cx="72" cy="114" r="9"  fill="#e5e7eb" opacity=".4"/>
+      <circle cx="208" cy="114" r="20" fill="#1a1a2e" stroke="#e5e7eb" stroke-width="2"/>
+      <circle cx="208" cy="114" r="9"  fill="#e5e7eb" opacity=".4"/>
+      <rect x="20" y="80" width="16" height="12" rx="3" fill="${accent}" opacity=".8"/>
+      <rect x="244" y="80" width="16" height="12" rx="3" fill="${accent}" opacity=".8"/>
+      ${bolt}
+    </svg>`;
+  }
+  return `<svg viewBox="0 0 280 140" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-car-svg" aria-hidden="true">
+    <rect x="20" y="68" width="240" height="46" rx="12" fill="${bodyColor}"/>
+    <path d="M45 68 C65 38 90 30 130 30 L180 30 C215 30 235 42 256 68" fill="${bodyColor}" opacity=".9"/>
+    <rect x="65" y="36" width="60" height="32" rx="5" fill="rgba(180,220,255,.25)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+    <rect x="148" y="36" width="60" height="32" rx="5" fill="rgba(180,220,255,.25)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+    <circle cx="76" cy="114" r="20" fill="#1a1a2e" stroke="#e5e7eb" stroke-width="2"/>
+    <circle cx="76" cy="114" r="9"  fill="#e5e7eb" opacity=".4"/>
+    <circle cx="204" cy="114" r="20" fill="#1a1a2e" stroke="#e5e7eb" stroke-width="2"/>
+    <circle cx="204" cy="114" r="9"  fill="#e5e7eb" opacity=".4"/>
+    <rect x="20" y="84" width="16" height="12" rx="3" fill="${accent}" opacity=".8"/>
+    <rect x="244" y="84" width="16" height="12" rx="3" fill="${accent}" opacity=".8"/>
+    ${bolt}
+  </svg>`;
+}
+
+/* ─── VEHICLE CATALOG ─────────────────────────────────────── */
+let filteredVehicles = [...VEHICLES];
+let currentPage = 1;
+const PER_PAGE = 6;
+
+function renderVehicles() {
+  const grid = document.getElementById('vehicleGrid');
+  const start = (currentPage - 1) * PER_PAGE;
+  const page = filteredVehicles.slice(start, start + PER_PAGE);
+  const count = filteredVehicles.length;
+  document.getElementById('resultCount').textContent =
+    `Showing ${count} vehicle${count !== 1 ? 's' : ''}`;
+
+  if (count === 0) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <p>No vehicles match your filters.</p>
+      <button class="btn btn-outline" onclick="clearFilters()" style="margin-top:12px">Clear Filters</button>
+    </div>`;
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  grid.innerHTML = page.map(v => `
+    <article class="vehicle-card" role="listitem">
+      <div class="vehicle-card-img">
+        <img src="${v.photo}" alt="${v.name}" loading="lazy"
+             style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+             onerror="this.style.display='none'">
+        <div class="card-badges">
+          ${v.badge === 'ev'      ? '<span class="badge badge-ev">⚡ ECO EV</span>' : ''}
+          ${v.badge === 'popular' ? '<span class="badge badge-pop">🔥 Popular</span>' : ''}
+        </div>
+      </div>
+      <div class="vehicle-card-body">
+        <div class="vehicle-card-name">${v.name}</div>
+        <div class="vehicle-card-cat">${v.cat} · ${v.type === 'ev' ? 'Electric' : 'Conventional'}</div>
+        <div class="vehicle-card-tags">
+          <span class="tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+            ${v.trans}
+          </span>
+          <span class="tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            ${v.seats} seats
+          </span>
+        </div>
+        <div class="vehicle-rating">
+          <span class="star-filled" aria-hidden="true">★</span>
+          <span>${v.rating}</span>
+          <span style="font-weight:400;color:var(--text-muted)">(${v.reviews} reviews)</span>
+        </div>
+      </div>
+      <div class="vehicle-card-footer">
+        <div class="vehicle-price">${formatRupiah(v.price)} <sub>/hari</sub></div>
+      </div>
+      <div class="vehicle-card-action">
+        <button class="btn btn-primary" onclick="bookVehicle(${v.id})">Book Now</button>
+      </div>
+    </article>
+  `).join('');
+  renderPagination();
+}
+
+function renderPagination() {
+  const total = Math.ceil(filteredVehicles.length / PER_PAGE);
+  const pg = document.getElementById('pagination');
+  if (total <= 1) { pg.innerHTML = ''; return; }
+  let html = '';
+  if (currentPage > 1)
+    html += `<button class="page-btn" onclick="goPage(${currentPage-1})" aria-label="Halaman sebelumnya">‹</button>`;
+  for (let i = 1; i <= total; i++) {
+    html += `<button class="page-btn${i===currentPage?' active':''}" onclick="goPage(${i})"
+             aria-label="Halaman ${i}" ${i===currentPage?'aria-current="page"':''}>${i}</button>`;
+  }
+  if (currentPage < total)
+    html += `<button class="page-btn" onclick="goPage(${currentPage+1})" aria-label="Halaman berikutnya">›</button>`;
+  pg.innerHTML = html;
+}
+
+function goPage(n) {
+  currentPage = n;
+  renderVehicles();
+  document.getElementById('vehicles').scrollIntoView({ behavior: 'smooth' });
+}
+
+function applyFilters() {
+  const typeChecked  = [...document.querySelectorAll('.filter-type:checked')].map(c => c.value);
+  const catChecked   = [...document.querySelectorAll('.filter-cat:checked')].map(c => c.value);
+  const transChecked = [...document.querySelectorAll('.filter-trans:checked')].map(c => c.value);
+  const seatsChecked = [...document.querySelectorAll('.filter-seats:checked')].map(c => parseInt(c.value));
+  const maxPrice     = parseInt(document.getElementById('priceRange').value);
+
+  filteredVehicles = VEHICLES.filter(v => {
+    const typeMatch  = typeChecked.includes('all') || typeChecked.length === 0 || typeChecked.includes(v.type);
+    const catMatch   = catChecked.length === 0  || catChecked.includes(v.cat);
+    const transMatch = transChecked.length === 0 || transChecked.includes(v.trans);
+    const seatsMatch = seatsChecked.length === 0 || seatsChecked.some(s => {
+      if (s === 2) return v.seats <= 2;
+      if (s === 4) return v.seats >= 4 && v.seats <= 5;
+      if (s === 7) return v.seats >= 7;
+      return false;
+    });
+    return typeMatch && catMatch && transMatch && seatsMatch && v.price <= maxPrice;
+  });
+  currentPage = 1;
+  renderVehicles();
+}
+
+function clearFilters() {
+  document.querySelectorAll('.filter-type, .filter-cat, .filter-trans, .filter-seats')
+    .forEach(c => c.checked = false);
+  document.querySelector('.filter-type[value="all"]').checked = true;
+  document.getElementById('priceRange').value = 1500000;
+  document.getElementById('priceLabel').textContent = 'Rp 1.500K';
+  filteredVehicles = [...VEHICLES];
+  currentPage = 1;
+  renderVehicles();
+}
+
+function updatePriceFilter(el) {
+  const val = parseInt(el.value);
+  document.getElementById('priceLabel').textContent = 'Rp ' + (val / 1000).toFixed(0) + 'K';
+  applyFilters();
+}
+
+function sortVehicles(val) {
+  const sorted = [...filteredVehicles];
+  if      (val === 'price-asc')  sorted.sort((a, b) => a.price - b.price);
+  else if (val === 'price-desc') sorted.sort((a, b) => b.price - a.price);
+  else if (val === 'rating')     sorted.sort((a, b) => b.rating - a.rating);
+  else                           sorted.sort((a, b) => b.reviews - a.reviews);
+  filteredVehicles = sorted;
+  currentPage = 1;
+  renderVehicles();
+}
+
+function vehicleDisplayName(v) {
+  return v.name + ' — ' + (v.type === 'ev' ? 'EV ' : '') + v.cat;
+}
+
+function bookVehicle(id) {
+  const v = VEHICLES.find(x => x.id === id);
+  if (!v) return;
+  openCreateModal();
+  document.getElementById('mVehicle').value = vehicleDisplayName(v);
+  showToast(`Booking ${v.name} — fill in your details below`, 'info');
+}
+
+/* ─── HERO SEARCH ───────────────────────────────────────── */
+function handleHeroSearch() {
+  const pickup = document.getElementById('heroPickup').value;
+  const ret    = document.getElementById('heroReturn').value;
+
+  if (pickup && ret && new Date(ret) <= new Date(pickup)) {
+    document.getElementById('heroReturn').classList.add('error');
+    showToast('Return date must be after pickup date', 'error');
+    document.getElementById('heroReturn').focus();
+    return;
+  }
+  document.getElementById('heroReturn').classList.remove('error');
+
+  const type = document.getElementById('heroType').value;
+  if (type === 'Electric Vehicle (EV)') {
+    document.querySelectorAll('.filter-type').forEach(c => { c.checked = c.value === 'ev'; });
+    applyFilters();
+  }
+
+  document.getElementById('vehicles').scrollIntoView({ behavior: 'smooth' });
+  showToast('Showing available vehicles', 'success');
+}
+
+/* ─── FILTER TOGGLE ────────────────────────────────────── */
+function toggleFilter(btn) {
+  const isCollapsed = btn.classList.toggle('collapsed');
+  btn.setAttribute('aria-expanded', String(!isCollapsed));
+  btn.nextElementSibling.classList.toggle('hidden');
+}
+
+function toggleMobileFilter() {
+  document.getElementById('filterPanel').classList.toggle('mobile-open');
+}
+
+/* ─── CARBON CALCULATOR ──────────────────────────────── */
+function updateCalc() {
+  const dist = parseInt(document.getElementById('distanceSlider').value);
+  const days = parseInt(document.getElementById('durationSlider').value);
+  document.getElementById('distanceVal').textContent = dist + ' km';
+  document.getElementById('durationVal').textContent = days + (days === 1 ? ' day' : ' days');
+  const totalKm = dist * days;
+  // Petrol ~192g CO₂/km, EV ~20g CO₂/km (grid Indonesia)
+  const saved = Math.round((totalKm * (192 - 20)) / 1000);
+  const trees = (saved / 20).toFixed(1);
+  document.getElementById('co2Val').textContent    = saved;
+  document.getElementById('totalKm').textContent   = totalKm.toLocaleString('id-ID');
+  document.getElementById('treesVal').textContent  = trees;
+}
+
+/* ─── RESERVATIONS CRUD ──────────────────────────────── */
+let reservations = [
+  { id:'BK-0001', customer:'Rizky Kurniawan',   vehicle:'Hyundai Ioniq 5 — EV SUV',         pickup:'2025-07-01', return:'2025-07-05', location:'Jakarta',    status:'Active',    contact:'rizky@email.com',   notes:'Airport pickup',    paymentStatus:'paid',   paymentMethod:'BCA Virtual Account',  paymentDate:'2025-06-30' },
+  { id:'BK-0002', customer:'Sari Dewi Santoso', vehicle:'Toyota Avanza — MPV',               pickup:'2025-07-08', return:'2025-07-14', location:'Surabaya',   status:'Pending',   contact:'sari@email.com',    notes:'',                  paymentStatus:'unpaid', paymentMethod:'',                     paymentDate:'' },
+  { id:'BK-0003', customer:'Dimas Prasetyo',    vehicle:'Mitsubishi Pajero Sport — SUV',     pickup:'2025-06-28', return:'2025-07-02', location:'Bandung',    status:'Completed', contact:'dimas@company.com', notes:'Corporate booking', paymentStatus:'paid',   paymentMethod:'Kartu Kredit',         paymentDate:'2025-06-27' },
+  { id:'BK-0004', customer:'Nadya Amelia',      vehicle:'Wuling Air ev — EV Hatchback',      pickup:'2025-07-10', return:'2025-07-12', location:'Bali',       status:'Active',    contact:'nadya@eco.id',      notes:'',                  paymentStatus:'unpaid', paymentMethod:'',                     paymentDate:'' },
+  { id:'BK-0005', customer:'Ahmad Hidayat',     vehicle:'BMW iX — EV SUV',                   pickup:'2025-06-15', return:'2025-06-17', location:'Medan',      status:'Completed', contact:'ahmad@biz.id',      notes:'Weekend trip',      paymentStatus:'paid',   paymentMethod:'GoPay',                paymentDate:'2025-06-14' },
+];
+let nextId = 6;
+let pendingDeleteId = null;
+let searchQ = '', statusFilter = '';
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  const q = searchQ.toLowerCase();
+  const rows = reservations.filter(r => {
+    const matchQ = !q || r.customer.toLowerCase().includes(q) ||
+                   r.vehicle.toLowerCase().includes(q) || r.id.toLowerCase().includes(q);
+    return matchQ && (!statusFilter || r.status === statusFilter);
+  });
+
+  if (rows.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8">
+      <div class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <p>No reservations found</p>
+      </div>
+    </td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = rows.map(r => {
+    const isPaid = r.paymentStatus === 'paid';
+    const isCanceled = r.status === 'Canceled';
+    const paymentBadge = isPaid
+      ? `<span class="payment-status-badge paid">✓ Lunas</span>`
+      : isCanceled
+        ? `<span class="payment-status-badge refunded">— Dibatalkan</span>`
+        : `<span class="payment-status-badge unpaid">Belum Bayar</span>`;
+    const payBtn = isCanceled ? '' : isPaid
+      ? `<button class="action-btn paid-done" title="Sudah dibayar" aria-label="Pembayaran ${r.id} lunas" disabled>
+           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+         </button>`
+      : `<button class="action-btn pay" onclick="openPaymentModal('${r.id}')" title="Bayar sekarang" aria-label="Bayar ${r.id}">
+           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+         </button>`;
+    return `
+    <tr>
+      <td><strong style="color:var(--primary)">${r.id}</strong></td>
+      <td>${r.customer}</td>
+      <td>${r.vehicle}</td>
+      <td>${formatDate(r.pickup)}</td>
+      <td>${formatDate(r.return)}</td>
+      <td>
+        <span class="status-badge status-${r.status.toLowerCase()}">
+          <span class="status-dot" aria-hidden="true"></span>
+          ${r.status}
+        </span>
+      </td>
+      <td>${paymentBadge}</td>
+      <td>
+        <div class="action-btns" role="group" aria-label="Aksi untuk ${r.id}">
+          <button class="action-btn view" onclick="viewReservation('${r.id}')" title="Lihat detail" aria-label="Lihat ${r.id}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+          <button class="action-btn edit" onclick="editReservation('${r.id}')" title="Edit" aria-label="Edit ${r.id}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          ${payBtn}
+          <button class="action-btn del" onclick="deleteReservation('${r.id}')" title="Hapus" aria-label="Hapus ${r.id}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          </button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function formatDate(d) {
+  if (!d) return '–';
+  const [y, m, day] = d.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${parseInt(day)} ${months[parseInt(m)-1]} ${y}`;
+}
+
+function filterTable(q)       { searchQ = q;     renderTable(); }
+function filterTableStatus(s) { statusFilter = s; renderTable(); }
+
+/* Perbarui minimum tanggal return saat tanggal pickup berubah */
+function updateReturnMin() {
+  const pickup = document.getElementById('mPickup').value;
+  if (pickup) {
+    const minReturn = new Date(pickup);
+    minReturn.setDate(minReturn.getDate() + 1);
+    document.getElementById('mReturn').min = minReturn.toISOString().split('T')[0];
+    // Reset return jika sekarang tidak valid
+    const currentReturn = document.getElementById('mReturn').value;
+    if (currentReturn && new Date(currentReturn) <= new Date(pickup)) {
+      document.getElementById('mReturn').value = '';
+    }
+  }
+}
+
+function openCreateModal() {
+  document.getElementById('modalTitle').textContent = 'New Reservation';
+  document.getElementById('editId').value = '';
+  const today = new Date().toISOString().split('T')[0];
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+  document.getElementById('mPickup').min = today;
+  document.getElementById('mReturn').min = tomorrowStr;
+
+  ['mCustomer','mContact','mVehicle','mPickup','mReturn','mLocation','mNotes'].forEach(id => {
+    document.getElementById(id).value = '';
+    document.getElementById(id).classList.remove('error');
+  });
+  document.getElementById('mStatus').value = 'Pending';
+  openModal('reservationModal');
+}
+
+function editReservation(id) {
+  const r = reservations.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('modalTitle').textContent = 'Edit Reservation';
+  document.getElementById('editId').value   = r.id;
+  document.getElementById('mCustomer').value = r.customer;
+  document.getElementById('mContact').value  = r.contact;
+  document.getElementById('mVehicle').value  = r.vehicle;
+  document.getElementById('mPickup').value   = r.pickup;
+  document.getElementById('mReturn').value   = r.return;
+  document.getElementById('mLocation').value = r.location;
+  document.getElementById('mStatus').value   = r.status;
+  document.getElementById('mNotes').value    = r.notes;
+  closeModal('viewModal');
+  openModal('reservationModal');
+}
+
+function saveReservation() {
+  const customer = document.getElementById('mCustomer').value.trim();
+  const vehicle  = document.getElementById('mVehicle').value;
+  const pickup   = document.getElementById('mPickup').value;
+  const ret      = document.getElementById('mReturn').value;
+
+  // Validasi field wajib
+  let hasError = false;
+  [['mCustomer', customer], ['mVehicle', vehicle], ['mPickup', pickup], ['mReturn', ret]].forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (!val) { el.classList.add('error'); hasError = true; }
+    else el.classList.remove('error');
+  });
+  if (hasError) { showToast('Please fill in all required fields', 'error'); return; }
+
+  if (new Date(ret) <= new Date(pickup)) {
+    document.getElementById('mReturn').classList.add('error');
+    document.getElementById('mReturn').focus();
+    showToast('Return date must be after pickup date', 'error');
+    return;
+  }
+
+  const editId = document.getElementById('editId').value;
+  const data = {
+    customer,
+    vehicle,
+    pickup,
+    return:   ret,
+    location: document.getElementById('mLocation').value,
+    status:   document.getElementById('mStatus').value,
+    contact:  document.getElementById('mContact').value,
+    notes:    document.getElementById('mNotes').value.trim(),
+  };
+
+  if (editId) {
+    const idx = reservations.findIndex(r => r.id === editId);
+    reservations[idx] = { ...reservations[idx], ...data };
+    showToast('Reservation updated successfully', 'success');
+  } else {
+    const id = 'BK-' + String(nextId++).padStart(4, '0');
+    reservations.unshift({ id, ...data, paymentStatus: 'unpaid', paymentMethod: '', paymentDate: '' });
+    showToast('Reservation created! Silakan lanjutkan ke pembayaran.', 'success');
+    closeModal('reservationModal');
+    renderTable();
+    // Auto-open payment modal after a short delay
+    setTimeout(() => openPaymentModal(id), 400);
+    return;
+  }
+  closeModal('reservationModal');
+  renderTable();
+}
+
+function viewReservation(id) {
+  const r = reservations.find(x => x.id === id);
+  if (!r) return;
+  const isPaid = r.paymentStatus === 'paid';
+  const payBadge = isPaid
+    ? `<span class="payment-status-badge paid">✓ Lunas</span>`
+    : `<span class="payment-status-badge unpaid">Belum Bayar</span>`;
+  document.getElementById('viewBody').innerHTML = `
+    <div class="view-row"><span class="view-row-label">Booking ID</span><strong class="view-row-val" style="color:var(--primary)">${r.id}</strong></div>
+    <div class="view-row"><span class="view-row-label">Customer</span><span class="view-row-val">${r.customer}</span></div>
+    <div class="view-row"><span class="view-row-label">Contact</span><span class="view-row-val">${r.contact || '–'}</span></div>
+    <div class="view-row"><span class="view-row-label">Vehicle</span><span class="view-row-val">${r.vehicle}</span></div>
+    <div class="view-row"><span class="view-row-label">Pickup</span><span class="view-row-val">${formatDate(r.pickup)}</span></div>
+    <div class="view-row"><span class="view-row-label">Return</span><span class="view-row-val">${formatDate(r.return)}</span></div>
+    <div class="view-row"><span class="view-row-label">Location</span><span class="view-row-val">${r.location || '–'}</span></div>
+    <div class="view-row"><span class="view-row-label">Status</span><span class="view-row-val">
+      <span class="status-badge status-${r.status.toLowerCase()}">
+        <span class="status-dot" aria-hidden="true"></span> ${r.status}
+      </span>
+    </span></div>
+    <div class="view-row"><span class="view-row-label">Pembayaran</span><span class="view-row-val">${payBadge}</span></div>
+    ${isPaid ? `<div class="view-row"><span class="view-row-label">Metode</span><span class="view-row-val">${r.paymentMethod || '–'}</span></div>
+    <div class="view-row"><span class="view-row-label">Tgl Bayar</span><span class="view-row-val">${r.paymentDate ? formatDate(r.paymentDate) : '–'}</span></div>` : ''}
+    <div class="view-row"><span class="view-row-label">Notes</span><span class="view-row-val">${r.notes || '–'}</span></div>
+  `;
+  document.getElementById('viewEditBtn').onclick = () => editReservation(r.id);
+  // Show pay button in view modal footer if unpaid
+  const existingPayBtn = document.getElementById('viewPayBtn');
+  if (existingPayBtn) existingPayBtn.remove();
+  if (!isPaid && r.status !== 'Canceled') {
+    const payBtn = document.createElement('button');
+    payBtn.className = 'btn btn-primary';
+    payBtn.id = 'viewPayBtn';
+    payBtn.style.cssText = 'background:var(--green);margin-right:8px';
+    payBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" style="margin-right:6px"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Bayar Sekarang`;
+    payBtn.onclick = () => { closeModal('viewModal'); openPaymentModal(r.id); };
+    document.querySelector('#viewModal .modal-footer').prepend(payBtn);
+  }
+  openModal('viewModal');
+}
+
+function deleteReservation(id) {
+  pendingDeleteId = id;
+  document.getElementById('deleteIdLabel').textContent = id;
+  openModal('deleteModal');
+}
+
+function confirmDelete() {
+  reservations = reservations.filter(r => r.id !== pendingDeleteId);
+  closeModal('deleteModal');
+  renderTable();
+  showToast('Reservation deleted', 'info');
+  pendingDeleteId = null;
+}
+
+/* ─── PRICE FORMATTING ───────────────────────────────────── */
+function formatRupiah(num) {
+  return 'Rp ' + num.toLocaleString('id-ID');
+}
+
+/* ─── CS FAB ─────────────────────────────────────────────── */
+function toggleCsFab() {
+  document.getElementById('csFabMenu').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if (!document.getElementById('csFab').contains(e.target)) {
+    document.getElementById('csFabMenu').classList.remove('open');
+  }
+});
+
+/* ─── AUTH STATE ─────────────────────────────────────────── */
+let currentUser = null; // null = guest
+
+function openAuthModal(tab = 'login') {
+  switchAuthTab(tab);
+  openModal('authModal');
+}
+
+function switchAuthTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabSignup').classList.toggle('active', !isLogin);
+  document.getElementById('panelLogin').classList.toggle('hidden', !isLogin);
+  document.getElementById('panelSignup').classList.toggle('hidden', isLogin);
+  document.getElementById('authModalTitle').textContent = isLogin ? 'Masuk ke DriveIQ' : 'Buat Akun DriveIQ';
+}
+
+function handleLogin() {
+  const email    = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const emailEl  = document.getElementById('loginEmail');
+  const passEl   = document.getElementById('loginPassword');
+  emailEl.classList.remove('error'); passEl.classList.remove('error');
+  let err = false;
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { emailEl.classList.add('error'); err = true; }
+  if (!password || password.length < 6)                      { passEl.classList.add('error');  err = true; }
+  if (err) { showToast('Email atau password tidak valid (min. 6 karakter)', 'error'); return; }
+
+  // Simple demo: accept any valid-format credentials
+  const name = email.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+  currentUser = { name, email, age: '', address: '', avatar: null };
+  closeModal('authModal');
+  updateNavUser();
+  updateMapTracker();
+  showToast('Selamat datang, ' + name + '!', 'success');
+}
+
+function handleSignup() {
+  const name    = document.getElementById('signupName').value.trim();
+  const age     = document.getElementById('signupAge').value.trim();
+  const address = document.getElementById('signupAddress').value.trim();
+  const email   = document.getElementById('signupEmail').value.trim();
+  const pass    = document.getElementById('signupPassword').value;
+  const confirm = document.getElementById('signupConfirm').value;
+
+  const fields = [
+    ['signupName', name], ['signupAge', age], ['signupAddress', address],
+    ['signupEmail', email], ['signupPassword', pass], ['signupConfirm', confirm]
+  ];
+  let err = false;
+  fields.forEach(([id, val]) => {
+    document.getElementById(id).classList.remove('error');
+    if (!val) { document.getElementById(id).classList.add('error'); err = true; }
+  });
+  if (!err && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('signupEmail').classList.add('error'); err = true;
+  }
+  if (!err && pass.length < 6) {
+    document.getElementById('signupPassword').classList.add('error'); err = true;
+    showToast('Password minimal 6 karakter', 'error'); return;
+  }
+  if (!err && pass !== confirm) {
+    document.getElementById('signupConfirm').classList.add('error'); err = true;
+    showToast('Password tidak cocok', 'error'); return;
+  }
+  if (err) { showToast('Lengkapi semua field yang wajib diisi', 'error'); return; }
+  if (parseInt(age) < 17) { showToast('Umur minimal 17 tahun', 'error'); return; }
+
+  const avatarData = document.getElementById('signupAvatarPreview').dataset.avatarUrl || null;
+  currentUser = { name, age, address, email, avatar: avatarData };
+  closeModal('authModal');
+  updateNavUser();
+  updateMapTracker();
+  showToast('Akun berhasil dibuat! Selamat datang, ' + name + '!', 'success');
+}
+
+function handleLogout() {
+  currentUser = null;
+  document.getElementById('navLoginBtn').classList.remove('hidden');
+  document.getElementById('navUser').classList.add('hidden');
+  document.getElementById('navUserDropdown').classList.remove('open');
+  updateMapTracker();
+  showToast('Anda telah keluar', 'info');
+}
+
+function updateNavUser() {
+  if (!currentUser) return;
+  const initials = currentUser.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('navAvatarInitials').textContent = initials;
+  const avatarEl = document.getElementById('navAvatar');
+  if (currentUser.avatar) {
+    avatarEl.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" style="width:100%;height:100%;object-fit:cover;border-radius:999px">`;
+  } else {
+    avatarEl.innerHTML = `<span style="font-size:13px;font-weight:700;color:var(--white)">${initials}</span>`;
+    avatarEl.style.background = stringToColor(currentUser.name);
+  }
+  document.getElementById('navUserName').textContent = currentUser.name.split(' ')[0];
+  document.getElementById('dropdownName').textContent  = currentUser.name;
+  document.getElementById('dropdownEmail').textContent = currentUser.email;
+  document.getElementById('navLoginBtn').classList.add('hidden');
+  document.getElementById('navUser').classList.remove('hidden');
+}
+
+function toggleUserDropdown() {
+  document.getElementById('navUserDropdown').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const navUser = document.getElementById('navUser');
+  if (navUser && !navUser.contains(e.target)) {
+    document.getElementById('navUserDropdown').classList.remove('open');
+  }
+});
+
+function stringToColor(str) {
+  const colors = ['#1E3A5F','#4A90E2','#059669','#7C3AED','#DC2626','#D97706'];
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  return colors[Math.abs(hash) % colors.length];
+}
+
+/* ─── AVATAR UPLOAD ─────────────────────────────────────── */
+function handleAvatarUpload(input) {
+  const file = input.files[0];
+  if (!file || file.size > 2*1024*1024) { showToast('File terlalu besar (maks 2MB)', 'error'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const url = e.target.result;
+    const preview = document.getElementById('signupAvatarPreview');
+    preview.innerHTML = `<img src="${url}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:999px">`;
+    preview.dataset.avatarUrl = url;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleProfileAvatarUpload(input) {
+  const file = input.files[0];
+  if (!file || file.size > 2*1024*1024) { showToast('File terlalu besar (maks 2MB)', 'error'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const url = e.target.result;
+    document.getElementById('profileAvatarPreview').innerHTML =
+      `<img src="${url}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:999px">`;
+    document.getElementById('profileAvatarPreview').dataset.avatarUrl = url;
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateSignupInitials() {
+  const name = document.getElementById('signupName').value.trim();
+  const initials = name ? name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2) : '?';
+  const preview = document.getElementById('signupAvatarPreview');
+  if (!preview.dataset.avatarUrl) {
+    preview.innerHTML = `<span id="signupAvatarInitials" style="pointer-events:none;font-size:22px;font-weight:700;color:var(--white)">${initials}</span>`;
+    preview.style.background = name ? stringToColor(name) : 'var(--primary)';
+  }
+}
+
+/* ─── PROFILE EDIT ──────────────────────────────────────── */
+function openProfileModal() {
+  if (!currentUser) return;
+  document.getElementById('profileName').value    = currentUser.name;
+  document.getElementById('profileAge').value     = currentUser.age || '';
+  document.getElementById('profileAddress').value = currentUser.address || '';
+  document.getElementById('profileEmail').value   = currentUser.email;
+  const initials = currentUser.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  const pp = document.getElementById('profileAvatarPreview');
+  if (currentUser.avatar) {
+    pp.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" style="width:100%;height:100%;object-fit:cover;border-radius:999px">`;
+    pp.dataset.avatarUrl = currentUser.avatar;
+  } else {
+    pp.innerHTML = `<span id="profileAvatarInitials" style="font-size:22px;font-weight:700;color:var(--white)">${initials}</span>`;
+    pp.style.background = stringToColor(currentUser.name);
+    delete pp.dataset.avatarUrl;
+  }
+  document.getElementById('navUserDropdown').classList.remove('open');
+  openModal('profileModal');
+}
+
+function saveProfile() {
+  const name    = document.getElementById('profileName').value.trim();
+  const age     = document.getElementById('profileAge').value.trim();
+  const address = document.getElementById('profileAddress').value.trim();
+  const email   = document.getElementById('profileEmail').value.trim();
+  if (!name || !email) { showToast('Nama dan email wajib diisi', 'error'); return; }
+  const pp = document.getElementById('profileAvatarPreview');
+  currentUser = { ...currentUser, name, age, address, email, avatar: pp.dataset.avatarUrl || currentUser.avatar || null };
+  updateNavUser();
+  updateMapTracker();
+  closeModal('profileModal');
+  showToast('Profil berhasil diperbarui', 'success');
+}
+
+/* ─── MAP TRACKER ───────────────────────────────────────── */
+const ACTIVE_RENTALS = [
+  { id:'BK-0001', customer:'Rizky Kurniawan',  vehicle:'Hyundai Ioniq 5', location:'Jl. Sudirman, Jakarta',    initials:'RK', color:'#4A90E2', x:62, y:30 },
+  { id:'BK-0004', customer:'Nadya Amelia',     vehicle:'Wuling Air ev',   location:'Kuta, Bali',               initials:'NA', color:'#7C3AED', x:38, y:65 },
+  { id:'BK-0006', customer:'Farhan Maulana',   vehicle:'Kia EV6',         location:'Jl. Asia Afrika, Bandung', initials:'FM', color:'#059669', x:78, y:55 },
+];
+
+let mapAnimInterval = null;
+let selectedPin = 0;
+
+function updateMapTracker() {
+  const noLoginMap     = document.getElementById('mapNoLogin');
+  const noLoginSidebar = document.getElementById('mapSidebarNoLogin');
+  const pinsContainer  = document.getElementById('mapPinsContainer');
+  const activeList     = document.getElementById('mapActiveList');
+
+  if (!currentUser) {
+    noLoginMap.style.display = 'flex';
+    pinsContainer.innerHTML  = '';
+    activeList.innerHTML     = noLoginSidebar ? noLoginSidebar.outerHTML :
+      '<div class="map-no-login"><p style="font-size:13px;margin-top:8px">Login untuk melihat kendaraan aktif</p></div>';
+    if (mapAnimInterval) { clearInterval(mapAnimInterval); mapAnimInterval = null; }
+    return;
+  }
+
+  noLoginMap.style.display = 'none';
+
+  // Render sidebar items
+  activeList.innerHTML = ACTIVE_RENTALS.map((r, i) => `
+    <div class="map-active-item${i===0?' selected':''}" id="mapItem${i}" onclick="selectMapPin(${i})">
+      <div class="map-item-avatar" style="background:${r.color}">${r.initials}</div>
+      <div class="map-item-info">
+        <div class="map-item-name">${r.customer}</div>
+        <div class="map-item-car">${r.vehicle}</div>
+        <div class="map-item-loc">📍 ${r.location}</div>
+      </div>
+      <div class="map-item-status"></div>
+    </div>
+  `).join('');
+
+  // Render pins
+  renderMapPins();
+
+  // Animate car positions
+  if (!mapAnimInterval) {
+    mapAnimInterval = setInterval(animateMapCars, 3000);
+  }
+}
+
+function renderMapPins() {
+  const pinsContainer = document.getElementById('mapPinsContainer');
+  const canvas = document.getElementById('mapCanvas');
+  const w = canvas.offsetWidth || 600;
+  const h = canvas.offsetHeight || 340;
+
+  pinsContainer.innerHTML = ACTIVE_RENTALS.map((r, i) => {
+    const left = (r.x / 100) * w;
+    const top  = (r.y / 100) * h;
+    const avatarContent = (currentUser && currentUser.avatar && i === 0)
+      ? `<img src="${currentUser.avatar}" alt="${r.customer}">`
+      : `<div class="map-car-bubble-initials" style="background:${r.color}">${r.initials}</div>`;
+    return `
+      <div class="map-car-pin" id="mapPin${i}" style="left:${left}px;top:${top}px">
+        <div style="position:relative">
+          <div class="map-pulse-ring"></div>
+          <div class="map-car-bubble">${avatarContent}</div>
+        </div>
+        <div class="map-car-tail"></div>
+        <div class="map-car-label">${r.vehicle.split(' ').slice(0,2).join(' ')}</div>
+      </div>`;
+  }).join('');
+}
+
+function selectMapPin(idx) {
+  selectedPin = idx;
+  document.querySelectorAll('.map-active-item').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+}
+
+function animateMapCars() {
+  const canvas = document.getElementById('mapCanvas');
+  if (!canvas) return;
+  const w = canvas.offsetWidth || 600;
+  const h = canvas.offsetHeight || 340;
+
+  ACTIVE_RENTALS.forEach((r, i) => {
+    const pin = document.getElementById('mapPin'+i);
+    if (!pin) return;
+    // Move slightly within road areas
+    const dx = (Math.random() - .5) * 12;
+    const dy = (Math.random() - .5) * 6;
+    r.x = Math.max(5, Math.min(95, r.x + dx));
+    r.y = Math.max(5, Math.min(95, r.y + dy));
+    pin.style.left = (r.x / 100) * w + 'px';
+    pin.style.top  = (r.y / 100) * h + 'px';
+  });
+}
+
+/* ─── LOGIN (old reference kept for mobile nav) ──────────── */
+function openLoginModal() { openAuthModal('login'); }
+
+/* ─── MODAL HELPERS ─────────────────────────────────────── */
+function openModal(id) {
+  const overlay = document.getElementById(id);
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Fokus ke elemen pertama yang bisa difokus dalam modal
+  const focusable = overlay.querySelectorAll('button, input, select, textarea, [href]');
+  if (focusable.length) focusable[0].focus();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Tutup modal saat klik overlay
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeModal(overlay.id);
+  });
+});
+
+// Tutup modal dengan tombol Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const openModal = document.querySelector('.modal-overlay.open');
+    if (openModal) closeModal(openModal.id);
+  }
+});
+
+/* ─── TOAST ─────────────────────────────────────────────── */
+function showToast(msg, type = 'info') {
+  const icons = {
+    success: '<polyline points="20 6 9 17 4 12"/>',
+    error:   '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
+    info:    '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+  };
+  const wrap  = document.getElementById('toastWrap');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.setAttribute('role', 'alert');
+  toast.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+      ${icons[type] || icons.info}
+    </svg>
+    ${msg}
+  `;
+  wrap.appendChild(toast);
+  requestAnimationFrame(() => requestAnimationFrame(() => toast.classList.add('show')));
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+/* ─── PAYMENT SYSTEM ─────────────────────────────────────── */
+let currentPayBookingId = null;
+let selectedPayMethod = 'bca';
+
+// Harga per kendaraan (sesuai VEHICLES array)
+const VEHICLE_PRICES = {
+  'Toyota Avanza': 300000,
+  'Honda Civic': 450000,
+  'Hyundai Ioniq 5': 850000,
+  'Mitsubishi Pajero Sport': 750000,
+  'Wuling Air ev': 350000,
+  'Toyota Innova Zenix': 550000,
+  'Kia EV6': 900000,
+  'Suzuki Ertiga': 280000,
+  'BMW iX': 1400000,
+};
+
+function getVehiclePrice(vehicleStr) {
+  for (const [name, price] of Object.entries(VEHICLE_PRICES)) {
+    if (vehicleStr.startsWith(name)) return price;
+  }
+  return 400000; // default
+}
+
+function getDaysBetween(pickup, ret) {
+  const d1 = new Date(pickup), d2 = new Date(ret);
+  return Math.max(1, Math.round((d2 - d1) / (1000 * 60 * 60 * 24)));
+}
+
+function openPaymentModal(bookingId) {
+  const r = reservations.find(x => x.id === bookingId);
+  if (!r) return;
+
+  currentPayBookingId = bookingId;
+  selectedPayMethod = 'bca';
+
+  // Reset state
+  document.getElementById('payFormWrap').style.display = '';
+  document.getElementById('paySuccessWrap').classList.remove('show');
+  document.getElementById('payFooter').style.display = '';
+  document.getElementById('payBtnText').style.display = '';
+  document.getElementById('payBtnLoading').style.display = 'none';
+
+  // Reset method selection
+  document.querySelectorAll('.payment-method-card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.method === 'bca');
+  });
+  showPayDetail('bca');
+
+  // Calculate amounts
+  const days = getDaysBetween(r.pickup, r.return);
+  const rate = getVehiclePrice(r.vehicle);
+  const subtotal = rate * days;
+  const insurance = Math.round(subtotal * 0.05);
+  const total = subtotal + insurance;
+
+  document.getElementById('payBookingId').textContent = r.id;
+  document.getElementById('payVehicle').textContent   = r.vehicle.split('—')[0].trim();
+  document.getElementById('payPeriod').textContent    = `${formatDate(r.pickup)} – ${formatDate(r.return)}`;
+  document.getElementById('payDays').textContent      = `${days} hari`;
+  document.getElementById('payRate').textContent      = formatRupiah(rate);
+  document.getElementById('paySubtotal').textContent  = formatRupiah(subtotal);
+  document.getElementById('payInsurance').textContent = formatRupiah(insurance);
+  document.getElementById('payTotal').textContent     = formatRupiah(total);
+
+  // Clear input fields
+  ['payAccNumber','payAccName','payWalletPhone','payCardNumber','payCardExpiry','payCardCvv','payCardName']
+    .forEach(id => { const el = document.getElementById(id); if (el) { el.value = ''; el.classList.remove('error'); } });
+
+  openModal('paymentModal');
+}
+
+function selectPayMethod(card) {
+  document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedPayMethod = card.dataset.method;
+  showPayDetail(selectedPayMethod);
+}
+
+function showPayDetail(method) {
+  document.getElementById('payDetailBank').classList.add('hidden');
+  document.getElementById('payDetailWallet').classList.add('hidden');
+  document.getElementById('payDetailQris').classList.add('hidden');
+  document.getElementById('payDetailCard').classList.add('hidden');
+
+  if (method === 'bca' || method === 'mandiri') {
+    document.getElementById('payDetailBank').classList.remove('hidden');
+  } else if (method === 'gopay' || method === 'ovo') {
+    document.getElementById('payDetailWallet').classList.remove('hidden');
+  } else if (method === 'qris') {
+    document.getElementById('payDetailQris').classList.remove('hidden');
+  } else if (method === 'card') {
+    document.getElementById('payDetailCard').classList.remove('hidden');
+  }
+}
+
+function validatePaymentForm() {
+  let valid = true;
+  const mark = (id, ok) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('error', !ok);
+    if (!ok) valid = false;
+  };
+
+  if (selectedPayMethod === 'bca' || selectedPayMethod === 'mandiri') {
+    mark('payAccNumber', document.getElementById('payAccNumber').value.trim().length >= 6);
+    mark('payAccName',   document.getElementById('payAccName').value.trim().length >= 2);
+  } else if (selectedPayMethod === 'gopay' || selectedPayMethod === 'ovo') {
+    const ph = document.getElementById('payWalletPhone').value.trim();
+    mark('payWalletPhone', ph.length >= 10 && /^0[0-9]+$/.test(ph));
+  } else if (selectedPayMethod === 'card') {
+    const num = document.getElementById('payCardNumber').value.replace(/\s/g,'');
+    mark('payCardNumber', num.length >= 16);
+    mark('payCardExpiry', /^\d{2}\/\d{2}$/.test(document.getElementById('payCardExpiry').value));
+    mark('payCardCvv',    document.getElementById('payCardCvv').value.length >= 3);
+    mark('payCardName',   document.getElementById('payCardName').value.trim().length >= 2);
+  }
+  // QRIS: no input needed
+  return valid;
+}
+
+function getPayMethodLabel() {
+  const labels = {
+    bca: 'BCA Virtual Account', mandiri: 'Mandiri Virtual Account',
+    gopay: 'GoPay', ovo: 'OVO',
+    qris: 'QRIS', card: 'Kartu Kredit/Debit',
+  };
+  return labels[selectedPayMethod] || selectedPayMethod;
+}
+
+function processPayment() {
+  if (!validatePaymentForm()) {
+    showToast('Lengkapi detail pembayaran terlebih dahulu', 'error');
+    return;
+  }
+
+  // Show loading
+  document.getElementById('payBtnText').style.display = 'none';
+  document.getElementById('payBtnLoading').style.display = 'flex';
+  document.getElementById('paySubmitBtn').disabled = true;
+
+  // Simulate payment processing (1.5s)
+  setTimeout(() => {
+    const r = reservations.find(x => x.id === currentPayBookingId);
+    if (r) {
+      const today = new Date().toISOString().split('T')[0];
+      r.paymentStatus  = 'paid';
+      r.paymentMethod  = getPayMethodLabel();
+      r.paymentDate    = today;
+      if (r.status === 'Pending') r.status = 'Active';
+    }
+
+    // Show success state
+    document.getElementById('payFormWrap').style.display = 'none';
+    document.getElementById('payFooter').style.display = 'none';
+
+    const days     = getDaysBetween(r.pickup, r.return);
+    const rate     = getVehiclePrice(r.vehicle);
+    const subtotal = rate * days;
+    const insurance = Math.round(subtotal * 0.05);
+    const total    = subtotal + insurance;
+
+    const refCode = 'TXN-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+    document.getElementById('payReceipt').innerHTML = `
+      <div class="pay-receipt-row"><span class="lbl">Booking ID</span><span class="val">${r.id}</span></div>
+      <div class="pay-receipt-row"><span class="lbl">Kendaraan</span><span class="val">${r.vehicle.split('—')[0].trim()}</span></div>
+      <div class="pay-receipt-row"><span class="lbl">Metode</span><span class="val">${getPayMethodLabel()}</span></div>
+      <div class="pay-receipt-row"><span class="lbl">Durasi</span><span class="val">${days} hari</span></div>
+      <div class="pay-receipt-row" style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px">
+        <span class="lbl" style="font-weight:700">Total Dibayar</span>
+        <span class="val" style="color:var(--green);font-size:16px">${formatRupiah(total)}</span>
+      </div>
+      <div class="pay-receipt-row"><span class="lbl">Kode Transaksi</span><span class="val" style="font-size:11px;color:var(--text-muted)">${refCode}</span></div>
+    `;
+    document.getElementById('paySuccessWrap').classList.add('show');
+
+    renderTable();
+    showToast(`Pembayaran ${r.id} berhasil! ✓`, 'success');
+
+    // Reset button state
+    document.getElementById('payBtnLoading').style.display = 'none';
+    document.getElementById('payBtnText').style.display = '';
+    document.getElementById('paySubmitBtn').disabled = false;
+  }, 1500);
+}
+
+function formatCardNumber(el) {
+  let v = el.value.replace(/\D/g, '').slice(0, 16);
+  el.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+
+function formatExpiry(el) {
+  let v = el.value.replace(/\D/g, '').slice(0, 4);
+  if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+  el.value = v;
+}
+
+
+let testiIndex = 0;
+function testiSlide(dir) {
+  const track = document.getElementById('testiTrack');
+  const cards = track.querySelectorAll('.testi-card');
+  const visibleCount = window.innerWidth > 900 ? 3 : window.innerWidth > 640 ? 2 : 1;
+  const maxIndex = Math.max(0, cards.length - visibleCount);
+  testiIndex = Math.max(0, Math.min(testiIndex + dir, maxIndex));
+  if (cards.length > 0) {
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const gap = 24;
+    track.style.transform = `translateX(-${testiIndex * (cardWidth + gap)}px)`;
+  }
+}
+
+/* ─── NAVBAR ─────────────────────────────────────────────── */
+function toggleMobileNav() {
+  const nav = document.getElementById('mobileNav');
+  const ham = document.getElementById('hamburger');
+  const isOpen = nav.classList.toggle('open');
+  ham.classList.toggle('active', isOpen);
+  ham.setAttribute('aria-expanded', String(isOpen));
+  ham.setAttribute('aria-label', isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+}
+
+// Active nav link saat scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinkEls = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinkEls.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+// Validasi real-time tanggal return di hero form
+document.addEventListener('DOMContentLoaded', () => {
+  // Set tanggal default hero form
+  const today = new Date();
+  const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+  const nextWeek = new Date(today); nextWeek.setDate(today.getDate() + 7);
+  const todayStr    = today.toISOString().split('T')[0];
+  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+  const nextWeekStr = nextWeek.toISOString().split('T')[0];
+
+  const heroPickup = document.getElementById('heroPickup');
+  const heroReturn = document.getElementById('heroReturn');
+  heroPickup.min   = todayStr;
+  heroPickup.value = tomorrowStr;
+  heroReturn.min   = tomorrowStr;
+  heroReturn.value = nextWeekStr;
+
+  // Update min return saat pickup berubah
+  heroPickup.addEventListener('change', () => {
+    const pick = heroPickup.value;
+    if (pick) {
+      const minRet = new Date(pick); minRet.setDate(minRet.getDate() + 1);
+      heroReturn.min = minRet.toISOString().split('T')[0];
+      if (heroReturn.value && new Date(heroReturn.value) <= new Date(pick)) {
+        heroReturn.value = '';
+        heroReturn.classList.add('error');
+      }
+    }
+  });
+
+  heroReturn.addEventListener('change', () => {
+    heroReturn.classList.remove('error');
+  });
+
+  renderVehicles();
+  renderTable();
+  updateCalc();
+});
+</script>
+</body>
+</html>
